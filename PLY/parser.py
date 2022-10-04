@@ -1,5 +1,5 @@
 def p_program(p):
-    '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
+    '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET'''
     p[0] = "COMPILED"
 
 
@@ -8,7 +8,7 @@ def p_program(p):
 ##          DECLARACION DE VARIABLES
 ##
 def p_dec_vars(p):
-    '''dec_vars : vars SEMICOLON 
+    '''dec_vars : VAR vars SEMICOLON 
                 | empty'''
 
 ## elige entre simple o complejo
@@ -26,7 +26,8 @@ def p_vars_simple_dec(p):
 
 ## Loopea para multiples declaraciones
 def p_vars_simple_more(p):
-    '''vars_simple_more : COMMA vars_simple_dec'''
+    '''vars_simple_more : COMMA vars_simple_dec
+                        | empty'''
 
 ## Pone el id y la posibilidad de que sea array
 def p_vars_simple_id(p):
@@ -51,17 +52,18 @@ def p_vars_complex_dec(p):
     '''vars_complex_dec : ID vars_complex_more '''
 
 def p_vars_complex_more(p):
-    '''vars_complex_more : COMMA vars_complex_dec'''
+    '''vars_complex_more : COMMA vars_complex_dec
+                        | empty'''
 
 ## tipos simples
 def p_type_simple(p):
-    '''type : INT
+    '''type_simple : INT
             | FLOAT
             | CHAR'''
             
 ## tipos complejos           
 def p_type_complex(p):
-    '''type : FILE
+    '''type_complex : FILE
             | ID'''
             
 
@@ -77,14 +79,14 @@ def p_dec_fun(p):
                 | empty'''
 
 def p_fun(p):
-    '''fun : FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp RIGHTBRACKET'''
+    '''fun : FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
 
 def p_param_pos(p):
     '''param_pos : param
                 | empty'''
 
 def p_param(p):
-    '''param : type_simple id param_more'''
+    '''param : type_simple ID param_more'''
 
 def p_param_more(p):
     '''param_more : COMMA param
@@ -154,26 +156,28 @@ def p_md_op(p):
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : ID
-                | LEFTPAREN H_EXP RIGHTPAREN'''
+                | CTEF
+                | CTEI
+                | LEFTPAREN h_exp RIGHTPAREN'''
 
 ## declaracion de hiper expresion             
-def p_H_EXP(p):
-    '''p_H_EXP : S_EXP ao_op'''
+def p_h_exp(p):
+    '''h_exp : s_exp ao_op'''
 
 def p_ao_op(p):
-    '''ao_op : COMP_AND H_EXP
-                | COMP_OR H_EXP
+    '''ao_op : COMP_AND h_exp
+                | COMP_OR h_exp
                 | empty'''
 
 ## DECLARACION DE SUPER EXPRESION
-def p_S_EXP(p):
-    '''p_S_EXP : dec_exp comp_op dec_exp'''
+def p_s_exp(p):
+    '''s_exp : dec_exp comp_op'''
     
 def p_comp_op(p):
     '''comp_op : COMP_LESS dec_exp
-                COMP_GREAT dec_exp
-                COMP_EQUAL dec_exp
-                COMP_NOTEQUAL dec_exp
+                | COMP_GREATER dec_exp
+                | COMP_EQUAL dec_exp
+                | COMP_NOTEQUAL dec_exp
                 | empty'''
 
 
@@ -186,7 +190,8 @@ def p_comp_op(p):
 ##
 
 def p_dec_class(p):
-    '''dec_class : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON'''
+    '''dec_class : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+                    | empty'''
 
 def p_dec_inherit(p):
     '''dec_inherit : COLON INHERIT ID
@@ -204,7 +209,7 @@ def p_dec_inherit(p):
 
 
 def p_dec_assign(p):
-    '''dec_assign : ID EQUAL H_EXP'''
+    '''dec_assign : ID COMP_EQUAL dec_exp SEMICOLON'''
 
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
@@ -217,7 +222,8 @@ def p_call(p):
     '''call : dec_exp call_more'''
 
 def p_call_more(p):
-    '''call_more : COMMA call'''
+    '''call_more : COMMA call
+                | empty'''
     
     
 
@@ -233,27 +239,27 @@ def p_dec_read(p):
     '''dec_read : INCO LEFTPAREN ID RIGHTPAREN SEMICOLON'''
 
 def p_dec_write(p):
-    '''dec_read : LEFTPAREN write RIGHTPAREN SEMICOLON'''
+    '''dec_write : OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON'''
 
 def p_write(p):
     '''write : dec_exp write_more
-            | sign write_more'''
+            | var_cte write_more'''
 
 def p_write_more(p):
     '''write_more : COMMA write 
-                |empty'''
+                | empty'''
 
 ## declaracion condicion
 def p_dec_condition(p):
-    '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTKEY dec_block RIGHTKEY dec_else'''
+    '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
 
 def p_dec_else(p):
-    '''dec_else : ELSE LEFTKEY dec_block RIGHTKEY
+    '''dec_else : ELSE LEFTBRACKET dec_block RIGHTBRACKET
                 | empty'''
 
 ## declaracion while
 def p_dec_cycle(p):
-    '''dec_condition : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTKEY dec_block RIGHTKEY'''
+    '''dec_cycle : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
 
 ## llamada metodo
 def p_dec_method(p):
@@ -264,7 +270,8 @@ def p_dec_method(p):
 def p_var_cte(p):
     '''var_cte : ID
                | CTEI
-               | CTEF'''
+               | CTEF
+               | SIGN'''
 
 
 # Error rule for syntax errors

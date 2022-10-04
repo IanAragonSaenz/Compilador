@@ -1,0 +1,17 @@
+program hola;
+class square: inherit circle{
+	private:
+	var int cont;
+	public:
+	fun float sum(){ 
+		return 1;
+	}
+};
+main() {
+
+	if(1+1){
+ 		cont = 3*3;
+	}else{
+		num = 3+1;
+	}
+}
