@@ -5,13 +5,13 @@ import ply.lex as lex
 
 reserved = {'program':'PROGRAM','var':'VAR', 'print':'PRINT', 'if':'IF', 'else':'ELSE', 'int':'INT', 'float':'FLOAT', 
 			'class':'CLASS', 'public':'PUBLIC', 'private':'PRIVATE', 'inherit':'INHERIT', 'return':'RETURN', 'main':'MAIN',
-			'fun':'FUN', 'char':'CHAR', 'void':'VOID', 'file':'FILE'}
+			'fun':'FUN', 'char':'CHAR', 'void':'VOID', 'file':'FILE', 'while':'WHILE'}
 
 #Definimos los tokens
 
 tokens = ['LEFTPAREN','RIGHTPAREN', 'LEFTBRACKET', 'RIGHTBRACKET', 'SEMICOLON', 'COMP_EQUAL', 'COMP_NOTEQUAL',
 		  'COMMA', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'CTESTRING', 'CTEI', 'CTEF', 'ID', 'COMP_GREATER', 
-		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY'] + list(reserved.values())
+		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY', 'DOT'] + list(reserved.values())
 
 #Definimos las regex
 
@@ -64,6 +64,7 @@ t_COMP_OR = r'\|\|'
 t_COMP_AND = r'&&'
 t_LEFTKEY = r'['
 t_LEFTRIGHT = r']'
+t_DOT = r'\.'
 
 t_ignore = " \t"
 

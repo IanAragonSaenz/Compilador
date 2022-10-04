@@ -118,7 +118,8 @@ def p_statement(p):
                         | dec_read
                         | dec_write
                         | dec_condition
-                        | dec_cycle'''
+                        | dec_cycle
+                        | dec_method'''
 
 
 
@@ -136,7 +137,11 @@ def p_pm_op(p):
     '''pm_op : PLUS dec_exp
                 | MINUS dec_term
                 | empty'''
-                
+
+def p_dec_exp_method(p):
+    '''dec_exp_method : dec_exp
+                        | empty'''
+                        
 ## declaracion de term
 def p_dec_term(p):
     '''dec_term : dec_fact md_op'''
@@ -237,6 +242,23 @@ def p_write(p):
 def p_write_more(p):
     '''write_more : COMMA write 
                 |empty'''
+
+## declaracion condicion
+def p_dec_condition(p):
+    '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTKEY dec_block RIGHTKEY dec_else'''
+
+def p_dec_else(p):
+    '''dec_else : ELSE LEFTKEY dec_block RIGHTKEY
+                | empty'''
+
+## declaracion while
+def p_dec_cycle(p):
+    '''dec_condition : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTKEY dec_block RIGHTKEY'''
+
+## llamada metodo
+def p_dec_method(p):
+    '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
+
 
 
 def p_var_cte(p):
