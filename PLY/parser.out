@@ -58,136 +58,134 @@ Rule 52    dec_term -> dec_fact md_op
 Rule 53    md_op -> TIMES dec_term
 Rule 54    md_op -> DIVIDE dec_term
 Rule 55    md_op -> empty
-Rule 56    dec_fact -> ID
-Rule 57    dec_fact -> CTEF
-Rule 58    dec_fact -> CTEI
-Rule 59    dec_fact -> LEFTPAREN h_exp RIGHTPAREN
-Rule 60    h_exp -> s_exp ao_op
-Rule 61    ao_op -> COMP_AND h_exp
-Rule 62    ao_op -> COMP_OR h_exp
-Rule 63    ao_op -> empty
-Rule 64    s_exp -> dec_exp comp_op
-Rule 65    comp_op -> COMP_LESS dec_exp
-Rule 66    comp_op -> COMP_GREATER dec_exp
-Rule 67    comp_op -> COMP_EQUAL dec_exp
-Rule 68    comp_op -> COMP_NOTEQUAL dec_exp
-Rule 69    comp_op -> empty
-Rule 70    dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
-Rule 71    dec_class -> empty
-Rule 72    dec_inherit -> COLON INHERIT ID
-Rule 73    dec_inherit -> empty
-Rule 74    dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON
-Rule 75    dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-Rule 76    call_pos -> call
-Rule 77    call_pos -> empty
-Rule 78    call -> dec_exp call_more
-Rule 79    call_more -> COMMA call
-Rule 80    call_more -> empty
-Rule 81    dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-Rule 82    dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-Rule 83    write -> dec_exp write_more
-Rule 84    write -> var_cte write_more
-Rule 85    write_more -> COMMA write
-Rule 86    write_more -> empty
-Rule 87    dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-Rule 88    dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET
-Rule 89    dec_else -> empty
-Rule 90    dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-Rule 91    dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
-Rule 92    var_cte -> ID
-Rule 93    var_cte -> CTEI
-Rule 94    var_cte -> CTEF
-Rule 95    var_cte -> SIGN
-Rule 96    empty -> <empty>
+Rule 56    dec_fact -> var_cte
+Rule 57    dec_fact -> LEFTPAREN h_exp RIGHTPAREN
+Rule 58    h_exp -> s_exp ao_op
+Rule 59    ao_op -> COMP_AND h_exp
+Rule 60    ao_op -> COMP_OR h_exp
+Rule 61    ao_op -> empty
+Rule 62    s_exp -> dec_exp comp_op
+Rule 63    comp_op -> COMP_LESS dec_exp
+Rule 64    comp_op -> COMP_GREATER dec_exp
+Rule 65    comp_op -> COMP_EQUAL dec_exp
+Rule 66    comp_op -> COMP_NOTEQUAL dec_exp
+Rule 67    comp_op -> empty
+Rule 68    dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+Rule 69    dec_class -> empty
+Rule 70    dec_inherit -> COLON INHERIT ID
+Rule 71    dec_inherit -> empty
+Rule 72    dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON
+Rule 73    dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+Rule 74    call_pos -> call
+Rule 75    call_pos -> empty
+Rule 76    call -> dec_exp call_more
+Rule 77    call_more -> COMMA call
+Rule 78    call_more -> empty
+Rule 79    dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+Rule 80    dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+Rule 81    write -> dec_exp write_more
+Rule 82    write -> var_cte write_more
+Rule 83    write_more -> COMMA write
+Rule 84    write_more -> empty
+Rule 85    dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+Rule 86    dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET
+Rule 87    dec_else -> empty
+Rule 88    dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+Rule 89    dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+Rule 90    var_cte -> ID
+Rule 91    var_cte -> CTEI
+Rule 92    var_cte -> CTEF
+Rule 93    var_cte -> SIGN
+Rule 94    empty -> <empty>
 
 Terminals, with rules where they appear
 
 CHAR                 : 21
-CLASS                : 70
-COLON                : 70 70 72
-COMMA                : 8 17 30 79 85
-COMP_AND             : 61
-COMP_EQUAL           : 67 74
-COMP_GREATER         : 66
-COMP_LESS            : 65
-COMP_NOTEQUAL        : 68
-COMP_OR              : 62
-CTEF                 : 57 94
-CTEI                 : 11 13 58 93
+CLASS                : 68
+COLON                : 68 68 70
+COMMA                : 8 17 30 77 83
+COMP_AND             : 59
+COMP_EQUAL           : 65 72
+COMP_GREATER         : 64
+COMP_LESS            : 63
+COMP_NOTEQUAL        : 66
+COMP_OR              : 60
+CTEF                 : 92
+CTEI                 : 11 13 91
 DIVIDE               : 54
-DOT                  : 91
-ELSE                 : 88
+DOT                  : 89
+ELSE                 : 86
 FILE                 : 22
 FLOAT                : 20
 FUN                  : 26
-ID                   : 1 10 16 23 26 29 56 70 72 74 75 81 91 91 92
-IF                   : 87
-INCO                 : 81
-INHERIT              : 72
+ID                   : 1 10 16 23 26 29 68 70 72 73 79 89 89 90
+IF                   : 85
+INCO                 : 79
+INHERIT              : 70
 INT                  : 19
-LEFTBRACKET          : 1 26 70 87 88 90
+LEFTBRACKET          : 1 26 68 85 86 88
 LEFTKEY              : 11 13
-LEFTPAREN            : 1 26 59 75 81 82 87 90 91
+LEFTPAREN            : 1 26 57 73 79 80 85 88 89
 MAIN                 : 1
 MINUS                : 48
-OUTCO                : 82
+OUTCO                : 80
 PLUS                 : 47
-PRIVATE              : 70
+PRIVATE              : 68
 PROGRAM              : 1
-PUBLIC               : 70
+PUBLIC               : 68
 RETURN               : 26
-RIGHTBRACKET         : 1 26 70 87 88 90
+RIGHTBRACKET         : 1 26 68 85 86 88
 RIGHTKEY             : 11 13
-RIGHTPAREN           : 1 26 59 75 81 82 87 90 91
-SEMICOLON            : 1 2 26 70 74 75 81 82 91
-SIGN                 : 95
+RIGHTPAREN           : 1 26 57 73 79 80 85 88 89
+SEMICOLON            : 1 2 26 68 72 73 79 80 89
+SIGN                 : 93
 TIMES                : 53
 VAR                  : 2
 VOID                 : 33
-WHILE                : 90
+WHILE                : 88
 error                : 
 
 Nonterminals, with rules where they appear
 
-ao_op                : 60
+ao_op                : 58
 block                : 34 37
 block_more           : 36
-call                 : 76 79
-call_more            : 78
-call_pos             : 75
-comp_op              : 64
+call                 : 74 77
+call_more            : 76
+call_pos             : 73
+comp_op              : 62
 dec_assign           : 39
-dec_block            : 1 26 87 88 90
+dec_block            : 1 26 85 86 88
 dec_call             : 40
 dec_class            : 1
 dec_condition        : 43
 dec_cycle            : 44
-dec_else             : 87
-dec_exp              : 47 50 64 65 66 67 68 74 78 83 87 90
-dec_exp_method       : 26 91
+dec_else             : 85
+dec_exp              : 47 50 62 63 64 65 66 72 76 81 85 88
+dec_exp_method       : 26 89
 dec_fact             : 52
-dec_fun              : 1 70 70
-dec_inherit          : 70
+dec_fun              : 1 68 68
+dec_inherit          : 68
 dec_method           : 45
 dec_read             : 41
 dec_term             : 46 48 53 54
-dec_vars             : 1 1 70 70
+dec_vars             : 1 1 68 68
 dec_write            : 42
-empty                : 3 9 12 14 18 25 28 31 35 38 49 51 55 63 69 71 73 77 80 86 89
+empty                : 3 9 12 14 18 25 28 31 35 38 49 51 55 61 67 69 71 75 78 84 87
 fun                  : 24
 fun_type             : 26
-h_exp                : 59 61 62
+h_exp                : 57 59 60
 md_op                : 52
 param                : 27 30
 param_more           : 29
 param_pos            : 26
 pm_op                : 46
 program              : 0
-s_exp                : 60
+s_exp                : 58
 statement            : 36
 type_complex         : 15
 type_simple          : 6 29 32
-var_cte              : 84
+var_cte              : 56 82
 vars                 : 2
 vars_complex         : 5
 vars_complex_dec     : 15 17
@@ -198,8 +196,8 @@ vars_simple_arr2     : 11
 vars_simple_dec      : 6 8
 vars_simple_id       : 7
 vars_simple_more     : 7
-write                : 82 85
-write_more           : 83 84
+write                : 80 83
+write_more           : 81 82
 
 Parsing method: LALR
 
@@ -237,12 +235,12 @@ state 4
     (1) program -> PROGRAM ID SEMICOLON . dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET
     (2) dec_vars -> . VAR vars SEMICOLON
     (3) dec_vars -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     VAR             shift and go to state 6
-    FUN             reduce using rule 96 (empty -> .)
-    CLASS           reduce using rule 96 (empty -> .)
-    MAIN            reduce using rule 96 (empty -> .)
+    FUN             reduce using rule 94 (empty -> .)
+    CLASS           reduce using rule 94 (empty -> .)
+    MAIN            reduce using rule 94 (empty -> .)
 
     dec_vars                       shift and go to state 5
     empty                          shift and go to state 7
@@ -253,11 +251,11 @@ state 5
     (24) dec_fun -> . fun
     (25) dec_fun -> . empty
     (26) fun -> . FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
-    (96) empty -> .
+    (94) empty -> .
 
     FUN             shift and go to state 11
-    CLASS           reduce using rule 96 (empty -> .)
-    MAIN            reduce using rule 96 (empty -> .)
+    CLASS           reduce using rule 94 (empty -> .)
+    MAIN            reduce using rule 94 (empty -> .)
 
     dec_fun                        shift and go to state 8
     fun                            shift and go to state 9
@@ -307,12 +305,12 @@ state 7
 state 8
 
     (1) program -> PROGRAM ID SEMICOLON dec_vars dec_fun . dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET
-    (70) dec_class -> . CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
-    (71) dec_class -> . empty
-    (96) empty -> .
+    (68) dec_class -> . CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (69) dec_class -> . empty
+    (94) empty -> .
 
     CLASS           shift and go to state 23
-    MAIN            reduce using rule 96 (empty -> .)
+    MAIN            reduce using rule 94 (empty -> .)
 
     dec_class                      shift and go to state 22
     empty                          shift and go to state 24
@@ -439,16 +437,16 @@ state 22
 
 state 23
 
-    (70) dec_class -> CLASS . ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS . ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
     ID              shift and go to state 35
 
 
 state 24
 
-    (71) dec_class -> empty .
+    (69) dec_class -> empty .
 
-    MAIN            reduce using rule 71 (dec_class -> empty .)
+    MAIN            reduce using rule 69 (dec_class -> empty .)
 
 
 state 25
@@ -500,10 +498,10 @@ state 30
     (7) vars_simple_dec -> vars_simple_id . vars_simple_more
     (8) vars_simple_more -> . COMMA vars_simple_dec
     (9) vars_simple_more -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     COMMA           shift and go to state 38
-    SEMICOLON       reduce using rule 96 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
 
     vars_simple_more               shift and go to state 37
     empty                          shift and go to state 39
@@ -513,11 +511,11 @@ state 31
     (10) vars_simple_id -> ID . vars_simple_arr
     (11) vars_simple_arr -> . LEFTKEY CTEI RIGHTKEY vars_simple_arr2
     (12) vars_simple_arr -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     LEFTKEY         shift and go to state 41
-    COMMA           reduce using rule 96 (empty -> .)
-    SEMICOLON       reduce using rule 96 (empty -> .)
+    COMMA           reduce using rule 94 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
 
     vars_simple_arr                shift and go to state 40
     empty                          shift and go to state 42
@@ -534,10 +532,10 @@ state 33
     (16) vars_complex_dec -> ID . vars_complex_more
     (17) vars_complex_more -> . COMMA vars_complex_dec
     (18) vars_complex_more -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     COMMA           shift and go to state 44
-    SEMICOLON       reduce using rule 96 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
 
     vars_complex_more              shift and go to state 43
     empty                          shift and go to state 45
@@ -551,13 +549,13 @@ state 34
 
 state 35
 
-    (70) dec_class -> CLASS ID . dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
-    (72) dec_inherit -> . COLON INHERIT ID
-    (73) dec_inherit -> . empty
-    (96) empty -> .
+    (68) dec_class -> CLASS ID . dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (70) dec_inherit -> . COLON INHERIT ID
+    (71) dec_inherit -> . empty
+    (94) empty -> .
 
     COLON           shift and go to state 48
-    LEFTBRACKET     reduce using rule 96 (empty -> .)
+    LEFTBRACKET     reduce using rule 94 (empty -> .)
 
     dec_inherit                    shift and go to state 47
     empty                          shift and go to state 49
@@ -649,23 +647,23 @@ state 46
 
 state 47
 
-    (70) dec_class -> CLASS ID dec_inherit . LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit . LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
     LEFTBRACKET     shift and go to state 55
 
 
 state 48
 
-    (72) dec_inherit -> COLON . INHERIT ID
+    (70) dec_inherit -> COLON . INHERIT ID
 
     INHERIT         shift and go to state 56
 
 
 state 49
 
-    (73) dec_inherit -> empty .
+    (71) dec_inherit -> empty .
 
-    LEFTBRACKET     reduce using rule 73 (dec_inherit -> empty .)
+    LEFTBRACKET     reduce using rule 71 (dec_inherit -> empty .)
 
 
 state 50
@@ -674,12 +672,12 @@ state 50
     (27) param_pos -> . param
     (28) param_pos -> . empty
     (29) param -> . type_simple ID param_more
-    (96) empty -> .
+    (94) empty -> .
     (19) type_simple -> . INT
     (20) type_simple -> . FLOAT
     (21) type_simple -> . CHAR
 
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
     INT             shift and go to state 17
     FLOAT           shift and go to state 18
     CHAR            shift and go to state 19
@@ -719,14 +717,14 @@ state 54
 
 state 55
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET . PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET . PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
     PRIVATE         shift and go to state 63
 
 
 state 56
 
-    (72) dec_inherit -> COLON INHERIT . ID
+    (70) dec_inherit -> COLON INHERIT . ID
 
     ID              shift and go to state 64
 
@@ -764,11 +762,11 @@ state 61
     (11) vars_simple_arr -> LEFTKEY CTEI RIGHTKEY . vars_simple_arr2
     (13) vars_simple_arr2 -> . LEFTKEY CTEI RIGHTKEY
     (14) vars_simple_arr2 -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     LEFTKEY         shift and go to state 67
-    COMMA           reduce using rule 96 (empty -> .)
-    SEMICOLON       reduce using rule 96 (empty -> .)
+    COMMA           reduce using rule 94 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
 
     vars_simple_arr2               shift and go to state 68
     empty                          shift and go to state 69
@@ -778,31 +776,31 @@ state 62
     (1) program -> PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET . dec_vars dec_block RIGHTBRACKET
     (2) dec_vars -> . VAR vars SEMICOLON
     (3) dec_vars -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     VAR             shift and go to state 6
-    ID              reduce using rule 96 (empty -> .)
-    INCO            reduce using rule 96 (empty -> .)
-    OUTCO           reduce using rule 96 (empty -> .)
-    IF              reduce using rule 96 (empty -> .)
-    WHILE           reduce using rule 96 (empty -> .)
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
+    ID              reduce using rule 94 (empty -> .)
+    INCO            reduce using rule 94 (empty -> .)
+    OUTCO           reduce using rule 94 (empty -> .)
+    IF              reduce using rule 94 (empty -> .)
+    WHILE           reduce using rule 94 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
 
     dec_vars                       shift and go to state 70
     empty                          shift and go to state 7
 
 state 63
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE . COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE . COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
     COLON           shift and go to state 71
 
 
 state 64
 
-    (72) dec_inherit -> COLON INHERIT ID .
+    (70) dec_inherit -> COLON INHERIT ID .
 
-    LEFTBRACKET     reduce using rule 72 (dec_inherit -> COLON INHERIT ID .)
+    LEFTBRACKET     reduce using rule 70 (dec_inherit -> COLON INHERIT ID .)
 
 
 state 65
@@ -817,10 +815,10 @@ state 66
     (29) param -> type_simple ID . param_more
     (30) param_more -> . COMMA param
     (31) param_more -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     COMMA           shift and go to state 74
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
 
     param_more                     shift and go to state 73
     empty                          shift and go to state 75
@@ -854,7 +852,7 @@ state 70
     (34) dec_block -> . block
     (35) dec_block -> . empty
     (36) block -> . statement block_more
-    (96) empty -> .
+    (94) empty -> .
     (39) statement -> . dec_assign
     (40) statement -> . dec_call
     (41) statement -> . dec_read
@@ -862,15 +860,15 @@ state 70
     (43) statement -> . dec_condition
     (44) statement -> . dec_cycle
     (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
     ID              shift and go to state 77
     INCO            shift and go to state 89
     OUTCO           shift and go to state 90
@@ -891,14 +889,14 @@ state 70
 
 state 71
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON . dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON . dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
     (2) dec_vars -> . VAR vars SEMICOLON
     (3) dec_vars -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
     VAR             shift and go to state 6
-    FUN             reduce using rule 96 (empty -> .)
-    PUBLIC          reduce using rule 96 (empty -> .)
+    FUN             reduce using rule 94 (empty -> .)
+    PUBLIC          reduce using rule 94 (empty -> .)
 
     dec_vars                       shift and go to state 93
     empty                          shift and go to state 7
@@ -909,7 +907,7 @@ state 72
     (34) dec_block -> . block
     (35) dec_block -> . empty
     (36) block -> . statement block_more
-    (96) empty -> .
+    (94) empty -> .
     (39) statement -> . dec_assign
     (40) statement -> . dec_call
     (41) statement -> . dec_read
@@ -917,15 +915,15 @@ state 72
     (43) statement -> . dec_condition
     (44) statement -> . dec_cycle
     (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RETURN          reduce using rule 96 (empty -> .)
+    RETURN          reduce using rule 94 (empty -> .)
     ID              shift and go to state 77
     INCO            shift and go to state 89
     OUTCO           shift and go to state 90
@@ -982,9 +980,9 @@ state 76
 
 state 77
 
-    (74) dec_assign -> ID . COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> ID . LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (91) dec_method -> ID . DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (72) dec_assign -> ID . COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> ID . LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (89) dec_method -> ID . DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
     COMP_EQUAL      shift and go to state 97
     LEFTPAREN       shift and go to state 98
@@ -1020,7 +1018,7 @@ state 81
     (37) block_more -> . block
     (38) block_more -> . empty
     (36) block -> . statement block_more
-    (96) empty -> .
+    (94) empty -> .
     (39) statement -> . dec_assign
     (40) statement -> . dec_call
     (41) statement -> . dec_read
@@ -1028,16 +1026,16 @@ state 81
     (43) statement -> . dec_condition
     (44) statement -> . dec_cycle
     (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
-    RETURN          reduce using rule 96 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
+    RETURN          reduce using rule 94 (empty -> .)
     ID              shift and go to state 77
     INCO            shift and go to state 89
     OUTCO           shift and go to state 90
@@ -1149,42 +1147,42 @@ state 88
 
 state 89
 
-    (81) dec_read -> INCO . LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (79) dec_read -> INCO . LEFTPAREN ID RIGHTPAREN SEMICOLON
 
     LEFTPAREN       shift and go to state 104
 
 
 state 90
 
-    (82) dec_write -> OUTCO . LEFTPAREN write RIGHTPAREN SEMICOLON
+    (80) dec_write -> OUTCO . LEFTPAREN write RIGHTPAREN SEMICOLON
 
     LEFTPAREN       shift and go to state 105
 
 
 state 91
 
-    (87) dec_condition -> IF . LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (85) dec_condition -> IF . LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
 
     LEFTPAREN       shift and go to state 106
 
 
 state 92
 
-    (90) dec_cycle -> WHILE . LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (88) dec_cycle -> WHILE . LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
 
     LEFTPAREN       shift and go to state 107
 
 
 state 93
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars . dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars . dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
     (24) dec_fun -> . fun
     (25) dec_fun -> . empty
     (26) fun -> . FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
-    (96) empty -> .
+    (94) empty -> .
 
     FUN             shift and go to state 11
-    PUBLIC          reduce using rule 96 (empty -> .)
+    PUBLIC          reduce using rule 94 (empty -> .)
 
     dec_fun                        shift and go to state 108
     fun                            shift and go to state 9
@@ -1214,55 +1212,63 @@ state 96
 
 state 97
 
-    (74) dec_assign -> ID COMP_EQUAL . dec_exp SEMICOLON
+    (72) dec_assign -> ID COMP_EQUAL . dec_exp SEMICOLON
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
     dec_exp                        shift and go to state 111
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 98
 
-    (75) dec_call -> ID LEFTPAREN . call_pos RIGHTPAREN SEMICOLON
-    (76) call_pos -> . call
-    (77) call_pos -> . empty
-    (78) call -> . dec_exp call_more
-    (96) empty -> .
+    (73) dec_call -> ID LEFTPAREN . call_pos RIGHTPAREN SEMICOLON
+    (74) call_pos -> . call
+    (75) call_pos -> . empty
+    (76) call -> . dec_exp call_more
+    (94) empty -> .
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    call_pos                       shift and go to state 117
-    call                           shift and go to state 118
-    empty                          shift and go to state 119
-    dec_exp                        shift and go to state 120
+    call_pos                       shift and go to state 119
+    call                           shift and go to state 120
+    empty                          shift and go to state 121
+    dec_exp                        shift and go to state 122
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 99
 
-    (91) dec_method -> ID DOT . ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (89) dec_method -> ID DOT . ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    ID              shift and go to state 121
+    ID              shift and go to state 123
 
 
 state 100
@@ -1298,82 +1304,88 @@ state 103
 
 state 104
 
-    (81) dec_read -> INCO LEFTPAREN . ID RIGHTPAREN SEMICOLON
+    (79) dec_read -> INCO LEFTPAREN . ID RIGHTPAREN SEMICOLON
 
-    ID              shift and go to state 122
+    ID              shift and go to state 124
 
 
 state 105
 
-    (82) dec_write -> OUTCO LEFTPAREN . write RIGHTPAREN SEMICOLON
-    (83) write -> . dec_exp write_more
-    (84) write -> . var_cte write_more
+    (80) dec_write -> OUTCO LEFTPAREN . write RIGHTPAREN SEMICOLON
+    (81) write -> . dec_exp write_more
+    (82) write -> . var_cte write_more
     (46) dec_exp -> . dec_term pm_op
-    (92) var_cte -> . ID
-    (93) var_cte -> . CTEI
-    (94) var_cte -> . CTEF
-    (95) var_cte -> . SIGN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
 
-    ID              shift and go to state 126
-    CTEI            shift and go to state 127
-    CTEF            shift and go to state 128
-    SIGN            shift and go to state 129
-    LEFTPAREN       shift and go to state 116
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
+    LEFTPAREN       shift and go to state 115
 
-    write                          shift and go to state 123
-    dec_exp                        shift and go to state 124
-    var_cte                        shift and go to state 125
+    write                          shift and go to state 125
+    dec_exp                        shift and go to state 126
+    var_cte                        shift and go to state 127
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
 
 state 106
 
-    (87) dec_condition -> IF LEFTPAREN . dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (85) dec_condition -> IF LEFTPAREN . dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_exp                        shift and go to state 130
+    dec_exp                        shift and go to state 128
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 107
 
-    (90) dec_cycle -> WHILE LEFTPAREN . dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (88) dec_cycle -> WHILE LEFTPAREN . dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_exp                        shift and go to state 131
+    dec_exp                        shift and go to state 129
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 108
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun . PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun . PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
-    PUBLIC          shift and go to state 132
+    PUBLIC          shift and go to state 130
 
 
 state 109
@@ -1382,49 +1394,53 @@ state 109
     (50) dec_exp_method -> . dec_exp
     (51) dec_exp_method -> . empty
     (46) dec_exp -> . dec_term pm_op
-    (96) empty -> .
+    (94) empty -> .
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    SEMICOLON       reduce using rule 96 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_exp_method                 shift and go to state 133
-    dec_exp                        shift and go to state 134
-    empty                          shift and go to state 135
+    dec_exp_method                 shift and go to state 131
+    dec_exp                        shift and go to state 132
+    empty                          shift and go to state 133
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 110
 
-    (56) dec_fact -> ID .
+    (90) var_cte -> ID .
 
-    TIMES           reduce using rule 56 (dec_fact -> ID .)
-    DIVIDE          reduce using rule 56 (dec_fact -> ID .)
-    PLUS            reduce using rule 56 (dec_fact -> ID .)
-    MINUS           reduce using rule 56 (dec_fact -> ID .)
-    SEMICOLON       reduce using rule 56 (dec_fact -> ID .)
-    COMMA           reduce using rule 56 (dec_fact -> ID .)
-    RIGHTPAREN      reduce using rule 56 (dec_fact -> ID .)
-    COMP_LESS       reduce using rule 56 (dec_fact -> ID .)
-    COMP_GREATER    reduce using rule 56 (dec_fact -> ID .)
-    COMP_EQUAL      reduce using rule 56 (dec_fact -> ID .)
-    COMP_NOTEQUAL   reduce using rule 56 (dec_fact -> ID .)
-    COMP_AND        reduce using rule 56 (dec_fact -> ID .)
-    COMP_OR         reduce using rule 56 (dec_fact -> ID .)
+    TIMES           reduce using rule 90 (var_cte -> ID .)
+    DIVIDE          reduce using rule 90 (var_cte -> ID .)
+    PLUS            reduce using rule 90 (var_cte -> ID .)
+    MINUS           reduce using rule 90 (var_cte -> ID .)
+    SEMICOLON       reduce using rule 90 (var_cte -> ID .)
+    COMMA           reduce using rule 90 (var_cte -> ID .)
+    RIGHTPAREN      reduce using rule 90 (var_cte -> ID .)
+    COMP_LESS       reduce using rule 90 (var_cte -> ID .)
+    COMP_GREATER    reduce using rule 90 (var_cte -> ID .)
+    COMP_EQUAL      reduce using rule 90 (var_cte -> ID .)
+    COMP_NOTEQUAL   reduce using rule 90 (var_cte -> ID .)
+    COMP_AND        reduce using rule 90 (var_cte -> ID .)
+    COMP_OR         reduce using rule 90 (var_cte -> ID .)
 
 
 state 111
 
-    (74) dec_assign -> ID COMP_EQUAL dec_exp . SEMICOLON
+    (72) dec_assign -> ID COMP_EQUAL dec_exp . SEMICOLON
 
-    SEMICOLON       shift and go to state 136
+    SEMICOLON       shift and go to state 134
 
 
 state 112
@@ -1433,22 +1449,22 @@ state 112
     (47) pm_op -> . PLUS dec_exp
     (48) pm_op -> . MINUS dec_term
     (49) pm_op -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
-    PLUS            shift and go to state 138
-    MINUS           shift and go to state 139
-    SEMICOLON       reduce using rule 96 (empty -> .)
-    COMMA           reduce using rule 96 (empty -> .)
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
-    COMP_LESS       reduce using rule 96 (empty -> .)
-    COMP_GREATER    reduce using rule 96 (empty -> .)
-    COMP_EQUAL      reduce using rule 96 (empty -> .)
-    COMP_NOTEQUAL   reduce using rule 96 (empty -> .)
-    COMP_AND        reduce using rule 96 (empty -> .)
-    COMP_OR         reduce using rule 96 (empty -> .)
+    PLUS            shift and go to state 136
+    MINUS           shift and go to state 137
+    SEMICOLON       reduce using rule 94 (empty -> .)
+    COMMA           reduce using rule 94 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
+    COMP_LESS       reduce using rule 94 (empty -> .)
+    COMP_GREATER    reduce using rule 94 (empty -> .)
+    COMP_EQUAL      reduce using rule 94 (empty -> .)
+    COMP_NOTEQUAL   reduce using rule 94 (empty -> .)
+    COMP_AND        reduce using rule 94 (empty -> .)
+    COMP_OR         reduce using rule 94 (empty -> .)
 
-    pm_op                          shift and go to state 137
-    empty                          shift and go to state 140
+    pm_op                          shift and go to state 135
+    empty                          shift and go to state 138
 
 state 113
 
@@ -1456,258 +1472,248 @@ state 113
     (53) md_op -> . TIMES dec_term
     (54) md_op -> . DIVIDE dec_term
     (55) md_op -> . empty
-    (96) empty -> .
+    (94) empty -> .
 
-    TIMES           shift and go to state 142
-    DIVIDE          shift and go to state 143
-    PLUS            reduce using rule 96 (empty -> .)
-    MINUS           reduce using rule 96 (empty -> .)
-    SEMICOLON       reduce using rule 96 (empty -> .)
-    COMMA           reduce using rule 96 (empty -> .)
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
-    COMP_LESS       reduce using rule 96 (empty -> .)
-    COMP_GREATER    reduce using rule 96 (empty -> .)
-    COMP_EQUAL      reduce using rule 96 (empty -> .)
-    COMP_NOTEQUAL   reduce using rule 96 (empty -> .)
-    COMP_AND        reduce using rule 96 (empty -> .)
-    COMP_OR         reduce using rule 96 (empty -> .)
+    TIMES           shift and go to state 140
+    DIVIDE          shift and go to state 141
+    PLUS            reduce using rule 94 (empty -> .)
+    MINUS           reduce using rule 94 (empty -> .)
+    SEMICOLON       reduce using rule 94 (empty -> .)
+    COMMA           reduce using rule 94 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
+    COMP_LESS       reduce using rule 94 (empty -> .)
+    COMP_GREATER    reduce using rule 94 (empty -> .)
+    COMP_EQUAL      reduce using rule 94 (empty -> .)
+    COMP_NOTEQUAL   reduce using rule 94 (empty -> .)
+    COMP_AND        reduce using rule 94 (empty -> .)
+    COMP_OR         reduce using rule 94 (empty -> .)
 
-    md_op                          shift and go to state 141
-    empty                          shift and go to state 144
+    md_op                          shift and go to state 139
+    empty                          shift and go to state 142
 
 state 114
 
-    (57) dec_fact -> CTEF .
+    (56) dec_fact -> var_cte .
 
-    TIMES           reduce using rule 57 (dec_fact -> CTEF .)
-    DIVIDE          reduce using rule 57 (dec_fact -> CTEF .)
-    PLUS            reduce using rule 57 (dec_fact -> CTEF .)
-    MINUS           reduce using rule 57 (dec_fact -> CTEF .)
-    SEMICOLON       reduce using rule 57 (dec_fact -> CTEF .)
-    COMMA           reduce using rule 57 (dec_fact -> CTEF .)
-    RIGHTPAREN      reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_LESS       reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_GREATER    reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_EQUAL      reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_NOTEQUAL   reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_AND        reduce using rule 57 (dec_fact -> CTEF .)
-    COMP_OR         reduce using rule 57 (dec_fact -> CTEF .)
+    TIMES           reduce using rule 56 (dec_fact -> var_cte .)
+    DIVIDE          reduce using rule 56 (dec_fact -> var_cte .)
+    PLUS            reduce using rule 56 (dec_fact -> var_cte .)
+    MINUS           reduce using rule 56 (dec_fact -> var_cte .)
+    SEMICOLON       reduce using rule 56 (dec_fact -> var_cte .)
+    COMMA           reduce using rule 56 (dec_fact -> var_cte .)
+    RIGHTPAREN      reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_LESS       reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_GREATER    reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_EQUAL      reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_NOTEQUAL   reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_AND        reduce using rule 56 (dec_fact -> var_cte .)
+    COMP_OR         reduce using rule 56 (dec_fact -> var_cte .)
 
 
 state 115
 
-    (58) dec_fact -> CTEI .
+    (57) dec_fact -> LEFTPAREN . h_exp RIGHTPAREN
+    (58) h_exp -> . s_exp ao_op
+    (62) s_exp -> . dec_exp comp_op
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    TIMES           reduce using rule 58 (dec_fact -> CTEI .)
-    DIVIDE          reduce using rule 58 (dec_fact -> CTEI .)
-    PLUS            reduce using rule 58 (dec_fact -> CTEI .)
-    MINUS           reduce using rule 58 (dec_fact -> CTEI .)
-    SEMICOLON       reduce using rule 58 (dec_fact -> CTEI .)
-    COMMA           reduce using rule 58 (dec_fact -> CTEI .)
-    RIGHTPAREN      reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_LESS       reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_GREATER    reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_EQUAL      reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_NOTEQUAL   reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_AND        reduce using rule 58 (dec_fact -> CTEI .)
-    COMP_OR         reduce using rule 58 (dec_fact -> CTEI .)
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    h_exp                          shift and go to state 143
+    s_exp                          shift and go to state 144
+    dec_exp                        shift and go to state 145
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 116
 
-    (59) dec_fact -> LEFTPAREN . h_exp RIGHTPAREN
-    (60) h_exp -> . s_exp ao_op
-    (64) s_exp -> . dec_exp comp_op
-    (46) dec_exp -> . dec_term pm_op
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (91) var_cte -> CTEI .
 
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    TIMES           reduce using rule 91 (var_cte -> CTEI .)
+    DIVIDE          reduce using rule 91 (var_cte -> CTEI .)
+    PLUS            reduce using rule 91 (var_cte -> CTEI .)
+    MINUS           reduce using rule 91 (var_cte -> CTEI .)
+    SEMICOLON       reduce using rule 91 (var_cte -> CTEI .)
+    COMMA           reduce using rule 91 (var_cte -> CTEI .)
+    RIGHTPAREN      reduce using rule 91 (var_cte -> CTEI .)
+    COMP_LESS       reduce using rule 91 (var_cte -> CTEI .)
+    COMP_GREATER    reduce using rule 91 (var_cte -> CTEI .)
+    COMP_EQUAL      reduce using rule 91 (var_cte -> CTEI .)
+    COMP_NOTEQUAL   reduce using rule 91 (var_cte -> CTEI .)
+    COMP_AND        reduce using rule 91 (var_cte -> CTEI .)
+    COMP_OR         reduce using rule 91 (var_cte -> CTEI .)
 
-    h_exp                          shift and go to state 145
-    s_exp                          shift and go to state 146
-    dec_exp                        shift and go to state 147
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 117
 
-    (75) dec_call -> ID LEFTPAREN call_pos . RIGHTPAREN SEMICOLON
+    (92) var_cte -> CTEF .
 
-    RIGHTPAREN      shift and go to state 148
+    TIMES           reduce using rule 92 (var_cte -> CTEF .)
+    DIVIDE          reduce using rule 92 (var_cte -> CTEF .)
+    PLUS            reduce using rule 92 (var_cte -> CTEF .)
+    MINUS           reduce using rule 92 (var_cte -> CTEF .)
+    SEMICOLON       reduce using rule 92 (var_cte -> CTEF .)
+    COMMA           reduce using rule 92 (var_cte -> CTEF .)
+    RIGHTPAREN      reduce using rule 92 (var_cte -> CTEF .)
+    COMP_LESS       reduce using rule 92 (var_cte -> CTEF .)
+    COMP_GREATER    reduce using rule 92 (var_cte -> CTEF .)
+    COMP_EQUAL      reduce using rule 92 (var_cte -> CTEF .)
+    COMP_NOTEQUAL   reduce using rule 92 (var_cte -> CTEF .)
+    COMP_AND        reduce using rule 92 (var_cte -> CTEF .)
+    COMP_OR         reduce using rule 92 (var_cte -> CTEF .)
 
 
 state 118
 
-    (76) call_pos -> call .
+    (93) var_cte -> SIGN .
 
-    RIGHTPAREN      reduce using rule 76 (call_pos -> call .)
+    TIMES           reduce using rule 93 (var_cte -> SIGN .)
+    DIVIDE          reduce using rule 93 (var_cte -> SIGN .)
+    PLUS            reduce using rule 93 (var_cte -> SIGN .)
+    MINUS           reduce using rule 93 (var_cte -> SIGN .)
+    SEMICOLON       reduce using rule 93 (var_cte -> SIGN .)
+    COMMA           reduce using rule 93 (var_cte -> SIGN .)
+    RIGHTPAREN      reduce using rule 93 (var_cte -> SIGN .)
+    COMP_LESS       reduce using rule 93 (var_cte -> SIGN .)
+    COMP_GREATER    reduce using rule 93 (var_cte -> SIGN .)
+    COMP_EQUAL      reduce using rule 93 (var_cte -> SIGN .)
+    COMP_NOTEQUAL   reduce using rule 93 (var_cte -> SIGN .)
+    COMP_AND        reduce using rule 93 (var_cte -> SIGN .)
+    COMP_OR         reduce using rule 93 (var_cte -> SIGN .)
 
 
 state 119
 
-    (77) call_pos -> empty .
+    (73) dec_call -> ID LEFTPAREN call_pos . RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      reduce using rule 77 (call_pos -> empty .)
+    RIGHTPAREN      shift and go to state 146
 
 
 state 120
 
-    (78) call -> dec_exp . call_more
-    (79) call_more -> . COMMA call
-    (80) call_more -> . empty
-    (96) empty -> .
+    (74) call_pos -> call .
 
-    COMMA           shift and go to state 150
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      reduce using rule 74 (call_pos -> call .)
 
-    call_more                      shift and go to state 149
-    empty                          shift and go to state 151
 
 state 121
 
-    (91) dec_method -> ID DOT ID . LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (75) call_pos -> empty .
 
-    LEFTPAREN       shift and go to state 152
+    RIGHTPAREN      reduce using rule 75 (call_pos -> empty .)
 
 
 state 122
 
-    (81) dec_read -> INCO LEFTPAREN ID . RIGHTPAREN SEMICOLON
+    (76) call -> dec_exp . call_more
+    (77) call_more -> . COMMA call
+    (78) call_more -> . empty
+    (94) empty -> .
 
-    RIGHTPAREN      shift and go to state 153
+    COMMA           shift and go to state 148
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
 
+    call_more                      shift and go to state 147
+    empty                          shift and go to state 149
 
 state 123
 
-    (82) dec_write -> OUTCO LEFTPAREN write . RIGHTPAREN SEMICOLON
+    (89) dec_method -> ID DOT ID . LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      shift and go to state 154
+    LEFTPAREN       shift and go to state 150
 
 
 state 124
 
-    (83) write -> dec_exp . write_more
-    (85) write_more -> . COMMA write
-    (86) write_more -> . empty
-    (96) empty -> .
+    (79) dec_read -> INCO LEFTPAREN ID . RIGHTPAREN SEMICOLON
 
-    COMMA           shift and go to state 156
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      shift and go to state 151
 
-    write_more                     shift and go to state 155
-    empty                          shift and go to state 157
 
 state 125
 
-    (84) write -> var_cte . write_more
-    (85) write_more -> . COMMA write
-    (86) write_more -> . empty
-    (96) empty -> .
+    (80) dec_write -> OUTCO LEFTPAREN write . RIGHTPAREN SEMICOLON
 
-    COMMA           shift and go to state 156
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      shift and go to state 152
 
-    write_more                     shift and go to state 158
-    empty                          shift and go to state 157
 
 state 126
 
-    (92) var_cte -> ID .
-    (56) dec_fact -> ID .
+    (81) write -> dec_exp . write_more
+    (83) write_more -> . COMMA write
+    (84) write_more -> . empty
+    (94) empty -> .
 
-  ! reduce/reduce conflict for COMMA resolved using rule 56 (dec_fact -> ID .)
-  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 56 (dec_fact -> ID .)
-    TIMES           reduce using rule 56 (dec_fact -> ID .)
-    DIVIDE          reduce using rule 56 (dec_fact -> ID .)
-    PLUS            reduce using rule 56 (dec_fact -> ID .)
-    MINUS           reduce using rule 56 (dec_fact -> ID .)
-    COMMA           reduce using rule 56 (dec_fact -> ID .)
-    RIGHTPAREN      reduce using rule 56 (dec_fact -> ID .)
+    COMMA           shift and go to state 154
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
 
-  ! COMMA           [ reduce using rule 92 (var_cte -> ID .) ]
-  ! RIGHTPAREN      [ reduce using rule 92 (var_cte -> ID .) ]
-
+    write_more                     shift and go to state 153
+    empty                          shift and go to state 155
 
 state 127
 
-    (93) var_cte -> CTEI .
-    (58) dec_fact -> CTEI .
+    (82) write -> var_cte . write_more
+    (56) dec_fact -> var_cte .
+    (83) write_more -> . COMMA write
+    (84) write_more -> . empty
+    (94) empty -> .
 
-  ! reduce/reduce conflict for COMMA resolved using rule 58 (dec_fact -> CTEI .)
-  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 58 (dec_fact -> CTEI .)
-    TIMES           reduce using rule 58 (dec_fact -> CTEI .)
-    DIVIDE          reduce using rule 58 (dec_fact -> CTEI .)
-    PLUS            reduce using rule 58 (dec_fact -> CTEI .)
-    MINUS           reduce using rule 58 (dec_fact -> CTEI .)
-    COMMA           reduce using rule 58 (dec_fact -> CTEI .)
-    RIGHTPAREN      reduce using rule 58 (dec_fact -> CTEI .)
+  ! shift/reduce conflict for COMMA resolved as shift
+  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 56 (dec_fact -> var_cte .)
+    TIMES           reduce using rule 56 (dec_fact -> var_cte .)
+    DIVIDE          reduce using rule 56 (dec_fact -> var_cte .)
+    PLUS            reduce using rule 56 (dec_fact -> var_cte .)
+    MINUS           reduce using rule 56 (dec_fact -> var_cte .)
+    RIGHTPAREN      reduce using rule 56 (dec_fact -> var_cte .)
+    COMMA           shift and go to state 154
 
-  ! COMMA           [ reduce using rule 93 (var_cte -> CTEI .) ]
-  ! RIGHTPAREN      [ reduce using rule 93 (var_cte -> CTEI .) ]
+  ! COMMA           [ reduce using rule 56 (dec_fact -> var_cte .) ]
+  ! RIGHTPAREN      [ reduce using rule 94 (empty -> .) ]
 
+    write_more                     shift and go to state 156
+    empty                          shift and go to state 155
 
 state 128
 
-    (94) var_cte -> CTEF .
-    (57) dec_fact -> CTEF .
+    (85) dec_condition -> IF LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
 
-  ! reduce/reduce conflict for COMMA resolved using rule 57 (dec_fact -> CTEF .)
-  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 57 (dec_fact -> CTEF .)
-    TIMES           reduce using rule 57 (dec_fact -> CTEF .)
-    DIVIDE          reduce using rule 57 (dec_fact -> CTEF .)
-    PLUS            reduce using rule 57 (dec_fact -> CTEF .)
-    MINUS           reduce using rule 57 (dec_fact -> CTEF .)
-    COMMA           reduce using rule 57 (dec_fact -> CTEF .)
-    RIGHTPAREN      reduce using rule 57 (dec_fact -> CTEF .)
-
-  ! COMMA           [ reduce using rule 94 (var_cte -> CTEF .) ]
-  ! RIGHTPAREN      [ reduce using rule 94 (var_cte -> CTEF .) ]
+    RIGHTPAREN      shift and go to state 157
 
 
 state 129
 
-    (95) var_cte -> SIGN .
+    (88) dec_cycle -> WHILE LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
 
-    COMMA           reduce using rule 95 (var_cte -> SIGN .)
-    RIGHTPAREN      reduce using rule 95 (var_cte -> SIGN .)
+    RIGHTPAREN      shift and go to state 158
 
 
 state 130
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC . COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
 
-    RIGHTPAREN      shift and go to state 159
+    COLON           shift and go to state 159
 
 
 state 131
 
-    (90) dec_cycle -> WHILE LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (26) fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method . SEMICOLON RIGHTBRACKET
 
-    RIGHTPAREN      shift and go to state 160
+    SEMICOLON       shift and go to state 160
 
 
 state 132
-
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC . COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
-
-    COLON           shift and go to state 161
-
-
-state 133
-
-    (26) fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method . SEMICOLON RIGHTBRACKET
-
-    SEMICOLON       shift and go to state 162
-
-
-state 134
 
     (50) dec_exp_method -> dec_exp .
 
@@ -1715,7 +1721,7 @@ state 134
     RIGHTPAREN      reduce using rule 50 (dec_exp_method -> dec_exp .)
 
 
-state 135
+state 133
 
     (51) dec_exp_method -> empty .
 
@@ -1723,20 +1729,20 @@ state 135
     RIGHTPAREN      reduce using rule 51 (dec_exp_method -> empty .)
 
 
-state 136
+state 134
 
-    (74) dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .
+    (72) dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .
 
-    ID              reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    INCO            reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    OUTCO           reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    IF              reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    WHILE           reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
-    RETURN          reduce using rule 74 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    ID              reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    INCO            reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    OUTCO           reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    IF              reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    WHILE           reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
+    RETURN          reduce using rule 72 (dec_assign -> ID COMP_EQUAL dec_exp SEMICOLON .)
 
 
-state 137
+state 135
 
     (46) dec_exp -> dec_term pm_op .
 
@@ -1751,43 +1757,51 @@ state 137
     COMP_OR         reduce using rule 46 (dec_exp -> dec_term pm_op .)
 
 
-state 138
+state 136
 
     (47) pm_op -> PLUS . dec_exp
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_exp                        shift and go to state 163
+    dec_exp                        shift and go to state 161
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
-state 139
+state 137
 
     (48) pm_op -> MINUS . dec_term
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_term                       shift and go to state 164
+    dec_term                       shift and go to state 162
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
-state 140
+state 138
 
     (49) pm_op -> empty .
 
@@ -1802,7 +1816,7 @@ state 140
     COMP_OR         reduce using rule 49 (pm_op -> empty .)
 
 
-state 141
+state 139
 
     (52) dec_term -> dec_fact md_op .
 
@@ -1819,41 +1833,49 @@ state 141
     COMP_OR         reduce using rule 52 (dec_term -> dec_fact md_op .)
 
 
-state 142
+state 140
 
     (53) md_op -> TIMES . dec_term
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_term                       shift and go to state 165
+    dec_term                       shift and go to state 163
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
-state 143
+state 141
 
     (54) md_op -> DIVIDE . dec_term
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    dec_term                       shift and go to state 166
+    dec_term                       shift and go to state 164
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
-state 144
+state 142
 
     (55) md_op -> empty .
 
@@ -1870,215 +1892,221 @@ state 144
     COMP_OR         reduce using rule 55 (md_op -> empty .)
 
 
+state 143
+
+    (57) dec_fact -> LEFTPAREN h_exp . RIGHTPAREN
+
+    RIGHTPAREN      shift and go to state 165
+
+
+state 144
+
+    (58) h_exp -> s_exp . ao_op
+    (59) ao_op -> . COMP_AND h_exp
+    (60) ao_op -> . COMP_OR h_exp
+    (61) ao_op -> . empty
+    (94) empty -> .
+
+    COMP_AND        shift and go to state 167
+    COMP_OR         shift and go to state 168
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
+
+    ao_op                          shift and go to state 166
+    empty                          shift and go to state 169
+
 state 145
 
-    (59) dec_fact -> LEFTPAREN h_exp . RIGHTPAREN
+    (62) s_exp -> dec_exp . comp_op
+    (63) comp_op -> . COMP_LESS dec_exp
+    (64) comp_op -> . COMP_GREATER dec_exp
+    (65) comp_op -> . COMP_EQUAL dec_exp
+    (66) comp_op -> . COMP_NOTEQUAL dec_exp
+    (67) comp_op -> . empty
+    (94) empty -> .
 
-    RIGHTPAREN      shift and go to state 167
+    COMP_LESS       shift and go to state 171
+    COMP_GREATER    shift and go to state 172
+    COMP_EQUAL      shift and go to state 173
+    COMP_NOTEQUAL   shift and go to state 174
+    COMP_AND        reduce using rule 94 (empty -> .)
+    COMP_OR         reduce using rule 94 (empty -> .)
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
 
+    comp_op                        shift and go to state 170
+    empty                          shift and go to state 175
 
 state 146
 
-    (60) h_exp -> s_exp . ao_op
-    (61) ao_op -> . COMP_AND h_exp
-    (62) ao_op -> . COMP_OR h_exp
-    (63) ao_op -> . empty
-    (96) empty -> .
+    (73) dec_call -> ID LEFTPAREN call_pos RIGHTPAREN . SEMICOLON
 
-    COMP_AND        shift and go to state 169
-    COMP_OR         shift and go to state 170
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    SEMICOLON       shift and go to state 176
 
-    ao_op                          shift and go to state 168
-    empty                          shift and go to state 171
 
 state 147
 
-    (64) s_exp -> dec_exp . comp_op
-    (65) comp_op -> . COMP_LESS dec_exp
-    (66) comp_op -> . COMP_GREATER dec_exp
-    (67) comp_op -> . COMP_EQUAL dec_exp
-    (68) comp_op -> . COMP_NOTEQUAL dec_exp
-    (69) comp_op -> . empty
-    (96) empty -> .
+    (76) call -> dec_exp call_more .
 
-    COMP_LESS       shift and go to state 173
-    COMP_GREATER    shift and go to state 174
-    COMP_EQUAL      shift and go to state 175
-    COMP_NOTEQUAL   shift and go to state 176
-    COMP_AND        reduce using rule 96 (empty -> .)
-    COMP_OR         reduce using rule 96 (empty -> .)
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
+    RIGHTPAREN      reduce using rule 76 (call -> dec_exp call_more .)
 
-    comp_op                        shift and go to state 172
-    empty                          shift and go to state 177
 
 state 148
 
-    (75) dec_call -> ID LEFTPAREN call_pos RIGHTPAREN . SEMICOLON
+    (77) call_more -> COMMA . call
+    (76) call -> . dec_exp call_more
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    SEMICOLON       shift and go to state 178
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    call                           shift and go to state 177
+    dec_exp                        shift and go to state 122
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 149
 
-    (78) call -> dec_exp call_more .
+    (78) call_more -> empty .
 
-    RIGHTPAREN      reduce using rule 78 (call -> dec_exp call_more .)
+    RIGHTPAREN      reduce using rule 78 (call_more -> empty .)
 
 
 state 150
 
-    (79) call_more -> COMMA . call
-    (78) call -> . dec_exp call_more
+    (89) dec_method -> ID DOT ID LEFTPAREN . dec_exp_method RIGHTPAREN SEMICOLON
+    (50) dec_exp_method -> . dec_exp
+    (51) dec_exp_method -> . empty
     (46) dec_exp -> . dec_term pm_op
+    (94) empty -> .
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    RIGHTPAREN      reduce using rule 94 (empty -> .)
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
-    call                           shift and go to state 179
-    dec_exp                        shift and go to state 120
+    dec_exp_method                 shift and go to state 178
+    dec_exp                        shift and go to state 132
+    empty                          shift and go to state 133
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 151
 
-    (80) call_more -> empty .
+    (79) dec_read -> INCO LEFTPAREN ID RIGHTPAREN . SEMICOLON
 
-    RIGHTPAREN      reduce using rule 80 (call_more -> empty .)
+    SEMICOLON       shift and go to state 179
 
 
 state 152
 
-    (91) dec_method -> ID DOT ID LEFTPAREN . dec_exp_method RIGHTPAREN SEMICOLON
-    (50) dec_exp_method -> . dec_exp
-    (51) dec_exp_method -> . empty
-    (46) dec_exp -> . dec_term pm_op
-    (96) empty -> .
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (80) dec_write -> OUTCO LEFTPAREN write RIGHTPAREN . SEMICOLON
 
-    RIGHTPAREN      reduce using rule 96 (empty -> .)
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    SEMICOLON       shift and go to state 180
 
-    dec_exp_method                 shift and go to state 180
-    dec_exp                        shift and go to state 134
-    empty                          shift and go to state 135
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 153
 
-    (81) dec_read -> INCO LEFTPAREN ID RIGHTPAREN . SEMICOLON
+    (81) write -> dec_exp write_more .
 
-    SEMICOLON       shift and go to state 181
+    RIGHTPAREN      reduce using rule 81 (write -> dec_exp write_more .)
 
 
 state 154
 
-    (82) dec_write -> OUTCO LEFTPAREN write RIGHTPAREN . SEMICOLON
+    (83) write_more -> COMMA . write
+    (81) write -> . dec_exp write_more
+    (82) write -> . var_cte write_more
+    (46) dec_exp -> . dec_term pm_op
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
 
-    SEMICOLON       shift and go to state 182
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
+    LEFTPAREN       shift and go to state 115
 
+    write                          shift and go to state 181
+    dec_exp                        shift and go to state 126
+    var_cte                        shift and go to state 127
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
 
 state 155
 
-    (83) write -> dec_exp write_more .
+    (84) write_more -> empty .
 
-    RIGHTPAREN      reduce using rule 83 (write -> dec_exp write_more .)
+    RIGHTPAREN      reduce using rule 84 (write_more -> empty .)
 
 
 state 156
 
-    (85) write_more -> COMMA . write
-    (83) write -> . dec_exp write_more
-    (84) write -> . var_cte write_more
-    (46) dec_exp -> . dec_term pm_op
-    (92) var_cte -> . ID
-    (93) var_cte -> . CTEI
-    (94) var_cte -> . CTEF
-    (95) var_cte -> . SIGN
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (82) write -> var_cte write_more .
 
-    ID              shift and go to state 126
-    CTEI            shift and go to state 127
-    CTEF            shift and go to state 128
-    SIGN            shift and go to state 129
-    LEFTPAREN       shift and go to state 116
+    RIGHTPAREN      reduce using rule 82 (write -> var_cte write_more .)
 
-    write                          shift and go to state 183
-    dec_exp                        shift and go to state 124
-    var_cte                        shift and go to state 125
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 157
 
-    (86) write_more -> empty .
+    (85) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET dec_else
 
-    RIGHTPAREN      reduce using rule 86 (write_more -> empty .)
+    LEFTBRACKET     shift and go to state 182
 
 
 state 158
 
-    (84) write -> var_cte write_more .
+    (88) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET
 
-    RIGHTPAREN      reduce using rule 84 (write -> var_cte write_more .)
+    LEFTBRACKET     shift and go to state 183
 
 
 state 159
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON . dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    (2) dec_vars -> . VAR vars SEMICOLON
+    (3) dec_vars -> . empty
+    (94) empty -> .
 
-    LEFTBRACKET     shift and go to state 184
+    VAR             shift and go to state 6
+    FUN             reduce using rule 94 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
 
+    dec_vars                       shift and go to state 184
+    empty                          shift and go to state 7
 
 state 160
 
-    (90) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET
+    (26) fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON . RIGHTBRACKET
 
-    LEFTBRACKET     shift and go to state 185
+    RIGHTBRACKET    shift and go to state 185
 
 
 state 161
-
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON . dec_vars dec_fun RIGHTBRACKET SEMICOLON
-    (2) dec_vars -> . VAR vars SEMICOLON
-    (3) dec_vars -> . empty
-    (96) empty -> .
-
-    VAR             shift and go to state 6
-    FUN             reduce using rule 96 (empty -> .)
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
-
-    dec_vars                       shift and go to state 186
-    empty                          shift and go to state 7
-
-state 162
-
-    (26) fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON . RIGHTBRACKET
-
-    RIGHTBRACKET    shift and go to state 187
-
-
-state 163
 
     (47) pm_op -> PLUS dec_exp .
 
@@ -2093,7 +2121,7 @@ state 163
     COMP_OR         reduce using rule 47 (pm_op -> PLUS dec_exp .)
 
 
-state 164
+state 162
 
     (48) pm_op -> MINUS dec_term .
 
@@ -2108,7 +2136,7 @@ state 164
     COMP_OR         reduce using rule 48 (pm_op -> MINUS dec_term .)
 
 
-state 165
+state 163
 
     (53) md_op -> TIMES dec_term .
 
@@ -2125,7 +2153,7 @@ state 165
     COMP_OR         reduce using rule 53 (md_op -> TIMES dec_term .)
 
 
-state 166
+state 164
 
     (54) md_op -> DIVIDE dec_term .
 
@@ -2142,337 +2170,361 @@ state 166
     COMP_OR         reduce using rule 54 (md_op -> DIVIDE dec_term .)
 
 
+state 165
+
+    (57) dec_fact -> LEFTPAREN h_exp RIGHTPAREN .
+
+    TIMES           reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    DIVIDE          reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    PLUS            reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    MINUS           reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    SEMICOLON       reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMMA           reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    RIGHTPAREN      reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_LESS       reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_GREATER    reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_EQUAL      reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_NOTEQUAL   reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_AND        reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    COMP_OR         reduce using rule 57 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+
+
+state 166
+
+    (58) h_exp -> s_exp ao_op .
+
+    RIGHTPAREN      reduce using rule 58 (h_exp -> s_exp ao_op .)
+
+
 state 167
 
-    (59) dec_fact -> LEFTPAREN h_exp RIGHTPAREN .
+    (59) ao_op -> COMP_AND . h_exp
+    (58) h_exp -> . s_exp ao_op
+    (62) s_exp -> . dec_exp comp_op
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    TIMES           reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    DIVIDE          reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    PLUS            reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    MINUS           reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    SEMICOLON       reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMMA           reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    RIGHTPAREN      reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_LESS       reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_GREATER    reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_EQUAL      reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_NOTEQUAL   reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_AND        reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
-    COMP_OR         reduce using rule 59 (dec_fact -> LEFTPAREN h_exp RIGHTPAREN .)
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    h_exp                          shift and go to state 186
+    s_exp                          shift and go to state 144
+    dec_exp                        shift and go to state 145
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 168
 
-    (60) h_exp -> s_exp ao_op .
+    (60) ao_op -> COMP_OR . h_exp
+    (58) h_exp -> . s_exp ao_op
+    (62) s_exp -> . dec_exp comp_op
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    RIGHTPAREN      reduce using rule 60 (h_exp -> s_exp ao_op .)
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    h_exp                          shift and go to state 187
+    s_exp                          shift and go to state 144
+    dec_exp                        shift and go to state 145
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 169
 
-    (61) ao_op -> COMP_AND . h_exp
-    (60) h_exp -> . s_exp ao_op
-    (64) s_exp -> . dec_exp comp_op
-    (46) dec_exp -> . dec_term pm_op
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (61) ao_op -> empty .
 
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    RIGHTPAREN      reduce using rule 61 (ao_op -> empty .)
 
-    h_exp                          shift and go to state 188
-    s_exp                          shift and go to state 146
-    dec_exp                        shift and go to state 147
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 170
 
-    (62) ao_op -> COMP_OR . h_exp
-    (60) h_exp -> . s_exp ao_op
-    (64) s_exp -> . dec_exp comp_op
-    (46) dec_exp -> . dec_term pm_op
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (62) s_exp -> dec_exp comp_op .
 
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    COMP_AND        reduce using rule 62 (s_exp -> dec_exp comp_op .)
+    COMP_OR         reduce using rule 62 (s_exp -> dec_exp comp_op .)
+    RIGHTPAREN      reduce using rule 62 (s_exp -> dec_exp comp_op .)
 
-    h_exp                          shift and go to state 189
-    s_exp                          shift and go to state 146
-    dec_exp                        shift and go to state 147
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 171
 
-    (63) ao_op -> empty .
+    (63) comp_op -> COMP_LESS . dec_exp
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    RIGHTPAREN      reduce using rule 63 (ao_op -> empty .)
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    dec_exp                        shift and go to state 188
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 172
 
-    (64) s_exp -> dec_exp comp_op .
+    (64) comp_op -> COMP_GREATER . dec_exp
+    (46) dec_exp -> . dec_term pm_op
+    (52) dec_term -> . dec_fact md_op
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
-    COMP_AND        reduce using rule 64 (s_exp -> dec_exp comp_op .)
-    COMP_OR         reduce using rule 64 (s_exp -> dec_exp comp_op .)
-    RIGHTPAREN      reduce using rule 64 (s_exp -> dec_exp comp_op .)
+    LEFTPAREN       shift and go to state 115
+    ID              shift and go to state 110
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
+    dec_exp                        shift and go to state 189
+    dec_term                       shift and go to state 112
+    dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 173
 
-    (65) comp_op -> COMP_LESS . dec_exp
+    (65) comp_op -> COMP_EQUAL . dec_exp
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
     dec_exp                        shift and go to state 190
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 174
 
-    (66) comp_op -> COMP_GREATER . dec_exp
+    (66) comp_op -> COMP_NOTEQUAL . dec_exp
     (46) dec_exp -> . dec_term pm_op
     (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (56) dec_fact -> . var_cte
+    (57) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (90) var_cte -> . ID
+    (91) var_cte -> . CTEI
+    (92) var_cte -> . CTEF
+    (93) var_cte -> . SIGN
 
+    LEFTPAREN       shift and go to state 115
     ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    CTEI            shift and go to state 116
+    CTEF            shift and go to state 117
+    SIGN            shift and go to state 118
 
     dec_exp                        shift and go to state 191
     dec_term                       shift and go to state 112
     dec_fact                       shift and go to state 113
+    var_cte                        shift and go to state 114
 
 state 175
 
-    (67) comp_op -> COMP_EQUAL . dec_exp
-    (46) dec_exp -> . dec_term pm_op
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (67) comp_op -> empty .
 
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    COMP_AND        reduce using rule 67 (comp_op -> empty .)
+    COMP_OR         reduce using rule 67 (comp_op -> empty .)
+    RIGHTPAREN      reduce using rule 67 (comp_op -> empty .)
 
-    dec_exp                        shift and go to state 192
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 176
 
-    (68) comp_op -> COMP_NOTEQUAL . dec_exp
-    (46) dec_exp -> . dec_term pm_op
-    (52) dec_term -> . dec_fact md_op
-    (56) dec_fact -> . ID
-    (57) dec_fact -> . CTEF
-    (58) dec_fact -> . CTEI
-    (59) dec_fact -> . LEFTPAREN h_exp RIGHTPAREN
+    (73) dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .
 
-    ID              shift and go to state 110
-    CTEF            shift and go to state 114
-    CTEI            shift and go to state 115
-    LEFTPAREN       shift and go to state 116
+    ID              reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    INCO            reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    OUTCO           reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    IF              reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    WHILE           reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    RETURN          reduce using rule 73 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
 
-    dec_exp                        shift and go to state 193
-    dec_term                       shift and go to state 112
-    dec_fact                       shift and go to state 113
 
 state 177
 
-    (69) comp_op -> empty .
+    (77) call_more -> COMMA call .
 
-    COMP_AND        reduce using rule 69 (comp_op -> empty .)
-    COMP_OR         reduce using rule 69 (comp_op -> empty .)
-    RIGHTPAREN      reduce using rule 69 (comp_op -> empty .)
+    RIGHTPAREN      reduce using rule 77 (call_more -> COMMA call .)
 
 
 state 178
 
-    (75) dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .
+    (89) dec_method -> ID DOT ID LEFTPAREN dec_exp_method . RIGHTPAREN SEMICOLON
 
-    ID              reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    INCO            reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    OUTCO           reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    IF              reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    WHILE           reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
-    RETURN          reduce using rule 75 (dec_call -> ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON .)
+    RIGHTPAREN      shift and go to state 192
 
 
 state 179
 
-    (79) call_more -> COMMA call .
+    (79) dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .
 
-    RIGHTPAREN      reduce using rule 79 (call_more -> COMMA call .)
+    ID              reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    INCO            reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    OUTCO           reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    IF              reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    WHILE           reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    RETURN          reduce using rule 79 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
 
 
 state 180
 
-    (91) dec_method -> ID DOT ID LEFTPAREN dec_exp_method . RIGHTPAREN SEMICOLON
+    (80) dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .
 
-    RIGHTPAREN      shift and go to state 194
+    ID              reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    INCO            reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    OUTCO           reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    IF              reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    WHILE           reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    RETURN          reduce using rule 80 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
 
 
 state 181
 
-    (81) dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .
+    (83) write_more -> COMMA write .
 
-    ID              reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    INCO            reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    OUTCO           reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    IF              reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    WHILE           reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
-    RETURN          reduce using rule 81 (dec_read -> INCO LEFTPAREN ID RIGHTPAREN SEMICOLON .)
+    RIGHTPAREN      reduce using rule 83 (write_more -> COMMA write .)
 
 
 state 182
 
-    (82) dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .
+    (85) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET . dec_block RIGHTBRACKET dec_else
+    (34) dec_block -> . block
+    (35) dec_block -> . empty
+    (36) block -> . statement block_more
+    (94) empty -> .
+    (39) statement -> . dec_assign
+    (40) statement -> . dec_call
+    (41) statement -> . dec_read
+    (42) statement -> . dec_write
+    (43) statement -> . dec_condition
+    (44) statement -> . dec_cycle
+    (45) statement -> . dec_method
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    ID              reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    INCO            reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    OUTCO           reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    IF              reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    WHILE           reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
-    RETURN          reduce using rule 82 (dec_write -> OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
+    ID              shift and go to state 77
+    INCO            shift and go to state 89
+    OUTCO           shift and go to state 90
+    IF              shift and go to state 91
+    WHILE           shift and go to state 92
 
+    dec_block                      shift and go to state 193
+    block                          shift and go to state 79
+    empty                          shift and go to state 80
+    statement                      shift and go to state 81
+    dec_assign                     shift and go to state 82
+    dec_call                       shift and go to state 83
+    dec_read                       shift and go to state 84
+    dec_write                      shift and go to state 85
+    dec_condition                  shift and go to state 86
+    dec_cycle                      shift and go to state 87
+    dec_method                     shift and go to state 88
 
 state 183
 
-    (85) write_more -> COMMA write .
+    (88) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET . dec_block RIGHTBRACKET
+    (34) dec_block -> . block
+    (35) dec_block -> . empty
+    (36) block -> . statement block_more
+    (94) empty -> .
+    (39) statement -> . dec_assign
+    (40) statement -> . dec_call
+    (41) statement -> . dec_read
+    (42) statement -> . dec_write
+    (43) statement -> . dec_condition
+    (44) statement -> . dec_cycle
+    (45) statement -> . dec_method
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      reduce using rule 85 (write_more -> COMMA write .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
+    ID              shift and go to state 77
+    INCO            shift and go to state 89
+    OUTCO           shift and go to state 90
+    IF              shift and go to state 91
+    WHILE           shift and go to state 92
 
+    dec_block                      shift and go to state 194
+    block                          shift and go to state 79
+    empty                          shift and go to state 80
+    statement                      shift and go to state 81
+    dec_assign                     shift and go to state 82
+    dec_call                       shift and go to state 83
+    dec_read                       shift and go to state 84
+    dec_write                      shift and go to state 85
+    dec_condition                  shift and go to state 86
+    dec_cycle                      shift and go to state 87
+    dec_method                     shift and go to state 88
 
 state 184
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET . dec_block RIGHTBRACKET dec_else
-    (34) dec_block -> . block
-    (35) dec_block -> . empty
-    (36) block -> . statement block_more
-    (96) empty -> .
-    (39) statement -> . dec_assign
-    (40) statement -> . dec_call
-    (41) statement -> . dec_read
-    (42) statement -> . dec_write
-    (43) statement -> . dec_condition
-    (44) statement -> . dec_cycle
-    (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
-
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
-    ID              shift and go to state 77
-    INCO            shift and go to state 89
-    OUTCO           shift and go to state 90
-    IF              shift and go to state 91
-    WHILE           shift and go to state 92
-
-    dec_block                      shift and go to state 195
-    block                          shift and go to state 79
-    empty                          shift and go to state 80
-    statement                      shift and go to state 81
-    dec_assign                     shift and go to state 82
-    dec_call                       shift and go to state 83
-    dec_read                       shift and go to state 84
-    dec_write                      shift and go to state 85
-    dec_condition                  shift and go to state 86
-    dec_cycle                      shift and go to state 87
-    dec_method                     shift and go to state 88
-
-state 185
-
-    (90) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET . dec_block RIGHTBRACKET
-    (34) dec_block -> . block
-    (35) dec_block -> . empty
-    (36) block -> . statement block_more
-    (96) empty -> .
-    (39) statement -> . dec_assign
-    (40) statement -> . dec_call
-    (41) statement -> . dec_read
-    (42) statement -> . dec_write
-    (43) statement -> . dec_condition
-    (44) statement -> . dec_cycle
-    (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
-
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
-    ID              shift and go to state 77
-    INCO            shift and go to state 89
-    OUTCO           shift and go to state 90
-    IF              shift and go to state 91
-    WHILE           shift and go to state 92
-
-    dec_block                      shift and go to state 196
-    block                          shift and go to state 79
-    empty                          shift and go to state 80
-    statement                      shift and go to state 81
-    dec_assign                     shift and go to state 82
-    dec_call                       shift and go to state 83
-    dec_read                       shift and go to state 84
-    dec_write                      shift and go to state 85
-    dec_condition                  shift and go to state 86
-    dec_cycle                      shift and go to state 87
-    dec_method                     shift and go to state 88
-
-state 186
-
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars . dec_fun RIGHTBRACKET SEMICOLON
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars . dec_fun RIGHTBRACKET SEMICOLON
     (24) dec_fun -> . fun
     (25) dec_fun -> . empty
     (26) fun -> . FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
-    (96) empty -> .
+    (94) empty -> .
 
     FUN             shift and go to state 11
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
 
-    dec_fun                        shift and go to state 197
+    dec_fun                        shift and go to state 195
     fun                            shift and go to state 9
     empty                          shift and go to state 10
 
-state 187
+state 185
 
     (26) fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .
 
@@ -2482,183 +2534,183 @@ state 187
     RIGHTBRACKET    reduce using rule 26 (fun -> FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
 
 
+state 186
+
+    (59) ao_op -> COMP_AND h_exp .
+
+    RIGHTPAREN      reduce using rule 59 (ao_op -> COMP_AND h_exp .)
+
+
+state 187
+
+    (60) ao_op -> COMP_OR h_exp .
+
+    RIGHTPAREN      reduce using rule 60 (ao_op -> COMP_OR h_exp .)
+
+
 state 188
 
-    (61) ao_op -> COMP_AND h_exp .
+    (63) comp_op -> COMP_LESS dec_exp .
 
-    RIGHTPAREN      reduce using rule 61 (ao_op -> COMP_AND h_exp .)
+    COMP_AND        reduce using rule 63 (comp_op -> COMP_LESS dec_exp .)
+    COMP_OR         reduce using rule 63 (comp_op -> COMP_LESS dec_exp .)
+    RIGHTPAREN      reduce using rule 63 (comp_op -> COMP_LESS dec_exp .)
 
 
 state 189
 
-    (62) ao_op -> COMP_OR h_exp .
+    (64) comp_op -> COMP_GREATER dec_exp .
 
-    RIGHTPAREN      reduce using rule 62 (ao_op -> COMP_OR h_exp .)
+    COMP_AND        reduce using rule 64 (comp_op -> COMP_GREATER dec_exp .)
+    COMP_OR         reduce using rule 64 (comp_op -> COMP_GREATER dec_exp .)
+    RIGHTPAREN      reduce using rule 64 (comp_op -> COMP_GREATER dec_exp .)
 
 
 state 190
 
-    (65) comp_op -> COMP_LESS dec_exp .
+    (65) comp_op -> COMP_EQUAL dec_exp .
 
-    COMP_AND        reduce using rule 65 (comp_op -> COMP_LESS dec_exp .)
-    COMP_OR         reduce using rule 65 (comp_op -> COMP_LESS dec_exp .)
-    RIGHTPAREN      reduce using rule 65 (comp_op -> COMP_LESS dec_exp .)
+    COMP_AND        reduce using rule 65 (comp_op -> COMP_EQUAL dec_exp .)
+    COMP_OR         reduce using rule 65 (comp_op -> COMP_EQUAL dec_exp .)
+    RIGHTPAREN      reduce using rule 65 (comp_op -> COMP_EQUAL dec_exp .)
 
 
 state 191
 
-    (66) comp_op -> COMP_GREATER dec_exp .
+    (66) comp_op -> COMP_NOTEQUAL dec_exp .
 
-    COMP_AND        reduce using rule 66 (comp_op -> COMP_GREATER dec_exp .)
-    COMP_OR         reduce using rule 66 (comp_op -> COMP_GREATER dec_exp .)
-    RIGHTPAREN      reduce using rule 66 (comp_op -> COMP_GREATER dec_exp .)
+    COMP_AND        reduce using rule 66 (comp_op -> COMP_NOTEQUAL dec_exp .)
+    COMP_OR         reduce using rule 66 (comp_op -> COMP_NOTEQUAL dec_exp .)
+    RIGHTPAREN      reduce using rule 66 (comp_op -> COMP_NOTEQUAL dec_exp .)
 
 
 state 192
 
-    (67) comp_op -> COMP_EQUAL dec_exp .
+    (89) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN . SEMICOLON
 
-    COMP_AND        reduce using rule 67 (comp_op -> COMP_EQUAL dec_exp .)
-    COMP_OR         reduce using rule 67 (comp_op -> COMP_EQUAL dec_exp .)
-    RIGHTPAREN      reduce using rule 67 (comp_op -> COMP_EQUAL dec_exp .)
+    SEMICOLON       shift and go to state 196
 
 
 state 193
 
-    (68) comp_op -> COMP_NOTEQUAL dec_exp .
+    (85) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET dec_else
 
-    COMP_AND        reduce using rule 68 (comp_op -> COMP_NOTEQUAL dec_exp .)
-    COMP_OR         reduce using rule 68 (comp_op -> COMP_NOTEQUAL dec_exp .)
-    RIGHTPAREN      reduce using rule 68 (comp_op -> COMP_NOTEQUAL dec_exp .)
+    RIGHTBRACKET    shift and go to state 197
 
 
 state 194
 
-    (91) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN . SEMICOLON
+    (88) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET
 
-    SEMICOLON       shift and go to state 198
+    RIGHTBRACKET    shift and go to state 198
 
 
 state 195
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET dec_else
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun . RIGHTBRACKET SEMICOLON
 
     RIGHTBRACKET    shift and go to state 199
 
 
 state 196
 
-    (90) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET
+    (89) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .
 
-    RIGHTBRACKET    shift and go to state 200
+    ID              reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    INCO            reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    OUTCO           reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    IF              reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    WHILE           reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    RETURN          reduce using rule 89 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
 
 
 state 197
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun . RIGHTBRACKET SEMICOLON
+    (85) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET . dec_else
+    (86) dec_else -> . ELSE LEFTBRACKET dec_block RIGHTBRACKET
+    (87) dec_else -> . empty
+    (94) empty -> .
 
-    RIGHTBRACKET    shift and go to state 201
+    ELSE            shift and go to state 201
+    ID              reduce using rule 94 (empty -> .)
+    INCO            reduce using rule 94 (empty -> .)
+    OUTCO           reduce using rule 94 (empty -> .)
+    IF              reduce using rule 94 (empty -> .)
+    WHILE           reduce using rule 94 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
+    RETURN          reduce using rule 94 (empty -> .)
 
+    dec_else                       shift and go to state 200
+    empty                          shift and go to state 202
 
 state 198
 
-    (91) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .
+    (88) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .
 
-    ID              reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    INCO            reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    OUTCO           reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    IF              reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    WHILE           reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
-    RETURN          reduce using rule 91 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
+    ID              reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    INCO            reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    OUTCO           reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    IF              reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    WHILE           reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    RIGHTBRACKET    reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    RETURN          reduce using rule 88 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
 
 
 state 199
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET . dec_else
-    (88) dec_else -> . ELSE LEFTBRACKET dec_block RIGHTBRACKET
-    (89) dec_else -> . empty
-    (96) empty -> .
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET . SEMICOLON
 
-    ELSE            shift and go to state 203
-    ID              reduce using rule 96 (empty -> .)
-    INCO            reduce using rule 96 (empty -> .)
-    OUTCO           reduce using rule 96 (empty -> .)
-    IF              reduce using rule 96 (empty -> .)
-    WHILE           reduce using rule 96 (empty -> .)
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
-    RETURN          reduce using rule 96 (empty -> .)
+    SEMICOLON       shift and go to state 203
 
-    dec_else                       shift and go to state 202
-    empty                          shift and go to state 204
 
 state 200
 
-    (90) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .
+    (85) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .
 
-    ID              reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    INCO            reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    OUTCO           reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    IF              reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    WHILE           reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    RIGHTBRACKET    reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
-    RETURN          reduce using rule 90 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
+    ID              reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    INCO            reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    OUTCO           reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    IF              reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    WHILE           reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    RIGHTBRACKET    reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    RETURN          reduce using rule 85 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
 
 
 state 201
 
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET . SEMICOLON
+    (86) dec_else -> ELSE . LEFTBRACKET dec_block RIGHTBRACKET
 
-    SEMICOLON       shift and go to state 205
+    LEFTBRACKET     shift and go to state 204
 
 
 state 202
 
-    (87) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .
+    (87) dec_else -> empty .
 
-    ID              reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    INCO            reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    OUTCO           reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    IF              reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    WHILE           reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    RIGHTBRACKET    reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
-    RETURN          reduce using rule 87 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
+    ID              reduce using rule 87 (dec_else -> empty .)
+    INCO            reduce using rule 87 (dec_else -> empty .)
+    OUTCO           reduce using rule 87 (dec_else -> empty .)
+    IF              reduce using rule 87 (dec_else -> empty .)
+    WHILE           reduce using rule 87 (dec_else -> empty .)
+    RIGHTBRACKET    reduce using rule 87 (dec_else -> empty .)
+    RETURN          reduce using rule 87 (dec_else -> empty .)
 
 
 state 203
 
-    (88) dec_else -> ELSE . LEFTBRACKET dec_block RIGHTBRACKET
+    (68) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON .
 
-    LEFTBRACKET     shift and go to state 206
+    MAIN            reduce using rule 68 (dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON .)
 
 
 state 204
 
-    (89) dec_else -> empty .
-
-    ID              reduce using rule 89 (dec_else -> empty .)
-    INCO            reduce using rule 89 (dec_else -> empty .)
-    OUTCO           reduce using rule 89 (dec_else -> empty .)
-    IF              reduce using rule 89 (dec_else -> empty .)
-    WHILE           reduce using rule 89 (dec_else -> empty .)
-    RIGHTBRACKET    reduce using rule 89 (dec_else -> empty .)
-    RETURN          reduce using rule 89 (dec_else -> empty .)
-
-
-state 205
-
-    (70) dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON .
-
-    MAIN            reduce using rule 70 (dec_class -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON .)
-
-
-state 206
-
-    (88) dec_else -> ELSE LEFTBRACKET . dec_block RIGHTBRACKET
+    (86) dec_else -> ELSE LEFTBRACKET . dec_block RIGHTBRACKET
     (34) dec_block -> . block
     (35) dec_block -> . empty
     (36) block -> . statement block_more
-    (96) empty -> .
+    (94) empty -> .
     (39) statement -> . dec_assign
     (40) statement -> . dec_call
     (41) statement -> . dec_read
@@ -2666,22 +2718,22 @@ state 206
     (43) statement -> . dec_condition
     (44) statement -> . dec_cycle
     (45) statement -> . dec_method
-    (74) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
-    (75) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (81) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
-    (82) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (87) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (90) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (91) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (72) dec_assign -> . ID COMP_EQUAL dec_exp SEMICOLON
+    (73) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (79) dec_read -> . INCO LEFTPAREN ID RIGHTPAREN SEMICOLON
+    (80) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (85) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (88) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (89) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    RIGHTBRACKET    reduce using rule 96 (empty -> .)
+    RIGHTBRACKET    reduce using rule 94 (empty -> .)
     ID              shift and go to state 77
     INCO            shift and go to state 89
     OUTCO           shift and go to state 90
     IF              shift and go to state 91
     WHILE           shift and go to state 92
 
-    dec_block                      shift and go to state 207
+    dec_block                      shift and go to state 205
     block                          shift and go to state 79
     empty                          shift and go to state 80
     statement                      shift and go to state 81
@@ -2693,34 +2745,28 @@ state 206
     dec_cycle                      shift and go to state 87
     dec_method                     shift and go to state 88
 
-state 207
+state 205
 
-    (88) dec_else -> ELSE LEFTBRACKET dec_block . RIGHTBRACKET
+    (86) dec_else -> ELSE LEFTBRACKET dec_block . RIGHTBRACKET
 
-    RIGHTBRACKET    shift and go to state 208
+    RIGHTBRACKET    shift and go to state 206
 
 
-state 208
+state 206
 
-    (88) dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .
+    (86) dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .
 
-    ID              reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    INCO            reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    OUTCO           reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    IF              reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    WHILE           reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    RIGHTBRACKET    reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
-    RETURN          reduce using rule 88 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    ID              reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    INCO            reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    OUTCO           reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    IF              reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    WHILE           reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    RIGHTBRACKET    reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
+    RETURN          reduce using rule 86 (dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: reduce/reduce conflict in state 126 resolved using rule (dec_fact -> ID)
-WARNING: rejected rule (var_cte -> ID) in state 126
-WARNING: reduce/reduce conflict in state 127 resolved using rule (dec_fact -> CTEI)
-WARNING: rejected rule (var_cte -> CTEI) in state 127
-WARNING: reduce/reduce conflict in state 128 resolved using rule (dec_fact -> CTEF)
-WARNING: rejected rule (var_cte -> CTEF) in state 128
-WARNING: Rule (var_cte -> ID) is never reduced
-WARNING: Rule (var_cte -> CTEI) is never reduced
-WARNING: Rule (var_cte -> CTEF) is never reduced
+WARNING: shift/reduce conflict for COMMA in state 127 resolved as shift
+WARNING: reduce/reduce conflict in state 127 resolved using rule (dec_fact -> var_cte)
+WARNING: rejected rule (empty -> <empty>) in state 127

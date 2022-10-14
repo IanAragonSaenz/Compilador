@@ -26,7 +26,7 @@ def t_CTEF(t):
 	return t
 
 def t_ID(t):
-	r'[A-za-z]([A-za-z]|[0-9])*'
+	r'[A-za-z][A-za-z0-9]*'
 	t.type = reserved.get(t.value, 'ID')
 	return t
 

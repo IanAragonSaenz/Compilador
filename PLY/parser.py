@@ -1,6 +1,10 @@
+from symbol_table import symbolTable
+
+list = []
+
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET'''
-    p[0] = "COMPILED"
+    p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
 
 
 
@@ -10,38 +14,66 @@ def p_program(p):
 def p_dec_vars(p):
     '''dec_vars : VAR vars SEMICOLON 
                 | empty'''
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = p[2]
+    #list.append(symbolTable.add(p[0], p[2]))
 
 ## elige entre simple o complejo
 def p_vars(p):
     '''vars : vars_simple 
             | vars_complex'''
+    p[0] = p[1]
 
 ## se hace vars simple poniendo su tipo y luego la declaracion
 def p_vars_simple(p):
     '''vars_simple : type_simple vars_simple_dec '''
+    p[0] = (p[1], p[2])
 
 ## se llama al id para poder poner arrays o no y el more para loopear
 def p_vars_simple_dec(p):
     '''vars_simple_dec : vars_simple_id vars_simple_more'''
+    if p[2]:
+        if type(p[2]) is list:
+            p[0] = p[2].append(p[1])
+        else:
+            p[0] = [p[2], p[1]]
+    else:
+        p[0] = p[1]
+    
+    
 
 ## Loopea para multiples declaraciones
 def p_vars_simple_more(p):
     '''vars_simple_more : COMMA vars_simple_dec
                         | empty'''
+    if len(p) == 3:
+        p[0] = p[2]
 
 ## Pone el id y la posibilidad de que sea array
 def p_vars_simple_id(p):
     '''vars_simple_id : ID vars_simple_arr'''
+    p[0] = [p[1], p[2]]
     
 ## opcion para tener array de una dimension
 def p_vars_simple_arr(p):
     '''vars_simple_arr : LEFTKEY CTEI RIGHTKEY vars_simple_arr2
                         | empty'''
+    if len(p) == 5:
+        if p[4]:
+            p[0] = [p[2], p[4]]
+        else:
+            p[0] = [p[2]]
+    else:
+        p[0] = []
 
 ## opcion para tener array de dos dimensiones o dejarlo en una
 def p_vars_simple_arr2(p):
     '''vars_simple_arr2 : LEFTKEY CTEI RIGHTKEY
                         | empty'''
+    if len(p) == 4:
+        p[0] = p[2]
 
 ##
 ## declaracion de vars complejas
@@ -55,16 +87,19 @@ def p_vars_complex_more(p):
     '''vars_complex_more : COMMA vars_complex_dec
                         | empty'''
 
+
 ## tipos simples
 def p_type_simple(p):
     '''type_simple : INT
             | FLOAT
             | CHAR'''
+    p[0] = p[1]
             
 ## tipos complejos           
 def p_type_complex(p):
     '''type_complex : FILE
             | ID'''
+    p[0] = p[1]
             
 
             
@@ -155,9 +190,7 @@ def p_md_op(p):
 
 ## declaracion de factor
 def p_dec_fact(p):
-    '''dec_fact : ID
-                | CTEF
-                | CTEI
+    '''dec_fact : var_cte
                 | LEFTPAREN h_exp RIGHTPAREN'''
 
 ## declaracion de hiper expresion             
@@ -300,6 +333,9 @@ if __name__ == '__main__':
             f = open(file, 'r')
             data = f.read()
             f.close()
+
+            print(yacc.parse(data))
+            
             if yacc.parse(data) == "COMPILED":
                 print("Compilado")
         except EOFError:
