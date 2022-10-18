@@ -1,5 +1,5 @@
 program hola;
-var int yes, hola, xd[1];
+var int yes, hola, xd;
 class square: inherit circle{
 	private:
 	var int cont;

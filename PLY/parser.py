@@ -1,6 +1,6 @@
 from symbol_table import symbolTable
 
-list = []
+table = symbolTable()
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET'''
@@ -14,10 +14,14 @@ def p_program(p):
 def p_dec_vars(p):
     '''dec_vars : VAR vars SEMICOLON 
                 | empty'''
-    if len(p) == 2:
-        p[0] = p[1]
-    else:
+    if len(p) == 4:
         p[0] = p[2]
+        print("dec_vars", p[2])
+        
+
+    print(table)
+        
+    
     #list.append(symbolTable.add(p[0], p[2]))
 
 ## elige entre simple o complejo
@@ -36,11 +40,12 @@ def p_vars_simple_dec(p):
     '''vars_simple_dec : vars_simple_id vars_simple_more'''
     if p[2]:
         if type(p[2]) is list:
-            p[0] = p[2].append(p[1])
+            p[2].append(p[1])
+            p[0] = p[2]
         else:
             p[0] = [p[2], p[1]]
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
     
     
 
@@ -79,13 +84,24 @@ def p_vars_simple_arr2(p):
 ## declaracion de vars complejas
 def p_vars_complex(p):
     '''vars_complex : type_complex vars_complex_dec '''
+    p[0] = (p[1], p[2])
 
 def p_vars_complex_dec(p):
     '''vars_complex_dec : ID vars_complex_more '''
+    if p[2]:
+        if type(p[2]) is list:
+            p[0] = p[2].append(p[1])
+        else:
+            p[0] = [p[2], p[1]]
+    else:
+        p[0] = p[1]
+
 
 def p_vars_complex_more(p):
     '''vars_complex_more : COMMA vars_complex_dec
                         | empty'''
+    if len(p) == 3:
+        p[0] = p[2]
 
 
 ## tipos simples
@@ -112,9 +128,12 @@ def p_type_complex(p):
 def p_dec_fun(p):
     '''dec_fun : fun
                 | empty'''
+    if p[1]:
+        p[0] = p[1]
 
 def p_fun(p):
     '''fun : FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
+    p[0] = (p[2], p[3], p[4])
 
 def p_param_pos(p):
     '''param_pos : param
