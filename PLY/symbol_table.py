@@ -1,42 +1,61 @@
 class symbolTable:
-
+    
     def __init__(self):
         self.symbol = {}
         self.dirV = [None] * 1000
     
 
-    def addVar(self, id, dtype, type):
+    def idSplit(self, id, dtype, gtype):
+        for index in id:
+            val = self.addVar(index[0], dtype, gtype)
+            if val < 0:
+                return val
+        return 1
+
+
+    
+    def addVar(self, id, dtype, gtype):
         if id in self.symbol:
-            return "error variable is already declared"
+            # "error variable is already declared"
+            return -1
         
-        dirv = self.dirVGet(type)
+        dirv = self.dirVGet(gtype)
 
         if dirv == -1:
-            return "error no more memory for variable"
+            # "error no more memory for variable"
+            return -2
+
 
         if dtype == 'char':
             self.dirV[dirv] = ''
         else:
             self.dirV[dirv] = 0
 
-        self.symbol[id] = {
-            'type': dtype,
-            'dirV': dirv
-        }
+        self.symbol[id] = {}
+        self.symbol[id]['type'] = dtype
+        self.symbol[id]['dirV'] = dirv
 
-    def dirVGet(self, type):
+        return dirv
+    
+    
+    def checkVar(self, id):
+        if id not in self.symbol:
+            # "error variable no declarada"
+            return -1
+        
+    def dirVGet(self, gtype):
         min = 0
         max = 0
-        if type == 'global':
+        if gtype == 'global':
             min = 0
             max = 250
-        elif self.type == 'local':
+        elif gtype == 'local':
             min = 250
             max = 500
-        elif type == 'temporal':
+        elif gtype == 'temporal':
             min = 500
             max = 750
-        elif type == 'cte':
+        elif gtype == 'cte':
             min = 750
             max = 1000
         
@@ -44,7 +63,7 @@ class symbolTable:
             if self.dirV[x] == None:
                 return x
 
-        return -1
+        return 0
 
     def __str__(self):
         return f'Symbol Table is {self.symbol}'

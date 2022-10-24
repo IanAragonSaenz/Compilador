@@ -18,7 +18,7 @@ tokens = ['LEFTPAREN','RIGHTPAREN', 'LEFTBRACKET', 'RIGHTBRACKET', 'SEMICOLON', 
 def t_CTEI(t):
 	r'\d+'
 	t.value = int(t.value)
-	return t;
+	return t
 
 def t_CTEF(t):
 	r'[0-9]*\.[0-9]+|[0-9]+'

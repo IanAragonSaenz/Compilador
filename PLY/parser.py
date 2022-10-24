@@ -16,13 +16,12 @@ def p_dec_vars(p):
                 | empty'''
     if len(p) == 4:
         p[0] = p[2]
-        print("dec_vars", p[2])
-        
 
-    print(table)
+        #print(table)
+        ret = table.idSplit(p[2][1], p[2][0], 'global')
+        if ret == -1:
+            print("Error: variable ya declarada")
         
-    
-    #list.append(symbolTable.add(p[0], p[2]))
 
 ## elige entre simple o complejo
 def p_vars(p):
@@ -187,50 +186,84 @@ def p_statement(p):
 ##
 
 def p_dec_exp(p):
-    '''dec_exp : dec_term pm_op'''
-                
+    '''dec_exp : dec_exp_s'''
+    p[0] = str(p[1])
+    print(p[0])
+
+def p_dec_exp_s(p):
+    '''dec_exp_s : dec_term pm_op'''
+    p[0] = str(p[1]) + str(p[2])
+
 def p_pm_op(p):
-    '''pm_op : PLUS dec_exp
-                | MINUS dec_term
+    '''pm_op : PLUS dec_exp_s
+                | MINUS dec_exp_s
                 | empty'''
+    if len(p) == 3:
+        p[0] = str(p[1]) + str(p[2])
+    else:
+        p[0] = ''
 
 def p_dec_exp_method(p):
-    '''dec_exp_method : dec_exp
+    '''dec_exp_method : dec_exp_s
                         | empty'''
+    if p[1]:
+        p[0] = p[1]
+    else:
+        p[0] = ''
                         
 ## declaracion de term
 def p_dec_term(p):
     '''dec_term : dec_fact md_op'''
+    p[0] = str(p[1]) + str(p[2])
                 
 def p_md_op(p):
     '''md_op : TIMES dec_term
                 | DIVIDE dec_term
                 | empty'''
+    if len(p) == 3:
+        p[0] = str(p[1]) + str(p[2])
+    else:
+        p[0] = ''
 
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : var_cte
                 | LEFTPAREN h_exp RIGHTPAREN'''
+    if len(p) == 2:
+        p[0] = str(p[1])
+    else:
+        p[0] = '(' + str(p[2]) + ')'
 
 ## declaracion de hiper expresion             
 def p_h_exp(p):
     '''h_exp : s_exp ao_op'''
+    p[0] = str(p[1]) + str(p[2])
+
 
 def p_ao_op(p):
     '''ao_op : COMP_AND h_exp
                 | COMP_OR h_exp
                 | empty'''
+    if len(p) == 3:
+        p[0] = str(p[1]) + str(p[2])
+    else:
+        p[0] = ''
 
 ## DECLARACION DE SUPER EXPRESION
 def p_s_exp(p):
-    '''s_exp : dec_exp comp_op'''
+    '''s_exp : dec_exp_s comp_op'''
+    p[0] = str(p[1]) + str(p[2])
     
 def p_comp_op(p):
-    '''comp_op : COMP_LESS dec_exp
-                | COMP_GREATER dec_exp
-                | COMP_EQUAL dec_exp
-                | COMP_NOTEQUAL dec_exp
+    '''comp_op : COMP_LESS s_exp
+                | COMP_GREATER s_exp
+                | COMP_EQUAL s_exp
+                | COMP_NOTEQUAL s_exp
                 | empty'''
+    if len(p) == 3:
+        p[0] = str(p[1]) + str(p[2])
+    else:
+        p[0] = ''
 
 
 
@@ -261,10 +294,10 @@ def p_dec_inherit(p):
 
 
 def p_dec_assign(p):
-    '''dec_assign : ID COMP_EQUAL dec_exp SEMICOLON'''
+    '''dec_assign : var_id COMP_EQUAL dec_exp SEMICOLON'''
 
 def p_dec_call(p):
-    '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
+    '''dec_call : fun_id LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
     
 def p_call_pos(p):
     '''call_pos : call
@@ -320,10 +353,23 @@ def p_dec_method(p):
 
 
 def p_var_cte(p):
-    '''var_cte : ID
+    '''var_cte : var_id
                | CTEI
                | CTEF
                | SIGN'''
+    p[0] = p[1]
+
+def p_var_id(p):
+    '''var_id : ID'''
+    p[0] = p[1]
+    if table.checkVar(p[1]) == -1:
+        print("Error: Variable", p[1], "no definida")
+
+def p_fun_id(p):
+    '''fun_id : ID'''
+    p[0] = p[1]
+    #if table.checkVar(p[1]) == -1:
+    #    print("Error: Variable", p[1], "no definida")
 
 
 # Error rule for syntax errors
@@ -352,10 +398,10 @@ if __name__ == '__main__':
             f = open(file, 'r')
             data = f.read()
             f.close()
-
-            print(yacc.parse(data))
+            dat = yacc.parse(data)
+            print(dat)
             
-            if yacc.parse(data) == "COMPILED":
+            if dat == "COMPILED":
                 print("Compilado")
         except EOFError:
             print(EOFError)
