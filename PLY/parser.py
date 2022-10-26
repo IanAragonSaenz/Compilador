@@ -1,7 +1,7 @@
 from symbol_table import symbolTable
-
+from SCube import sCube
 table = symbolTable()
-
+cube = sCube()
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
@@ -202,6 +202,8 @@ def p_pm_op(p):
         p[0] = str(p[1]) + str(p[2])
     else:
         p[0] = ''
+    
+    
 
 def p_dec_exp_method(p):
     '''dec_exp_method : dec_exp_s
