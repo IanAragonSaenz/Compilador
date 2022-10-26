@@ -1,5 +1,9 @@
 from symbol_table import symbolTable
 from SCube import sCube
+from Cuadruplos import cuadruplos
+import numpy as np
+
+cuad = cuadruplos()
 table = symbolTable()
 cube = sCube()
 def p_program(p):
@@ -187,21 +191,30 @@ def p_statement(p):
 
 def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
-    p[0] = str(p[1])
+    p[0] = p[1]
     print(p[0])
+    cuad.readEXP(p[0])
+    print(cuad)
+    cuad.clearCache()
+
+    
 
 def p_dec_exp_s(p):
     '''dec_exp_s : dec_term pm_op'''
-    p[0] = str(p[1]) + str(p[2])
+    #p[0] = str(p[1]) + str(p[2])
+    p[0] = p[1] + p[2]
+    #cuad.checkPlusMinus()
 
 def p_pm_op(p):
     '''pm_op : PLUS dec_exp_s
                 | MINUS dec_exp_s
                 | empty'''
     if len(p) == 3:
-        p[0] = str(p[1]) + str(p[2])
+        #p[0] = str(p[1]) + str(p[2])
+        p[0] = [p[1]] + p[2]
+        #cuad.addOP(p[1])
     else:
-        p[0] = ''
+        p[0] = []
     
     
 
@@ -211,35 +224,43 @@ def p_dec_exp_method(p):
     if p[1]:
         p[0] = p[1]
     else:
-        p[0] = ''
+        p[0] = []
                         
 ## declaracion de term
 def p_dec_term(p):
     '''dec_term : dec_fact md_op'''
-    p[0] = str(p[1]) + str(p[2])
-                
+    #p[0] = str(p[1]) + str(p[2])
+    p[0] = p[1] + p[2]
+    #cuad.checkMultDiv()
+
 def p_md_op(p):
     '''md_op : TIMES dec_term
                 | DIVIDE dec_term
                 | empty'''
     if len(p) == 3:
-        p[0] = str(p[1]) + str(p[2])
+        #p[0] = str(p[1]) + str(p[2])
+        p[0] = [p[1]] + p[2]
+
+        #cuad.addOP(p[1])
     else:
-        p[0] = ''
+        p[0] = []
 
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : var_cte
                 | LEFTPAREN h_exp RIGHTPAREN'''
     if len(p) == 2:
-        p[0] = str(p[1])
+        #p[0] = str(p[1])
+        p[0] = [str(p[1])]
+        #cuad.addVP(p[1])
     else:
-        p[0] = '(' + str(p[2]) + ')'
+        p[0] = ['(', str(p[2]), ')']
 
 ## declaracion de hiper expresion             
 def p_h_exp(p):
     '''h_exp : s_exp ao_op'''
-    p[0] = str(p[1]) + str(p[2])
+    #p[0] = str(p[1]) + str(p[2])
+    p[0] = p[1] + p[2]
 
 
 def p_ao_op(p):
@@ -247,14 +268,16 @@ def p_ao_op(p):
                 | COMP_OR h_exp
                 | empty'''
     if len(p) == 3:
-        p[0] = str(p[1]) + str(p[2])
+        #p[0] = str(p[1]) + str(p[2])
+        p[0] = [p[1]] + p[2]
     else:
-        p[0] = ''
+        p[0] = []
 
 ## DECLARACION DE SUPER EXPRESION
 def p_s_exp(p):
     '''s_exp : dec_exp_s comp_op'''
-    p[0] = str(p[1]) + str(p[2])
+    #p[0] = str(p[1]) + str(p[2])
+    p[0] = p[1] + p[2]
     
 def p_comp_op(p):
     '''comp_op : COMP_LESS s_exp
@@ -263,9 +286,10 @@ def p_comp_op(p):
                 | COMP_NOTEQUAL s_exp
                 | empty'''
     if len(p) == 3:
-        p[0] = str(p[1]) + str(p[2])
+        #p[0] = str(p[1]) + str(p[2])
+        p[0] = [p[1]] + p[2]
     else:
-        p[0] = ''
+        p[0] = []
 
 
 
