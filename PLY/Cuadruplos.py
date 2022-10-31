@@ -22,7 +22,34 @@ class cuadruplos:
 
         while plusminus:
             plusminus = self.checkPlusMinus()
-
+            
+    
+    def polishEval(self, exp):
+        operators = ["+", "-", "*", "/"]
+        operandStack = []
+        tokenList = self.vp
+        
+        for token in tokenList:
+            if token in operators:
+                operand2 = operandStack.pop()
+                operand1 = operandStack.pop()
+                result = self.calculate(token, operand1, operand2)
+                operandStack.append(result)
+            else:
+                operandStack.append(float(token))
+        return operandStack.pop()
+    
+    
+    def calculate(self, operator, operand1, operand2):
+        if operator == "+":
+            return operand1 + operand2
+        elif operator == "-":
+            return operand1 - operand2
+        elif operator == "*":
+            return operand1 * operand2
+        elif operator == "/":
+            return operand1 / operand2
+        
     def clearCache(self):
         self.vp = []
         self.pOper = []
@@ -51,6 +78,7 @@ class cuadruplos:
         return 0
 
     def __str__(self):
+        print("Exp result is", self.polishEval("1+2*3/4-5"))
         return f'VP is {self.vp}'
         
 #1+3*4-2
