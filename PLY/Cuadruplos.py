@@ -1,10 +1,15 @@
+from symbol_table import symbolTable
+
 class cuadruplos:
     def __init__(self):
         self.vp = []
         self.pOper = []
         self.pSalto = []
         
+    #polishEval(readExp("3+1*1"))
     def readEXP(self, exp):
+        #3*1
+        # 3 
         plusminus = 1
         for index in exp:
             if index != '+' and index != '-' and index != '/' and index != '*':
@@ -19,12 +24,16 @@ class cuadruplos:
             elif index == '*' or index == '/':
                 self.checkMultDiv()
                 self.addOP(index)
-
+        
+        multdiv = 1
+        while multdiv:
+            multdiv = self.checkMultDiv()
         while plusminus:
             plusminus = self.checkPlusMinus()
             
+            
     
-    def polishEval(self, exp):
+    def polishEval(self, table: symbolTable):
         operators = ["+", "-", "*", "/"]
         operandStack = []
         tokenList = self.vp
@@ -36,7 +45,10 @@ class cuadruplos:
                 result = self.calculate(token, operand1, operand2)
                 operandStack.append(result)
             else:
-                operandStack.append(float(token))
+                if token[0].isalpha():
+                    operandStack.append(float(table.getIdVal(token)))
+                else:
+                    operandStack.append(float(token))
         return operandStack.pop()
     
     
@@ -78,7 +90,7 @@ class cuadruplos:
         return 0
 
     def __str__(self):
-        print("Exp result is", self.polishEval("1+2*3/4-5"))
+        print("Exp result is", self.polishEval())
         return f'VP is {self.vp}'
         
 #1+3*4-2

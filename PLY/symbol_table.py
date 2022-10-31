@@ -5,11 +5,16 @@ class symbolTable:
         self.dirV = [None] * 1000
     
 
-    def idSplit(self, id, dtype, gtype):
-        for index in id:
-            val = self.addVar(index[0], dtype, gtype)
-            if val < 0:
-                return val
+    def idSplit(self, vars, gtype):
+        dtype = ''
+        for index in range(len(vars)):
+            if index%2 == 0:
+                dtype = vars[index]
+            else:
+                for var in vars[index]:
+                    val = self.addVar(var[0], dtype, gtype)
+                    if val < 0:
+                        return val
         return 1
 
 
@@ -42,7 +47,31 @@ class symbolTable:
         if id not in self.symbol:
             # "error variable no declarada"
             return -1
+        return 1
+    
+    def assignVal(self, val, id):
+       if self.checkVar(id) > 0:
+            if self.getValType(val) == self.symbol[id]['type'] or (self.symbol[id]['type'] == 'float' and self.getValType(val) == 'int'):
+                self.dirV[self.symbol[id]['dirV']] = val                
+            else:
+                print("Error type mismatch", val)
         
+    def getValType(self, val):
+        if type(val) is str:
+            return "char"
+        elif type(val) is int:
+            return "int"
+        elif type(val) is float:
+            if val.is_integer():
+                return "int"
+            return "float"
+        elif type(val) is bool:
+            return "bool"
+    
+    def getIdVal(self, id):
+        return self.dirV[self.symbol[id]['dirV']]
+
+
     def dirVGet(self, gtype):
         min = 0
         max = 0

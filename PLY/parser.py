@@ -1,30 +1,50 @@
 from symbol_table import symbolTable
 from SCube import sCube
 from Cuadruplos import cuadruplos
-import numpy as np
 
 cuad = cuadruplos()
 table = symbolTable()
 cube = sCube()
 def p_program(p):
-    '''program : PROGRAM ID SEMICOLON dec_vars dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars dec_block RIGHTBRACKET'''
+    '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
+    print(table)
 
 
 
 ##
 ##          DECLARACION DE VARIABLES
 ##
-def p_dec_vars(p):
-    '''dec_vars : VAR vars SEMICOLON 
+def p_dec_vars_mult(p):
+    '''dec_vars_mult : dec_vars_idk
                 | empty'''
-    if len(p) == 4:
-        p[0] = p[2]
+    if p[1]:
+        p[0] = p[1]
 
-        #print(table)
-        ret = table.idSplit(p[2][1], p[2][0], 'global')
+        ret = table.idSplit(p[0], 'global')
         if ret == -1:
             print("Error: variable ya declarada")
+        # [int, [['sum', []], ['count', []]],  float, [['salaverga', []]]]
+
+def p_dec_vars_idk(p):
+    '''dec_vars_idk : dec_vars dec_vars_more'''
+    if len(p) == 3:
+        if p[2]:
+            vars = p[1] + p[2]
+            p[0] = vars
+        else:
+            p[0] = p[1]
+
+def p_dec_vars_more(p):
+    '''dec_vars_more : dec_vars_idk
+                    | empty'''
+    if p[1]:
+        p[0] = p[1]
+
+def p_dec_vars(p):
+    '''dec_vars : VAR vars SEMICOLON'''
+    if len(p) == 4:
+        p[0] = p[2]
         
 
 ## elige entre simple o complejo
@@ -135,7 +155,7 @@ def p_dec_fun(p):
         p[0] = p[1]
 
 def p_fun(p):
-    '''fun : FUN fun_type ID LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
+    '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
     p[0] = (p[2], p[3], p[4])
 
 def p_param_pos(p):
@@ -192,9 +212,11 @@ def p_statement(p):
 def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
     p[0] = p[1]
-    print(p[0])
     cuad.readEXP(p[0])
-    print(cuad)
+    result = cuad.polishEval(table)
+    p[0] = result
+    print(p[0])
+    #print(cuad)
     cuad.clearCache()
 
     
@@ -301,7 +323,7 @@ def p_comp_op(p):
 ##
 
 def p_dec_class(p):
-    '''dec_class : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars dec_fun PUBLIC COLON dec_vars dec_fun RIGHTBRACKET SEMICOLON
+    '''dec_class : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON
                     | empty'''
 
 def p_dec_inherit(p):
@@ -321,7 +343,8 @@ def p_dec_inherit(p):
 
 def p_dec_assign(p):
     '''dec_assign : var_id COMP_EQUAL dec_exp SEMICOLON'''
-
+    table.assignVal(p[3], p[1])
+    #num = 1
 def p_dec_call(p):
     '''dec_call : fun_id LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
     
@@ -426,7 +449,6 @@ if __name__ == '__main__':
             f.close()
             dat = yacc.parse(data)
             print(dat)
-            
             if dat == "COMPILED":
                 print("Compilado")
         except EOFError:
