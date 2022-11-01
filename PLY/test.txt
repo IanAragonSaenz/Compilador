@@ -11,7 +11,8 @@ class square: inherit circle{
 };
 main() {
 	var int salaverga, sope, yessir;
-	if(1+2*3/4-5){
+	salaverga = 21+3;
+	if(3){
  		salaverga = 3*1;
 	}else{
 		sope = salaverga+1;

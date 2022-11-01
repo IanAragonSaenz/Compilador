@@ -212,6 +212,7 @@ def p_statement(p):
 def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
     p[0] = p[1]
+    print(p[0])
     cuad.readEXP(p[0])
     result = cuad.polishEval(table)
     p[0] = result
@@ -223,18 +224,14 @@ def p_dec_exp(p):
 
 def p_dec_exp_s(p):
     '''dec_exp_s : dec_term pm_op'''
-    #p[0] = str(p[1]) + str(p[2])
     p[0] = p[1] + p[2]
-    #cuad.checkPlusMinus()
 
 def p_pm_op(p):
     '''pm_op : PLUS dec_exp_s
                 | MINUS dec_exp_s
                 | empty'''
     if len(p) == 3:
-        #p[0] = str(p[1]) + str(p[2])
         p[0] = [p[1]] + p[2]
-        #cuad.addOP(p[1])
     else:
         p[0] = []
     
@@ -251,37 +248,38 @@ def p_dec_exp_method(p):
 ## declaracion de term
 def p_dec_term(p):
     '''dec_term : dec_fact md_op'''
-    #p[0] = str(p[1]) + str(p[2])
     p[0] = p[1] + p[2]
-    #cuad.checkMultDiv()
 
 def p_md_op(p):
     '''md_op : TIMES dec_term
                 | DIVIDE dec_term
                 | empty'''
     if len(p) == 3:
-        #p[0] = str(p[1]) + str(p[2])
         p[0] = [p[1]] + p[2]
 
-        #cuad.addOP(p[1])
     else:
         p[0] = []
 
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : var_cte
+                | hyper_call'''
+    if type(p[1]) is list:
+        p[0] = p[1]
+    else:
+        p[0] = [str(p[1])]
+
+def p_hyper_call(p):
+    '''hyper_call : h_exp
                 | LEFTPAREN h_exp RIGHTPAREN'''
     if len(p) == 2:
-        #p[0] = str(p[1])
-        p[0] = [str(p[1])]
-        #cuad.addVP(p[1])
+        p[0] = p[1]
     else:
-        p[0] = ['(', str(p[2]), ')']
-
+        p[0] = ['('] + p[2] + [')']
+    
 ## declaracion de hiper expresion             
 def p_h_exp(p):
     '''h_exp : s_exp ao_op'''
-    #p[0] = str(p[1]) + str(p[2])
     p[0] = p[1] + p[2]
 
 
@@ -290,7 +288,6 @@ def p_ao_op(p):
                 | COMP_OR h_exp
                 | empty'''
     if len(p) == 3:
-        #p[0] = str(p[1]) + str(p[2])
         p[0] = [p[1]] + p[2]
     else:
         p[0] = []
@@ -298,7 +295,6 @@ def p_ao_op(p):
 ## DECLARACION DE SUPER EXPRESION
 def p_s_exp(p):
     '''s_exp : dec_exp_s comp_op'''
-    #p[0] = str(p[1]) + str(p[2])
     p[0] = p[1] + p[2]
     
 def p_comp_op(p):
@@ -308,7 +304,6 @@ def p_comp_op(p):
                 | COMP_NOTEQUAL s_exp
                 | empty'''
     if len(p) == 3:
-        #p[0] = str(p[1]) + str(p[2])
         p[0] = [p[1]] + p[2]
     else:
         p[0] = []
@@ -346,7 +341,7 @@ def p_dec_assign(p):
     table.assignVal(p[3], p[1])
     #num = 1
 def p_dec_call(p):
-    '''dec_call : fun_id LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
+    '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
     
 def p_call_pos(p):
     '''call_pos : call
@@ -386,7 +381,12 @@ def p_write_more(p):
 ## declaracion condicion
 def p_dec_condition(p):
     '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
-
+    if not p[3]:
+        print("False")
+    elif type(p[3]) is str:
+        print("Type mismatch")
+    else:
+        print("True")
 def p_dec_else(p):
     '''dec_else : ELSE LEFTBRACKET dec_block RIGHTBRACKET
                 | empty'''
