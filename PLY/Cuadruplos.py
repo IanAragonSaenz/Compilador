@@ -19,15 +19,50 @@ class cuadruplos:
     def saveExpCuads(self, exp):
         self.readEXP(exp)
         val = self.expCuads()
-        print(self)
         self.clearCache()
         return val
 
-    def saveAssignCuads(self, id, val):
-        cuadruplo =  {'accion': '=', 'val1': val, 'val2': '', 'final': id}
+    def saveAssignCuads(self, assign):
+        val = self.saveExpCuads(assign[2])
+        cuadruplo =  {'accion': '=', 'val1': val, 'val2': '', 'final': assign[1]}
         self.cuad.append(cuadruplo)
         self.count = self.count + 1
-        print(self)
+        
+    def saveConditionCuads(self, code):
+        val = self.saveExpCuads(code[1])
+        cuadruplo =  {'accion': 'gotoF', 'val1': val, 'val2': '', 'final': ''}
+        self.cuad.append(cuadruplo)
+        self.count = self.count + 1
+        self.pSalto.append(self.count-1)
+        
+        for block in code[2]:
+            self.blockHandle(block)
+
+        # check for else
+        if code[3]:
+            falso = self.pSalto.pop()
+            cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': ''}
+            self.cuad.append(cuadruplo)
+            self.count = self.count + 1
+            self.pSalto.append(self.count-1)
+            self.cuad[falso]['final'] = self.count
+            for block in code[3]:
+                self.blockHandle(block)
+
+        salto = self.pSalto.pop()
+        self.cuad[salto]['final'] = self.count
+
+        
+
+    def blockHandle(self, code):
+        if code[0] == 'condition':
+            self.saveConditionCuads(code)
+            
+        elif code[0] == 'assign':
+            self.saveAssignCuads(code)
+            # ['assign', p[1], p[3]]
+
+
 
     def expCuads(self):
         operandStack = []
@@ -141,7 +176,6 @@ class cuadruplos:
     def clearCache(self):
         self.vp = []
         self.pOper = []
-        self.pSalto = []
             
     def addVP(self, val):
         self.vp.append(val)
@@ -179,5 +213,10 @@ class cuadruplos:
         return 0
 
     def __str__(self):
-        return f'VP is {self.cuad}'
+        print('\nCuadruplos is')
+        c = 0
+        for x in self.cuad:
+            print(f'\n{c}. {x}')
+            c = c+1
+        return f''
         

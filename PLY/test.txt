@@ -6,6 +6,9 @@ main() {
 	var int salaverga, sope, yessir;
 	salaverga = 21+3;
 	if(3+2){
- 		salaverga = 3*1;
+		sope = 3;
+	}else{
+		salaverga = 420;
 	}
+	yessir = 3;
 }

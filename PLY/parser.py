@@ -16,9 +16,13 @@ def p_program(p):
     #    cuad.saveFunCuads()
 
     for block in p[12]:
-        print(block)
+        cuad.blockHandle(block)
+        #print(block)
+    
     
     print(table)
+    print(cuad)
+
 
 
 
@@ -406,11 +410,13 @@ def p_dec_condition(p):
 def p_dec_else(p):
     '''dec_else : ELSE LEFTBRACKET dec_block RIGHTBRACKET
                 | empty'''
+    if len(p) == 5:
+        p[0] = p[3]
 
 ## declaracion while
 def p_dec_cycle(p):
     '''dec_cycle : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
-
+    #p[0] = ['while', p[3], p[6]]
 ## llamada metodo
 def p_dec_method(p):
     '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
