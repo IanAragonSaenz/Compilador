@@ -8,6 +8,16 @@ cube = sCube()
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
+    
+    #for fun in p[5]:
+    #    cuad.saveFunCuads()
+
+    #for c in p[6]:
+    #    cuad.saveFunCuads()
+
+    for block in p[12]:
+        print(block)
+    
     print(table)
 
 
@@ -83,6 +93,7 @@ def p_vars_simple_more(p):
 def p_vars_simple_id(p):
     '''vars_simple_id : ID vars_simple_arr'''
     p[0] = [p[1], p[2]]
+    #print(p[0])
     
 ## opcion para tener array de una dimension
 def p_vars_simple_arr(p):
@@ -183,13 +194,24 @@ def p_fun_type(p):
 def p_dec_block(p):
     '''dec_block : block
                 | empty'''
+    if p[1]:
+        p[0] = p[1]
+    
 
 def p_block(p):
     '''block : statement block_more'''
+    
+    if p[2]:
+        vars = p[1] + p[2]
+        p[0] = vars
+    else:
+        p[0] = p[1]
 
 def p_block_more(p):
     '''block_more : block
                     | empty'''
+    if p[1]:
+        p[0] = p[1]
 
 def p_statement(p):
     '''statement : dec_assign
@@ -199,6 +221,7 @@ def p_statement(p):
                         | dec_condition
                         | dec_cycle
                         | dec_method'''
+    p[0] = [p[1]]
 
 
 
@@ -212,15 +235,7 @@ def p_statement(p):
 def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
     p[0] = p[1]
-    print(p[0])
-    cuad.readEXP(p[0])
-    result = cuad.polishEval(table)
-    p[0] = result
-    print(p[0])
-    #print(cuad)
-    cuad.clearCache()
 
-    
 
 def p_dec_exp_s(p):
     '''dec_exp_s : dec_term pm_op'''
@@ -338,8 +353,11 @@ def p_dec_inherit(p):
 
 def p_dec_assign(p):
     '''dec_assign : var_id COMP_EQUAL dec_exp SEMICOLON'''
-    table.assignVal(p[3], p[1])
-    #num = 1
+    #val = cuad.saveExpCuads(p[3])
+    #cuad.saveAssignCuads(p[1], val)
+    # count = 1+2
+    #table.assignVal(p[3], p[1])
+    p[0] = ['assign', p[1], p[3]]
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
     
@@ -381,12 +399,10 @@ def p_write_more(p):
 ## declaracion condicion
 def p_dec_condition(p):
     '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
-    if not p[3]:
-        print("False")
-    elif type(p[3]) is str:
-        print("Type mismatch")
-    else:
-        print("True")
+    #cuad.saveExpCuads(p[3])
+    p[0] = ['condition', p[3], p[6], p[8]]
+
+
 def p_dec_else(p):
     '''dec_else : ELSE LEFTBRACKET dec_block RIGHTBRACKET
                 | empty'''

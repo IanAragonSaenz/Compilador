@@ -10,11 +10,48 @@ class cuadruplos:
         self.multDiv = ["*", "/"]
         self.comparison = ["<", ">", "==", "<>"]
         self.andOr = ["&&", "||"]
+        self.t = 1
+        self.count = 0
+        self.cuad = []
+        #{'accion' : '*', 'val1' : '1', 'val2' : 'count', 'final' : 't3'}
         
-    #polishEval(readExp("3+1*1"))
+    
+    def saveExpCuads(self, exp):
+        self.readEXP(exp)
+        val = self.expCuads()
+        print(self)
+        self.clearCache()
+        return val
+
+    def saveAssignCuads(self, id, val):
+        cuadruplo =  {'accion': '=', 'val1': val, 'val2': '', 'final': id}
+        self.cuad.append(cuadruplo)
+        self.count = self.count + 1
+        print(self)
+
+    def expCuads(self):
+        operandStack = []
+        tokenList = self.vp
+        
+        for token in tokenList:
+            if token in self.operators:
+                operand2 = operandStack.pop()
+                operand1 = operandStack.pop()
+                #result = self.calculate(token, operand1, operand2)
+                cuadruplo =  {'accion': token, 'val1': operand1, 'val2': operand2, 'final': 't{}'.format(self.t)}
+                self.cuad.append(cuadruplo)
+                self.count = self.count + 1
+                operandStack.append('t{}'.format(self.t))
+                self.t = self.t + 1
+                
+            else:
+                if token[0].isalpha():
+                    operandStack.append(token)
+                else:
+                    operandStack.append(float(token))
+        return operandStack.pop()
+        
     def readEXP(self, exp):
-        #3*1
-        # 3 
         for index in exp:
             if index not in self.operators:
                 self.addVP(index)
@@ -111,7 +148,6 @@ class cuadruplos:
         
     def addOP(self, val):
         self.pOper.append(val)
-        #print('Added ',val)
         
     def checkPlusMinus(self):
         if len(self.pOper) > 0 and self.pOper[-1] in self.plusMinus:
@@ -143,7 +179,5 @@ class cuadruplos:
         return 0
 
     def __str__(self):
-        print("Exp result is", self.polishEval())
-        return f'VP is {self.vp}'
+        return f'VP is {self.cuad}'
         
-#1+3*4-2

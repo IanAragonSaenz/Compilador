@@ -1,21 +1,11 @@
 program hola;
 var int yes, sepsp, xd;
 var float no, caca;
-class square: inherit circle{
-	private:
-	var int cont;
-	public:
-	fun float sum(){ 
-		return 2;
-	}
-};
+
 main() {
 	var int salaverga, sope, yessir;
 	salaverga = 21+3;
-	if(3){
+	if(3+2){
  		salaverga = 3*1;
-	}else{
-		sope = salaverga+1;
-		yessir = salaverga + sope;
 	}
 }
