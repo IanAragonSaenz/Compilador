@@ -2,9 +2,11 @@ from symbol_table import symbolTable
 from SCube import sCube
 from Cuadruplos import cuadruplos
 
-cuad = cuadruplos()
+
 table = symbolTable()
 cube = sCube()
+cuad = cuadruplos(table)
+
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
@@ -16,10 +18,9 @@ def p_program(p):
     #    cuad.saveFunCuads()
 
     for block in p[12]:
+        print(block)
         cuad.blockHandle(block)
-        #print(block)
-    
-    
+        
     print(table)
     print(cuad)
 
@@ -97,7 +98,7 @@ def p_vars_simple_more(p):
 def p_vars_simple_id(p):
     '''vars_simple_id : ID vars_simple_arr'''
     p[0] = [p[1], p[2]]
-    #print(p[0])
+    print(p[0])
     
 ## opcion para tener array de una dimension
 def p_vars_simple_arr(p):
@@ -164,29 +165,49 @@ def p_type_complex(p):
 ##
 
 def p_dec_fun(p):
-    '''dec_fun : fun
+    '''dec_fun : dec_fun_idk
                 | empty'''
+    if p[1]:
+        p[0] = p[1] 
+
+def p_dec_fun_idk(p):
+    '''dec_fun_idk : fun dec_fun_more'''
+    if p[2]:
+        funs = p[1] + p[2]
+        p[0] = funs
+    else:
+        p[0] = p[1]
+
+def p_dec_fun_more(p):
+    '''dec_fun_more : dec_vars_idk
+                    | empty'''
     if p[1]:
         p[0] = p[1]
 
 def p_fun(p):
     '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
-    p[0] = (p[2], p[3], p[4])
+    p[0] = [p[2], p[3], p[5], p[8], p[10]]
 
 def p_param_pos(p):
     '''param_pos : param
                 | empty'''
+    if p[1]:
+        p[0] = p[1]
 
 def p_param(p):
     '''param : type_simple ID param_more'''
+    p[0] = [[p[1], p[2]]] + p[3]
 
 def p_param_more(p):
     '''param_more : COMMA param
                 | empty'''
+    if len(p) == 3:
+        p[0] = p[2]
 
 def p_fun_type(p):
     '''fun_type : type_simple
                 | VOID'''
+    p[0] = p[1]
 
 
 
@@ -286,7 +307,7 @@ def p_dec_fact(p):
     if type(p[1]) is list:
         p[0] = p[1]
     else:
-        p[0] = [str(p[1])]
+        p[0] = [p[1]]
 
 def p_hyper_call(p):
     '''hyper_call : h_exp
@@ -337,8 +358,25 @@ def p_comp_op(p):
 ##
 
 def p_dec_class(p):
-    '''dec_class : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON
+    '''dec_class : dec_class_idk
                     | empty'''
+
+def p_dec_class_idk(p):
+    '''dec_class_idk : class_body dec_class_more'''
+    if p[2]:
+        classes = p[1] + p[2]
+        p[0] = classes
+    else:
+        p[0] = p[1]
+
+def p_dec_class_more(p):
+    '''dec_class_more : dec_class_idk
+                    | empty'''
+    if p[1]:
+        p[0] = p[1]
+
+def p_class_body(p):
+    '''class_body : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON'''
 
 def p_dec_inherit(p):
     '''dec_inherit : COLON INHERIT ID
@@ -387,19 +425,26 @@ def p_call_more(p):
 
 
 def p_dec_read(p):
-    '''dec_read : INCO LEFTPAREN ID RIGHTPAREN SEMICOLON'''
-
+    '''dec_read : INCO LEFTPAREN var_id RIGHTPAREN SEMICOLON'''
+    p[0] = ['inco', p[3]]
 def p_dec_write(p):
     '''dec_write : OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON'''
+    p[0] = ['outco', p[3]]
 
 def p_write(p):
-    '''write : dec_exp write_more
-            | var_cte write_more'''
+    '''write : dec_exp write_more'''
+    if p[2]:
+        write = [p[1]] + p[2]
+        p[0] = write
+    else:
+        p[0] = [p[1]]
 
 def p_write_more(p):
     '''write_more : COMMA write 
                 | empty'''
-
+    if len(p) == 3:
+        p[0] = p[2]
+    
 ## declaracion condicion
 def p_dec_condition(p):
     '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
@@ -416,7 +461,7 @@ def p_dec_else(p):
 ## declaracion while
 def p_dec_cycle(p):
     '''dec_cycle : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
-    #p[0] = ['while', p[3], p[6]]
+    p[0] = ['while', p[3], p[6]]
 ## llamada metodo
 def p_dec_method(p):
     '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
@@ -425,9 +470,13 @@ def p_dec_method(p):
 
 def p_var_cte(p):
     '''var_cte : var_id
-               | CTEI
+               | var_const'''
+    p[0] = p[1]
+
+def p_var_const(p):
+    '''var_const : CTEI
                | CTEF
-               | SIGN'''
+               | CHAR_DEC'''
     p[0] = p[1]
 
 def p_var_id(p):

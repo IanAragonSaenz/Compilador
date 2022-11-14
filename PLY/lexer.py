@@ -11,7 +11,7 @@ reserved = {'program':'PROGRAM','var':'VAR', 'if':'IF', 'else':'ELSE', 'int':'IN
 
 tokens = ['LEFTPAREN','RIGHTPAREN', 'LEFTBRACKET', 'RIGHTBRACKET', 'SEMICOLON', 'COMP_EQUAL', 'COMP_NOTEQUAL',
 		  'COMMA', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'CTEI', 'CTEF', 'ID', 'COMP_GREATER', 
-		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY', 'DOT', 'SIGN'] + list(reserved.values())
+		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY', 'DOT', 'SIGN', 'CHAR_DEC'] + list(reserved.values())
 
 #Definimos las regex
 
@@ -26,8 +26,9 @@ def t_CTEF(t):
 	return t
 
 def t_ID(t):
-	r'([A-z]|[a-z])([A-z]|[a-z]|[0-9])*'
+	r'[a-zA-Z_][a-zA-Z_0-9]*'
 	t.type = reserved.get(t.value, 'ID')
+	print(t)
 	return t
 
 def t_newline(t):	
@@ -38,10 +39,14 @@ def t_comment(t):
     r'\//.*'
     pass
 
-def t_SIGN(t):
-    r'\"([A-za-z]|[0-9])*\"'
-    pass
+#def t_SIGN(t):
+#    r'\"([A-za-z]|[0-9])*\"'
+#    pass
 
+def t_CHAR_DEC(t):
+	r'\"[A-za-z0-9]\"'
+	t.value = str(t.value)
+	return t
 
 def t_error(t):
 	print("Illegal character '%s'" % t.value[0])

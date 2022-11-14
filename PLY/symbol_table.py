@@ -57,9 +57,7 @@ class symbolTable:
                 print("Error type mismatch", val)
         
     def getValType(self, val):
-        if type(val) is str:
-            return "char"
-        elif type(val) is int:
+        if type(val) is int:
             return "int"
         elif type(val) is float:
             if val.is_integer():
@@ -68,9 +66,14 @@ class symbolTable:
         elif type(val) is bool:
             return "bool"
     
+ #   def changeIdType(self, id):
+        
+
     def getIdVal(self, id):
         return self.dirV[self.symbol[id]['dirV']]
 
+    def getIdType(self, id):
+        return self.symbol[id]['type']
 
     def dirVGet(self, gtype):
         min = 0

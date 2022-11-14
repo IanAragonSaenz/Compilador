@@ -1,14 +1,24 @@
 program hola;
-var int yes, sepsp, xd;
-var float no, caca;
+var int yes[10], sepsp, xd;
+var float no, si;
+
+
 
 main() {
-	var int salaverga, sope, yessir;
-	salaverga = 21+3;
-	if(3+2){
+	var int numero, sope, yessir;
+	var char hello;
+	hello = "c";
+	numero = 21+3;
+	outco(numero, sope, yessir, 1-4);
+	inco(sope);
+	if(3+2*3/4){
 		sope = 3;
 	}else{
-		salaverga = 420;
+		numero = 420;
+	}
+
+	while(3>4){
+		yessir = 22*2;
 	}
 	yessir = 3;
 }
