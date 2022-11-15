@@ -28,7 +28,6 @@ def t_CTEF(t):
 def t_ID(t):
 	r'[a-zA-Z_][a-zA-Z_0-9]*'
 	t.type = reserved.get(t.value, 'ID')
-	print(t)
 	return t
 
 def t_newline(t):	

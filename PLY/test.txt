@@ -2,6 +2,14 @@ program hola;
 var int yes[10], sepsp, xd;
 var float no, si;
 
+fun int fib(int param1, int param2){
+	var float prepucio;
+	if(3){
+		param1 = param2;
+	}
+
+	return 3;
+}
 
 
 main() {

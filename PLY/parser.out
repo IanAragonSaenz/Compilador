@@ -39,7 +39,7 @@ Rule 29    dec_fun -> empty
 Rule 30    dec_fun_idk -> fun dec_fun_more
 Rule 31    dec_fun_more -> dec_vars_idk
 Rule 32    dec_fun_more -> empty
-Rule 33    fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+Rule 33    fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 Rule 34    param_pos -> param
 Rule 35    param_pos -> empty
 Rule 36    param -> type_simple ID param_more
@@ -199,7 +199,7 @@ dec_term             : 54 61 62
 dec_vars             : 4
 dec_vars_idk         : 2 5 31
 dec_vars_more        : 4
-dec_vars_mult        : 1 1 83 83
+dec_vars_mult        : 1 1 33 83 83
 dec_write            : 49
 empty                : 3 6 13 16 18 22 29 32 35 38 42 45 57 59 63 71 77 79 82 85 89 92 97 100
 fun                  : 30
@@ -290,7 +290,7 @@ state 5
     (29) dec_fun -> . empty
     (30) dec_fun_idk -> . fun dec_fun_more
     (110) empty -> .
-    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     CLASS           reduce using rule 110 (empty -> .)
     MAIN            reduce using rule 110 (empty -> .)
@@ -315,6 +315,7 @@ state 6
     WHILE           reduce using rule 2 (dec_vars_mult -> dec_vars_idk .)
     RIGHTBRACKET    reduce using rule 2 (dec_vars_mult -> dec_vars_idk .)
     PUBLIC          reduce using rule 2 (dec_vars_mult -> dec_vars_idk .)
+    RETURN          reduce using rule 2 (dec_vars_mult -> dec_vars_idk .)
 
 
 state 7
@@ -331,6 +332,7 @@ state 7
     WHILE           reduce using rule 3 (dec_vars_mult -> empty .)
     RIGHTBRACKET    reduce using rule 3 (dec_vars_mult -> empty .)
     PUBLIC          reduce using rule 3 (dec_vars_mult -> empty .)
+    RETURN          reduce using rule 3 (dec_vars_mult -> empty .)
 
 
 state 8
@@ -352,6 +354,7 @@ state 8
     OUTCO           reduce using rule 110 (empty -> .)
     IF              reduce using rule 110 (empty -> .)
     WHILE           reduce using rule 110 (empty -> .)
+    RETURN          reduce using rule 110 (empty -> .)
     VAR             shift and go to state 9
 
     dec_vars                       shift and go to state 8
@@ -443,7 +446,7 @@ state 13
 
 state 14
 
-    (33) fun -> FUN . fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN . fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
     (39) fun_type -> . type_simple
     (40) fun_type -> . VOID
     (23) type_simple -> . INT
@@ -472,6 +475,7 @@ state 15
     OUTCO           reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     IF              reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     WHILE           reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
+    RETURN          reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
 
 
 state 16
@@ -488,6 +492,7 @@ state 16
     OUTCO           reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     IF              reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     WHILE           reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
+    RETURN          reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
 
 
 state 17
@@ -504,6 +509,7 @@ state 17
     OUTCO           reduce using rule 6 (dec_vars_more -> empty .)
     IF              reduce using rule 6 (dec_vars_more -> empty .)
     WHILE           reduce using rule 6 (dec_vars_more -> empty .)
+    RETURN          reduce using rule 6 (dec_vars_more -> empty .)
 
 
 state 18
@@ -659,7 +665,7 @@ state 35
 
 state 36
 
-    (33) fun -> FUN fun_type . fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type . fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
     (109) fun_id -> . ID
 
     ID              shift and go to state 51
@@ -695,6 +701,7 @@ state 39
     OUTCO           reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     IF              reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     WHILE           reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
+    RETURN          reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
 
 
 state 40
@@ -794,7 +801,7 @@ state 49
 
 state 50
 
-    (33) fun -> FUN fun_type fun_id . LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id . LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     LEFTPAREN       shift and go to state 65
 
@@ -907,7 +914,7 @@ state 64
 
 state 65
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN . param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id LEFTPAREN . param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
     (34) param_pos -> . param
     (35) param_pos -> . empty
     (36) param -> . type_simple ID param_more
@@ -970,7 +977,7 @@ state 71
 
 state 72
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos . RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos . RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     RIGHTPAREN      shift and go to state 80
 
@@ -1048,7 +1055,7 @@ state 79
 
 state 80
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN . LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN . LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     LEFTBRACKET     shift and go to state 87
 
@@ -1152,46 +1159,25 @@ state 86
 
 state 87
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET . dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
-    (41) dec_block -> . block
-    (42) dec_block -> . empty
-    (43) block -> . statement block_more
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET . dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (2) dec_vars_mult -> . dec_vars_idk
+    (3) dec_vars_mult -> . empty
+    (4) dec_vars_idk -> . dec_vars dec_vars_more
     (110) empty -> .
-    (46) statement -> . dec_assign
-    (47) statement -> . dec_call
-    (48) statement -> . dec_read
-    (49) statement -> . dec_write
-    (50) statement -> . dec_condition
-    (51) statement -> . dec_cycle
-    (52) statement -> . dec_method
-    (86) dec_assign -> . var_id COMP_EQUAL dec_exp SEMICOLON
-    (87) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
-    (93) dec_read -> . INCO LEFTPAREN var_id RIGHTPAREN SEMICOLON
-    (94) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
-    (98) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
-    (101) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
-    (102) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
-    (108) var_id -> . ID
+    (7) dec_vars -> . VAR vars SEMICOLON
 
+    ID              reduce using rule 110 (empty -> .)
+    INCO            reduce using rule 110 (empty -> .)
+    OUTCO           reduce using rule 110 (empty -> .)
+    IF              reduce using rule 110 (empty -> .)
+    WHILE           reduce using rule 110 (empty -> .)
     RETURN          reduce using rule 110 (empty -> .)
-    ID              shift and go to state 92
-    INCO            shift and go to state 105
-    OUTCO           shift and go to state 106
-    IF              shift and go to state 107
-    WHILE           shift and go to state 108
+    VAR             shift and go to state 9
 
-    dec_block                      shift and go to state 110
-    block                          shift and go to state 94
-    empty                          shift and go to state 95
-    statement                      shift and go to state 96
-    dec_assign                     shift and go to state 97
-    dec_call                       shift and go to state 98
-    dec_read                       shift and go to state 99
-    dec_write                      shift and go to state 100
-    dec_condition                  shift and go to state 101
-    dec_cycle                      shift and go to state 102
-    dec_method                     shift and go to state 103
-    var_id                         shift and go to state 104
+    dec_vars_mult                  shift and go to state 110
+    dec_vars_idk                   shift and go to state 6
+    empty                          shift and go to state 7
+    dec_vars                       shift and go to state 8
 
 state 88
 
@@ -1440,7 +1426,7 @@ state 109
     (29) dec_fun -> . empty
     (30) dec_fun_idk -> . fun dec_fun_more
     (110) empty -> .
-    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     PUBLIC          reduce using rule 110 (empty -> .)
     FUN             shift and go to state 14
@@ -1452,10 +1438,46 @@ state 109
 
 state 110
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block . RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult . dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (41) dec_block -> . block
+    (42) dec_block -> . empty
+    (43) block -> . statement block_more
+    (110) empty -> .
+    (46) statement -> . dec_assign
+    (47) statement -> . dec_call
+    (48) statement -> . dec_read
+    (49) statement -> . dec_write
+    (50) statement -> . dec_condition
+    (51) statement -> . dec_cycle
+    (52) statement -> . dec_method
+    (86) dec_assign -> . var_id COMP_EQUAL dec_exp SEMICOLON
+    (87) dec_call -> . ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON
+    (93) dec_read -> . INCO LEFTPAREN var_id RIGHTPAREN SEMICOLON
+    (94) dec_write -> . OUTCO LEFTPAREN write RIGHTPAREN SEMICOLON
+    (98) dec_condition -> . IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
+    (101) dec_cycle -> . WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
+    (102) dec_method -> . ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
+    (108) var_id -> . ID
 
-    RETURN          shift and go to state 125
+    RETURN          reduce using rule 110 (empty -> .)
+    ID              shift and go to state 92
+    INCO            shift and go to state 105
+    OUTCO           shift and go to state 106
+    IF              shift and go to state 107
+    WHILE           shift and go to state 108
 
+    dec_block                      shift and go to state 125
+    block                          shift and go to state 94
+    empty                          shift and go to state 95
+    statement                      shift and go to state 96
+    dec_assign                     shift and go to state 97
+    dec_call                       shift and go to state 98
+    dec_read                       shift and go to state 99
+    dec_write                      shift and go to state 100
+    dec_condition                  shift and go to state 101
+    dec_cycle                      shift and go to state 102
+    dec_method                     shift and go to state 103
+    var_id                         shift and go to state 104
 
 state 111
 
@@ -1718,43 +1740,10 @@ state 124
 
 state 125
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN . dec_exp_method SEMICOLON RIGHTBRACKET
-    (58) dec_exp_method -> . dec_exp_s
-    (59) dec_exp_method -> . empty
-    (54) dec_exp_s -> . dec_term pm_op
-    (110) empty -> .
-    (60) dec_term -> . dec_fact md_op
-    (64) dec_fact -> . var_cte
-    (65) dec_fact -> . hyper_call
-    (103) var_cte -> . var_id
-    (104) var_cte -> . var_const
-    (66) hyper_call -> . h_exp
-    (67) hyper_call -> . LEFTPAREN h_exp RIGHTPAREN
-    (108) var_id -> . ID
-    (105) var_const -> . CTEI
-    (106) var_const -> . CTEF
-    (107) var_const -> . CHAR_DEC
-    (68) h_exp -> . s_exp ao_op
-    (72) s_exp -> . dec_exp_s comp_op
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block . RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
-    SEMICOLON       reduce using rule 110 (empty -> .)
-    LEFTPAREN       shift and go to state 127
-    ID              shift and go to state 126
-    CTEI            shift and go to state 140
-    CTEF            shift and go to state 141
-    CHAR_DEC        shift and go to state 142
+    RETURN          shift and go to state 152
 
-    dec_exp_method                 shift and go to state 152
-    dec_exp_s                      shift and go to state 153
-    empty                          shift and go to state 154
-    dec_term                       shift and go to state 133
-    dec_fact                       shift and go to state 134
-    var_cte                        shift and go to state 135
-    hyper_call                     shift and go to state 136
-    var_id                         shift and go to state 137
-    var_const                      shift and go to state 138
-    h_exp                          shift and go to state 139
-    s_exp                          shift and go to state 143
 
 state 126
 
@@ -1799,9 +1788,9 @@ state 127
     CTEF            shift and go to state 141
     CHAR_DEC        shift and go to state 142
 
-    h_exp                          shift and go to state 155
+    h_exp                          shift and go to state 153
     s_exp                          shift and go to state 143
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -1813,7 +1802,7 @@ state 128
 
     (87) dec_call -> ID LEFTPAREN call_pos . RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      shift and go to state 157
+    RIGHTPAREN      shift and go to state 155
 
 
 state 129
@@ -1837,11 +1826,11 @@ state 131
     (92) call_more -> . empty
     (110) empty -> .
 
-    COMMA           shift and go to state 159
+    COMMA           shift and go to state 157
     RIGHTPAREN      reduce using rule 110 (empty -> .)
 
-    call_more                      shift and go to state 158
-    empty                          shift and go to state 160
+    call_more                      shift and go to state 156
+    empty                          shift and go to state 158
 
 state 132
 
@@ -1864,10 +1853,10 @@ state 132
     COMMA           reduce using rule 53 (dec_exp -> dec_exp_s .)
     RIGHTPAREN      reduce using rule 53 (dec_exp -> dec_exp_s .)
     SEMICOLON       reduce using rule 53 (dec_exp -> dec_exp_s .)
-    COMP_LESS       shift and go to state 162
-    COMP_GREATER    shift and go to state 163
-    COMP_EQUAL      shift and go to state 164
-    COMP_NOTEQUAL   shift and go to state 165
+    COMP_LESS       shift and go to state 160
+    COMP_GREATER    shift and go to state 161
+    COMP_EQUAL      shift and go to state 162
+    COMP_NOTEQUAL   shift and go to state 163
     COMP_AND        reduce using rule 110 (empty -> .)
     COMP_OR         reduce using rule 110 (empty -> .)
     TIMES           reduce using rule 110 (empty -> .)
@@ -1883,8 +1872,8 @@ state 132
   ! RIGHTPAREN      [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    comp_op                        shift and go to state 161
-    empty                          shift and go to state 166
+    comp_op                        shift and go to state 159
+    empty                          shift and go to state 164
 
 state 133
 
@@ -1896,8 +1885,8 @@ state 133
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
-    PLUS            shift and go to state 168
-    MINUS           shift and go to state 169
+    PLUS            shift and go to state 166
+    MINUS           shift and go to state 167
     COMP_LESS       reduce using rule 110 (empty -> .)
     COMP_GREATER    reduce using rule 110 (empty -> .)
     COMP_EQUAL      reduce using rule 110 (empty -> .)
@@ -1913,8 +1902,8 @@ state 133
   ! PLUS            [ reduce using rule 110 (empty -> .) ]
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
 
-    pm_op                          shift and go to state 167
-    empty                          shift and go to state 170
+    pm_op                          shift and go to state 165
+    empty                          shift and go to state 168
 
 state 134
 
@@ -1926,8 +1915,8 @@ state 134
 
   ! shift/reduce conflict for TIMES resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
-    TIMES           shift and go to state 172
-    DIVIDE          shift and go to state 173
+    TIMES           shift and go to state 170
+    DIVIDE          shift and go to state 171
     COMP_LESS       reduce using rule 110 (empty -> .)
     COMP_GREATER    reduce using rule 110 (empty -> .)
     COMP_EQUAL      reduce using rule 110 (empty -> .)
@@ -1943,8 +1932,8 @@ state 134
   ! TIMES           [ reduce using rule 110 (empty -> .) ]
   ! DIVIDE          [ reduce using rule 110 (empty -> .) ]
 
-    md_op                          shift and go to state 171
-    empty                          shift and go to state 174
+    md_op                          shift and go to state 169
+    empty                          shift and go to state 172
 
 state 135
 
@@ -2108,8 +2097,8 @@ state 143
 
   ! shift/reduce conflict for COMP_AND resolved as shift
   ! shift/reduce conflict for COMP_OR resolved as shift
-    COMP_AND        shift and go to state 176
-    COMP_OR         shift and go to state 177
+    COMP_AND        shift and go to state 174
+    COMP_OR         shift and go to state 175
     COMP_LESS       reduce using rule 110 (empty -> .)
     COMP_GREATER    reduce using rule 110 (empty -> .)
     COMP_EQUAL      reduce using rule 110 (empty -> .)
@@ -2125,35 +2114,35 @@ state 143
   ! COMP_AND        [ reduce using rule 110 (empty -> .) ]
   ! COMP_OR         [ reduce using rule 110 (empty -> .) ]
 
-    ao_op                          shift and go to state 175
-    empty                          shift and go to state 178
+    ao_op                          shift and go to state 173
+    empty                          shift and go to state 176
 
 state 144
 
     (102) dec_method -> ID DOT ID . LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON
 
-    LEFTPAREN       shift and go to state 179
+    LEFTPAREN       shift and go to state 177
 
 
 state 145
 
     (86) dec_assign -> var_id COMP_EQUAL dec_exp . SEMICOLON
 
-    SEMICOLON       shift and go to state 180
+    SEMICOLON       shift and go to state 178
 
 
 state 146
 
     (93) dec_read -> INCO LEFTPAREN var_id . RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      shift and go to state 181
+    RIGHTPAREN      shift and go to state 179
 
 
 state 147
 
     (94) dec_write -> OUTCO LEFTPAREN write . RIGHTPAREN SEMICOLON
 
-    RIGHTPAREN      shift and go to state 182
+    RIGHTPAREN      shift and go to state 180
 
 
 state 148
@@ -2163,89 +2152,74 @@ state 148
     (97) write_more -> . empty
     (110) empty -> .
 
-    COMMA           shift and go to state 184
+    COMMA           shift and go to state 182
     RIGHTPAREN      reduce using rule 110 (empty -> .)
 
-    write_more                     shift and go to state 183
-    empty                          shift and go to state 185
+    write_more                     shift and go to state 181
+    empty                          shift and go to state 183
 
 state 149
 
     (98) dec_condition -> IF LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else
 
-    RIGHTPAREN      shift and go to state 186
+    RIGHTPAREN      shift and go to state 184
 
 
 state 150
 
     (101) dec_cycle -> WHILE LEFTPAREN dec_exp . RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET
 
-    RIGHTPAREN      shift and go to state 187
+    RIGHTPAREN      shift and go to state 185
 
 
 state 151
 
     (83) class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC . COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON
 
-    COLON           shift and go to state 188
+    COLON           shift and go to state 186
 
 
 state 152
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method . SEMICOLON RIGHTBRACKET
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN . dec_exp_method SEMICOLON RIGHTBRACKET
+    (58) dec_exp_method -> . dec_exp_s
+    (59) dec_exp_method -> . empty
+    (54) dec_exp_s -> . dec_term pm_op
+    (110) empty -> .
+    (60) dec_term -> . dec_fact md_op
+    (64) dec_fact -> . var_cte
+    (65) dec_fact -> . hyper_call
+    (103) var_cte -> . var_id
+    (104) var_cte -> . var_const
+    (66) hyper_call -> . h_exp
+    (67) hyper_call -> . LEFTPAREN h_exp RIGHTPAREN
+    (108) var_id -> . ID
+    (105) var_const -> . CTEI
+    (106) var_const -> . CTEF
+    (107) var_const -> . CHAR_DEC
+    (68) h_exp -> . s_exp ao_op
+    (72) s_exp -> . dec_exp_s comp_op
 
-    SEMICOLON       shift and go to state 189
+    SEMICOLON       reduce using rule 110 (empty -> .)
+    LEFTPAREN       shift and go to state 127
+    ID              shift and go to state 126
+    CTEI            shift and go to state 140
+    CTEF            shift and go to state 141
+    CHAR_DEC        shift and go to state 142
 
+    dec_exp_method                 shift and go to state 187
+    dec_exp_s                      shift and go to state 188
+    empty                          shift and go to state 189
+    dec_term                       shift and go to state 133
+    dec_fact                       shift and go to state 134
+    var_cte                        shift and go to state 135
+    hyper_call                     shift and go to state 136
+    var_id                         shift and go to state 137
+    var_const                      shift and go to state 138
+    h_exp                          shift and go to state 139
+    s_exp                          shift and go to state 143
 
 state 153
-
-    (58) dec_exp_method -> dec_exp_s .
-    (72) s_exp -> dec_exp_s . comp_op
-    (73) comp_op -> . COMP_LESS s_exp
-    (74) comp_op -> . COMP_GREATER s_exp
-    (75) comp_op -> . COMP_EQUAL s_exp
-    (76) comp_op -> . COMP_NOTEQUAL s_exp
-    (77) comp_op -> . empty
-    (110) empty -> .
-
-  ! shift/reduce conflict for COMP_LESS resolved as shift
-  ! shift/reduce conflict for COMP_GREATER resolved as shift
-  ! shift/reduce conflict for COMP_EQUAL resolved as shift
-  ! shift/reduce conflict for COMP_NOTEQUAL resolved as shift
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 58 (dec_exp_method -> dec_exp_s .)
-  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 58 (dec_exp_method -> dec_exp_s .)
-    SEMICOLON       reduce using rule 58 (dec_exp_method -> dec_exp_s .)
-    RIGHTPAREN      reduce using rule 58 (dec_exp_method -> dec_exp_s .)
-    COMP_LESS       shift and go to state 162
-    COMP_GREATER    shift and go to state 163
-    COMP_EQUAL      shift and go to state 164
-    COMP_NOTEQUAL   shift and go to state 165
-    COMP_AND        reduce using rule 110 (empty -> .)
-    COMP_OR         reduce using rule 110 (empty -> .)
-    TIMES           reduce using rule 110 (empty -> .)
-    DIVIDE          reduce using rule 110 (empty -> .)
-    PLUS            reduce using rule 110 (empty -> .)
-    MINUS           reduce using rule 110 (empty -> .)
-
-  ! COMP_LESS       [ reduce using rule 110 (empty -> .) ]
-  ! COMP_GREATER    [ reduce using rule 110 (empty -> .) ]
-  ! COMP_EQUAL      [ reduce using rule 110 (empty -> .) ]
-  ! COMP_NOTEQUAL   [ reduce using rule 110 (empty -> .) ]
-  ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
-  ! RIGHTPAREN      [ reduce using rule 110 (empty -> .) ]
-
-    comp_op                        shift and go to state 161
-    empty                          shift and go to state 166
-
-state 154
-
-    (59) dec_exp_method -> empty .
-
-    SEMICOLON       reduce using rule 59 (dec_exp_method -> empty .)
-    RIGHTPAREN      reduce using rule 59 (dec_exp_method -> empty .)
-
-
-state 155
 
     (67) hyper_call -> LEFTPAREN h_exp . RIGHTPAREN
     (66) hyper_call -> h_exp .
@@ -2266,7 +2240,7 @@ state 155
   ! RIGHTPAREN      [ reduce using rule 66 (hyper_call -> h_exp .) ]
 
 
-state 156
+state 154
 
     (72) s_exp -> dec_exp_s . comp_op
     (73) comp_op -> . COMP_LESS s_exp
@@ -2280,10 +2254,10 @@ state 156
   ! shift/reduce conflict for COMP_GREATER resolved as shift
   ! shift/reduce conflict for COMP_EQUAL resolved as shift
   ! shift/reduce conflict for COMP_NOTEQUAL resolved as shift
-    COMP_LESS       shift and go to state 162
-    COMP_GREATER    shift and go to state 163
-    COMP_EQUAL      shift and go to state 164
-    COMP_NOTEQUAL   shift and go to state 165
+    COMP_LESS       shift and go to state 160
+    COMP_GREATER    shift and go to state 161
+    COMP_EQUAL      shift and go to state 162
+    COMP_NOTEQUAL   shift and go to state 163
     COMMA           reduce using rule 110 (empty -> .)
     RIGHTPAREN      reduce using rule 110 (empty -> .)
     COMP_AND        reduce using rule 110 (empty -> .)
@@ -2299,24 +2273,24 @@ state 156
   ! COMP_EQUAL      [ reduce using rule 110 (empty -> .) ]
   ! COMP_NOTEQUAL   [ reduce using rule 110 (empty -> .) ]
 
-    comp_op                        shift and go to state 161
-    empty                          shift and go to state 166
+    comp_op                        shift and go to state 159
+    empty                          shift and go to state 164
 
-state 157
+state 155
 
     (87) dec_call -> ID LEFTPAREN call_pos RIGHTPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 191
 
 
-state 158
+state 156
 
     (90) call -> dec_exp call_more .
 
     RIGHTPAREN      reduce using rule 90 (call -> dec_exp call_more .)
 
 
-state 159
+state 157
 
     (91) call_more -> COMMA . call
     (90) call -> . dec_exp call_more
@@ -2354,14 +2328,14 @@ state 159
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
 
-state 160
+state 158
 
     (92) call_more -> empty .
 
     RIGHTPAREN      reduce using rule 92 (call_more -> empty .)
 
 
-state 161
+state 159
 
     (72) s_exp -> dec_exp_s comp_op .
 
@@ -2380,7 +2354,7 @@ state 161
     SEMICOLON       reduce using rule 72 (s_exp -> dec_exp_s comp_op .)
 
 
-state 162
+state 160
 
     (73) comp_op -> COMP_LESS . s_exp
     (72) s_exp -> . dec_exp_s comp_op
@@ -2405,7 +2379,7 @@ state 162
     CHAR_DEC        shift and go to state 142
 
     s_exp                          shift and go to state 193
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2414,7 +2388,7 @@ state 162
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
 
-state 163
+state 161
 
     (74) comp_op -> COMP_GREATER . s_exp
     (72) s_exp -> . dec_exp_s comp_op
@@ -2439,7 +2413,7 @@ state 163
     CHAR_DEC        shift and go to state 142
 
     s_exp                          shift and go to state 194
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2448,7 +2422,7 @@ state 163
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
 
-state 164
+state 162
 
     (75) comp_op -> COMP_EQUAL . s_exp
     (72) s_exp -> . dec_exp_s comp_op
@@ -2473,7 +2447,7 @@ state 164
     CHAR_DEC        shift and go to state 142
 
     s_exp                          shift and go to state 195
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2482,7 +2456,7 @@ state 164
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
 
-state 165
+state 163
 
     (76) comp_op -> COMP_NOTEQUAL . s_exp
     (72) s_exp -> . dec_exp_s comp_op
@@ -2507,7 +2481,7 @@ state 165
     CHAR_DEC        shift and go to state 142
 
     s_exp                          shift and go to state 196
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2516,7 +2490,7 @@ state 165
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
 
-state 166
+state 164
 
     (77) comp_op -> empty .
 
@@ -2535,7 +2509,7 @@ state 166
     SEMICOLON       reduce using rule 77 (comp_op -> empty .)
 
 
-state 167
+state 165
 
     (54) dec_exp_s -> dec_term pm_op .
 
@@ -2554,7 +2528,7 @@ state 167
     SEMICOLON       reduce using rule 54 (dec_exp_s -> dec_term pm_op .)
 
 
-state 168
+state 166
 
     (55) pm_op -> PLUS . dec_exp_s
     (54) dec_exp_s -> . dec_term pm_op
@@ -2588,7 +2562,7 @@ state 168
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
 
-state 169
+state 167
 
     (56) pm_op -> MINUS . dec_exp_s
     (54) dec_exp_s -> . dec_term pm_op
@@ -2622,7 +2596,7 @@ state 169
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
 
-state 170
+state 168
 
     (57) pm_op -> empty .
 
@@ -2641,7 +2615,7 @@ state 170
     SEMICOLON       reduce using rule 57 (pm_op -> empty .)
 
 
-state 171
+state 169
 
     (60) dec_term -> dec_fact md_op .
 
@@ -2660,7 +2634,7 @@ state 171
     SEMICOLON       reduce using rule 60 (dec_term -> dec_fact md_op .)
 
 
-state 172
+state 170
 
     (61) md_op -> TIMES . dec_term
     (60) dec_term -> . dec_fact md_op
@@ -2692,9 +2666,9 @@ state 172
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
 
-state 173
+state 171
 
     (62) md_op -> DIVIDE . dec_term
     (60) dec_term -> . dec_fact md_op
@@ -2726,9 +2700,9 @@ state 173
     var_const                      shift and go to state 138
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
 
-state 174
+state 172
 
     (63) md_op -> empty .
 
@@ -2747,7 +2721,7 @@ state 174
     SEMICOLON       reduce using rule 63 (md_op -> empty .)
 
 
-state 175
+state 173
 
     (68) h_exp -> s_exp ao_op .
 
@@ -2766,7 +2740,7 @@ state 175
     SEMICOLON       reduce using rule 68 (h_exp -> s_exp ao_op .)
 
 
-state 176
+state 174
 
     (69) ao_op -> COMP_AND . h_exp
     (68) h_exp -> . s_exp ao_op
@@ -2792,7 +2766,7 @@ state 176
 
     h_exp                          shift and go to state 201
     s_exp                          shift and go to state 143
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2800,7 +2774,7 @@ state 176
     var_id                         shift and go to state 137
     var_const                      shift and go to state 138
 
-state 177
+state 175
 
     (70) ao_op -> COMP_OR . h_exp
     (68) h_exp -> . s_exp ao_op
@@ -2826,7 +2800,7 @@ state 177
 
     h_exp                          shift and go to state 202
     s_exp                          shift and go to state 143
-    dec_exp_s                      shift and go to state 156
+    dec_exp_s                      shift and go to state 154
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2834,7 +2808,7 @@ state 177
     var_id                         shift and go to state 137
     var_const                      shift and go to state 138
 
-state 178
+state 176
 
     (71) ao_op -> empty .
 
@@ -2853,7 +2827,7 @@ state 178
     SEMICOLON       reduce using rule 71 (ao_op -> empty .)
 
 
-state 179
+state 177
 
     (102) dec_method -> ID DOT ID LEFTPAREN . dec_exp_method RIGHTPAREN SEMICOLON
     (58) dec_exp_method -> . dec_exp_s
@@ -2882,8 +2856,8 @@ state 179
     CHAR_DEC        shift and go to state 142
 
     dec_exp_method                 shift and go to state 203
-    dec_exp_s                      shift and go to state 153
-    empty                          shift and go to state 154
+    dec_exp_s                      shift and go to state 188
+    empty                          shift and go to state 189
     dec_term                       shift and go to state 133
     dec_fact                       shift and go to state 134
     var_cte                        shift and go to state 135
@@ -2893,7 +2867,7 @@ state 179
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
 
-state 180
+state 178
 
     (86) dec_assign -> var_id COMP_EQUAL dec_exp SEMICOLON .
 
@@ -2906,28 +2880,28 @@ state 180
     RETURN          reduce using rule 86 (dec_assign -> var_id COMP_EQUAL dec_exp SEMICOLON .)
 
 
-state 181
+state 179
 
     (93) dec_read -> INCO LEFTPAREN var_id RIGHTPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 204
 
 
-state 182
+state 180
 
     (94) dec_write -> OUTCO LEFTPAREN write RIGHTPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 205
 
 
-state 183
+state 181
 
     (95) write -> dec_exp write_more .
 
     RIGHTPAREN      reduce using rule 95 (write -> dec_exp write_more .)
 
 
-state 184
+state 182
 
     (96) write_more -> COMMA . write
     (95) write -> . dec_exp write_more
@@ -2965,28 +2939,28 @@ state 184
     h_exp                          shift and go to state 139
     s_exp                          shift and go to state 143
 
-state 185
+state 183
 
     (97) write_more -> empty .
 
     RIGHTPAREN      reduce using rule 97 (write_more -> empty .)
 
 
-state 186
+state 184
 
     (98) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET dec_else
 
     LEFTBRACKET     shift and go to state 207
 
 
-state 187
+state 185
 
     (101) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN . LEFTBRACKET dec_block RIGHTBRACKET
 
     LEFTBRACKET     shift and go to state 208
 
 
-state 188
+state 186
 
     (83) class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON . dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON
     (2) dec_vars_mult -> . dec_vars_idk
@@ -3004,11 +2978,59 @@ state 188
     empty                          shift and go to state 7
     dec_vars                       shift and go to state 8
 
+state 187
+
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method . SEMICOLON RIGHTBRACKET
+
+    SEMICOLON       shift and go to state 210
+
+
+state 188
+
+    (58) dec_exp_method -> dec_exp_s .
+    (72) s_exp -> dec_exp_s . comp_op
+    (73) comp_op -> . COMP_LESS s_exp
+    (74) comp_op -> . COMP_GREATER s_exp
+    (75) comp_op -> . COMP_EQUAL s_exp
+    (76) comp_op -> . COMP_NOTEQUAL s_exp
+    (77) comp_op -> . empty
+    (110) empty -> .
+
+  ! shift/reduce conflict for COMP_LESS resolved as shift
+  ! shift/reduce conflict for COMP_GREATER resolved as shift
+  ! shift/reduce conflict for COMP_EQUAL resolved as shift
+  ! shift/reduce conflict for COMP_NOTEQUAL resolved as shift
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 58 (dec_exp_method -> dec_exp_s .)
+  ! reduce/reduce conflict for RIGHTPAREN resolved using rule 58 (dec_exp_method -> dec_exp_s .)
+    SEMICOLON       reduce using rule 58 (dec_exp_method -> dec_exp_s .)
+    RIGHTPAREN      reduce using rule 58 (dec_exp_method -> dec_exp_s .)
+    COMP_LESS       shift and go to state 160
+    COMP_GREATER    shift and go to state 161
+    COMP_EQUAL      shift and go to state 162
+    COMP_NOTEQUAL   shift and go to state 163
+    COMP_AND        reduce using rule 110 (empty -> .)
+    COMP_OR         reduce using rule 110 (empty -> .)
+    TIMES           reduce using rule 110 (empty -> .)
+    DIVIDE          reduce using rule 110 (empty -> .)
+    PLUS            reduce using rule 110 (empty -> .)
+    MINUS           reduce using rule 110 (empty -> .)
+
+  ! COMP_LESS       [ reduce using rule 110 (empty -> .) ]
+  ! COMP_GREATER    [ reduce using rule 110 (empty -> .) ]
+  ! COMP_EQUAL      [ reduce using rule 110 (empty -> .) ]
+  ! COMP_NOTEQUAL   [ reduce using rule 110 (empty -> .) ]
+  ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
+  ! RIGHTPAREN      [ reduce using rule 110 (empty -> .) ]
+
+    comp_op                        shift and go to state 159
+    empty                          shift and go to state 164
+
 state 189
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON . RIGHTBRACKET
+    (59) dec_exp_method -> empty .
 
-    RIGHTBRACKET    shift and go to state 210
+    SEMICOLON       reduce using rule 59 (dec_exp_method -> empty .)
+    RIGHTPAREN      reduce using rule 59 (dec_exp_method -> empty .)
 
 
 state 190
@@ -3085,8 +3107,8 @@ state 193
     PLUS            reduce using rule 73 (comp_op -> COMP_LESS s_exp .)
     MINUS           reduce using rule 73 (comp_op -> COMP_LESS s_exp .)
     SEMICOLON       reduce using rule 73 (comp_op -> COMP_LESS s_exp .)
-    COMP_AND        shift and go to state 176
-    COMP_OR         shift and go to state 177
+    COMP_AND        shift and go to state 174
+    COMP_OR         shift and go to state 175
 
   ! COMP_AND        [ reduce using rule 73 (comp_op -> COMP_LESS s_exp .) ]
   ! COMP_OR         [ reduce using rule 73 (comp_op -> COMP_LESS s_exp .) ]
@@ -3104,8 +3126,8 @@ state 193
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    ao_op                          shift and go to state 175
-    empty                          shift and go to state 178
+    ao_op                          shift and go to state 173
+    empty                          shift and go to state 176
 
 state 194
 
@@ -3142,8 +3164,8 @@ state 194
     PLUS            reduce using rule 74 (comp_op -> COMP_GREATER s_exp .)
     MINUS           reduce using rule 74 (comp_op -> COMP_GREATER s_exp .)
     SEMICOLON       reduce using rule 74 (comp_op -> COMP_GREATER s_exp .)
-    COMP_AND        shift and go to state 176
-    COMP_OR         shift and go to state 177
+    COMP_AND        shift and go to state 174
+    COMP_OR         shift and go to state 175
 
   ! COMP_AND        [ reduce using rule 74 (comp_op -> COMP_GREATER s_exp .) ]
   ! COMP_OR         [ reduce using rule 74 (comp_op -> COMP_GREATER s_exp .) ]
@@ -3161,8 +3183,8 @@ state 194
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    ao_op                          shift and go to state 175
-    empty                          shift and go to state 178
+    ao_op                          shift and go to state 173
+    empty                          shift and go to state 176
 
 state 195
 
@@ -3199,8 +3221,8 @@ state 195
     PLUS            reduce using rule 75 (comp_op -> COMP_EQUAL s_exp .)
     MINUS           reduce using rule 75 (comp_op -> COMP_EQUAL s_exp .)
     SEMICOLON       reduce using rule 75 (comp_op -> COMP_EQUAL s_exp .)
-    COMP_AND        shift and go to state 176
-    COMP_OR         shift and go to state 177
+    COMP_AND        shift and go to state 174
+    COMP_OR         shift and go to state 175
 
   ! COMP_AND        [ reduce using rule 75 (comp_op -> COMP_EQUAL s_exp .) ]
   ! COMP_OR         [ reduce using rule 75 (comp_op -> COMP_EQUAL s_exp .) ]
@@ -3218,8 +3240,8 @@ state 195
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    ao_op                          shift and go to state 175
-    empty                          shift and go to state 178
+    ao_op                          shift and go to state 173
+    empty                          shift and go to state 176
 
 state 196
 
@@ -3256,8 +3278,8 @@ state 196
     PLUS            reduce using rule 76 (comp_op -> COMP_NOTEQUAL s_exp .)
     MINUS           reduce using rule 76 (comp_op -> COMP_NOTEQUAL s_exp .)
     SEMICOLON       reduce using rule 76 (comp_op -> COMP_NOTEQUAL s_exp .)
-    COMP_AND        shift and go to state 176
-    COMP_OR         shift and go to state 177
+    COMP_AND        shift and go to state 174
+    COMP_OR         shift and go to state 175
 
   ! COMP_AND        [ reduce using rule 76 (comp_op -> COMP_NOTEQUAL s_exp .) ]
   ! COMP_OR         [ reduce using rule 76 (comp_op -> COMP_NOTEQUAL s_exp .) ]
@@ -3275,8 +3297,8 @@ state 196
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    ao_op                          shift and go to state 175
-    empty                          shift and go to state 178
+    ao_op                          shift and go to state 173
+    empty                          shift and go to state 176
 
 state 197
 
@@ -3315,10 +3337,10 @@ state 197
     PLUS            reduce using rule 55 (pm_op -> PLUS dec_exp_s .)
     MINUS           reduce using rule 55 (pm_op -> PLUS dec_exp_s .)
     SEMICOLON       reduce using rule 55 (pm_op -> PLUS dec_exp_s .)
-    COMP_LESS       shift and go to state 162
-    COMP_GREATER    shift and go to state 163
-    COMP_EQUAL      shift and go to state 164
-    COMP_NOTEQUAL   shift and go to state 165
+    COMP_LESS       shift and go to state 160
+    COMP_GREATER    shift and go to state 161
+    COMP_EQUAL      shift and go to state 162
+    COMP_NOTEQUAL   shift and go to state 163
 
   ! COMP_LESS       [ reduce using rule 55 (pm_op -> PLUS dec_exp_s .) ]
   ! COMP_GREATER    [ reduce using rule 55 (pm_op -> PLUS dec_exp_s .) ]
@@ -3338,8 +3360,8 @@ state 197
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    comp_op                        shift and go to state 161
-    empty                          shift and go to state 166
+    comp_op                        shift and go to state 159
+    empty                          shift and go to state 164
 
 state 198
 
@@ -3378,10 +3400,10 @@ state 198
     PLUS            reduce using rule 56 (pm_op -> MINUS dec_exp_s .)
     MINUS           reduce using rule 56 (pm_op -> MINUS dec_exp_s .)
     SEMICOLON       reduce using rule 56 (pm_op -> MINUS dec_exp_s .)
-    COMP_LESS       shift and go to state 162
-    COMP_GREATER    shift and go to state 163
-    COMP_EQUAL      shift and go to state 164
-    COMP_NOTEQUAL   shift and go to state 165
+    COMP_LESS       shift and go to state 160
+    COMP_GREATER    shift and go to state 161
+    COMP_EQUAL      shift and go to state 162
+    COMP_NOTEQUAL   shift and go to state 163
 
   ! COMP_LESS       [ reduce using rule 56 (pm_op -> MINUS dec_exp_s .) ]
   ! COMP_GREATER    [ reduce using rule 56 (pm_op -> MINUS dec_exp_s .) ]
@@ -3401,8 +3423,8 @@ state 198
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    comp_op                        shift and go to state 161
-    empty                          shift and go to state 166
+    comp_op                        shift and go to state 159
+    empty                          shift and go to state 164
 
 state 199
 
@@ -3439,8 +3461,8 @@ state 199
     TIMES           reduce using rule 61 (md_op -> TIMES dec_term .)
     DIVIDE          reduce using rule 61 (md_op -> TIMES dec_term .)
     SEMICOLON       reduce using rule 61 (md_op -> TIMES dec_term .)
-    PLUS            shift and go to state 168
-    MINUS           shift and go to state 169
+    PLUS            shift and go to state 166
+    MINUS           shift and go to state 167
 
   ! PLUS            [ reduce using rule 61 (md_op -> TIMES dec_term .) ]
   ! MINUS           [ reduce using rule 61 (md_op -> TIMES dec_term .) ]
@@ -3458,8 +3480,8 @@ state 199
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    pm_op                          shift and go to state 167
-    empty                          shift and go to state 170
+    pm_op                          shift and go to state 165
+    empty                          shift and go to state 168
 
 state 200
 
@@ -3496,8 +3518,8 @@ state 200
     TIMES           reduce using rule 62 (md_op -> DIVIDE dec_term .)
     DIVIDE          reduce using rule 62 (md_op -> DIVIDE dec_term .)
     SEMICOLON       reduce using rule 62 (md_op -> DIVIDE dec_term .)
-    PLUS            shift and go to state 168
-    MINUS           shift and go to state 169
+    PLUS            shift and go to state 166
+    MINUS           shift and go to state 167
 
   ! PLUS            [ reduce using rule 62 (md_op -> DIVIDE dec_term .) ]
   ! MINUS           [ reduce using rule 62 (md_op -> DIVIDE dec_term .) ]
@@ -3515,8 +3537,8 @@ state 200
   ! MINUS           [ reduce using rule 110 (empty -> .) ]
   ! SEMICOLON       [ reduce using rule 110 (empty -> .) ]
 
-    pm_op                          shift and go to state 167
-    empty                          shift and go to state 170
+    pm_op                          shift and go to state 165
+    empty                          shift and go to state 168
 
 state 201
 
@@ -3745,7 +3767,7 @@ state 209
     (29) dec_fun -> . empty
     (30) dec_fun_idk -> . fun dec_fun_more
     (110) empty -> .
-    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
+    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     RIGHTBRACKET    reduce using rule 110 (empty -> .)
     FUN             shift and go to state 14
@@ -3757,44 +3779,51 @@ state 209
 
 state 210
 
-    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON . RIGHTBRACKET
 
-    VAR             reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
-    CLASS           reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
-    MAIN            reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
-    PUBLIC          reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
-    RIGHTBRACKET    reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    RIGHTBRACKET    shift and go to state 215
 
 
 state 211
 
     (102) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 215
+    SEMICOLON       shift and go to state 216
 
 
 state 212
 
     (98) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET dec_else
 
-    RIGHTBRACKET    shift and go to state 216
+    RIGHTBRACKET    shift and go to state 217
 
 
 state 213
 
     (101) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block . RIGHTBRACKET
 
-    RIGHTBRACKET    shift and go to state 217
+    RIGHTBRACKET    shift and go to state 218
 
 
 state 214
 
     (83) class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun . RIGHTBRACKET SEMICOLON
 
-    RIGHTBRACKET    shift and go to state 218
+    RIGHTBRACKET    shift and go to state 219
 
 
 state 215
+
+    (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .
+
+    VAR             reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    CLASS           reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    MAIN            reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    PUBLIC          reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    RIGHTBRACKET    reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+
+
+state 216
 
     (102) dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .
 
@@ -3807,14 +3836,14 @@ state 215
     RETURN          reduce using rule 102 (dec_method -> ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON .)
 
 
-state 216
+state 217
 
     (98) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET . dec_else
     (99) dec_else -> . ELSE LEFTBRACKET dec_block RIGHTBRACKET
     (100) dec_else -> . empty
     (110) empty -> .
 
-    ELSE            shift and go to state 220
+    ELSE            shift and go to state 221
     ID              reduce using rule 110 (empty -> .)
     INCO            reduce using rule 110 (empty -> .)
     OUTCO           reduce using rule 110 (empty -> .)
@@ -3823,10 +3852,10 @@ state 216
     RIGHTBRACKET    reduce using rule 110 (empty -> .)
     RETURN          reduce using rule 110 (empty -> .)
 
-    dec_else                       shift and go to state 219
-    empty                          shift and go to state 221
+    dec_else                       shift and go to state 220
+    empty                          shift and go to state 222
 
-state 217
+state 218
 
     (101) dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .
 
@@ -3839,14 +3868,14 @@ state 217
     RETURN          reduce using rule 101 (dec_cycle -> WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET .)
 
 
-state 218
+state 219
 
     (83) class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET . SEMICOLON
 
-    SEMICOLON       shift and go to state 222
+    SEMICOLON       shift and go to state 223
 
 
-state 219
+state 220
 
     (98) dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .
 
@@ -3859,14 +3888,14 @@ state 219
     RETURN          reduce using rule 98 (dec_condition -> IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else .)
 
 
-state 220
+state 221
 
     (99) dec_else -> ELSE . LEFTBRACKET dec_block RIGHTBRACKET
 
-    LEFTBRACKET     shift and go to state 223
+    LEFTBRACKET     shift and go to state 224
 
 
-state 221
+state 222
 
     (100) dec_else -> empty .
 
@@ -3879,7 +3908,7 @@ state 221
     RETURN          reduce using rule 100 (dec_else -> empty .)
 
 
-state 222
+state 223
 
     (83) class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON .
 
@@ -3887,7 +3916,7 @@ state 222
     MAIN            reduce using rule 83 (class_body -> CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON .)
 
 
-state 223
+state 224
 
     (99) dec_else -> ELSE LEFTBRACKET . dec_block RIGHTBRACKET
     (41) dec_block -> . block
@@ -3917,7 +3946,7 @@ state 223
     IF              shift and go to state 107
     WHILE           shift and go to state 108
 
-    dec_block                      shift and go to state 224
+    dec_block                      shift and go to state 225
     block                          shift and go to state 94
     empty                          shift and go to state 95
     statement                      shift and go to state 96
@@ -3930,14 +3959,14 @@ state 223
     dec_method                     shift and go to state 103
     var_id                         shift and go to state 104
 
-state 224
+state 225
 
     (99) dec_else -> ELSE LEFTBRACKET dec_block . RIGHTBRACKET
 
-    RIGHTBRACKET    shift and go to state 225
+    RIGHTBRACKET    shift and go to state 226
 
 
-state 225
+state 226
 
     (99) dec_else -> ELSE LEFTBRACKET dec_block RIGHTBRACKET .
 
@@ -3962,15 +3991,15 @@ WARNING: shift/reduce conflict for TIMES in state 134 resolved as shift
 WARNING: shift/reduce conflict for DIVIDE in state 134 resolved as shift
 WARNING: shift/reduce conflict for COMP_AND in state 143 resolved as shift
 WARNING: shift/reduce conflict for COMP_OR in state 143 resolved as shift
-WARNING: shift/reduce conflict for COMP_LESS in state 153 resolved as shift
-WARNING: shift/reduce conflict for COMP_GREATER in state 153 resolved as shift
-WARNING: shift/reduce conflict for COMP_EQUAL in state 153 resolved as shift
-WARNING: shift/reduce conflict for COMP_NOTEQUAL in state 153 resolved as shift
-WARNING: shift/reduce conflict for RIGHTPAREN in state 155 resolved as shift
-WARNING: shift/reduce conflict for COMP_LESS in state 156 resolved as shift
-WARNING: shift/reduce conflict for COMP_GREATER in state 156 resolved as shift
-WARNING: shift/reduce conflict for COMP_EQUAL in state 156 resolved as shift
-WARNING: shift/reduce conflict for COMP_NOTEQUAL in state 156 resolved as shift
+WARNING: shift/reduce conflict for RIGHTPAREN in state 153 resolved as shift
+WARNING: shift/reduce conflict for COMP_LESS in state 154 resolved as shift
+WARNING: shift/reduce conflict for COMP_GREATER in state 154 resolved as shift
+WARNING: shift/reduce conflict for COMP_EQUAL in state 154 resolved as shift
+WARNING: shift/reduce conflict for COMP_NOTEQUAL in state 154 resolved as shift
+WARNING: shift/reduce conflict for COMP_LESS in state 188 resolved as shift
+WARNING: shift/reduce conflict for COMP_GREATER in state 188 resolved as shift
+WARNING: shift/reduce conflict for COMP_EQUAL in state 188 resolved as shift
+WARNING: shift/reduce conflict for COMP_NOTEQUAL in state 188 resolved as shift
 WARNING: shift/reduce conflict for COMP_AND in state 193 resolved as shift
 WARNING: shift/reduce conflict for COMP_OR in state 193 resolved as shift
 WARNING: shift/reduce conflict for COMP_AND in state 193 resolved as shift
@@ -4013,8 +4042,8 @@ WARNING: shift/reduce conflict for PLUS in state 200 resolved as shift
 WARNING: shift/reduce conflict for MINUS in state 200 resolved as shift
 WARNING: reduce/reduce conflict in state 132 resolved using rule (dec_exp -> dec_exp_s)
 WARNING: rejected rule (empty -> <empty>) in state 132
-WARNING: reduce/reduce conflict in state 153 resolved using rule (dec_exp_method -> dec_exp_s)
-WARNING: rejected rule (empty -> <empty>) in state 153
+WARNING: reduce/reduce conflict in state 188 resolved using rule (dec_exp_method -> dec_exp_s)
+WARNING: rejected rule (empty -> <empty>) in state 188
 WARNING: reduce/reduce conflict in state 193 resolved using rule (comp_op -> COMP_LESS s_exp)
 WARNING: rejected rule (empty -> <empty>) in state 193
 WARNING: reduce/reduce conflict in state 194 resolved using rule (comp_op -> COMP_GREATER s_exp)

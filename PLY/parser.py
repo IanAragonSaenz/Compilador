@@ -1,18 +1,19 @@
 from symbol_table import symbolTable
 from SCube import sCube
 from Cuadruplos import cuadruplos
+from DirFun import dirFun
 
-
+dirFuns = dirFun()
 table = symbolTable()
 cube = sCube()
-cuad = cuadruplos(table)
+cuad = cuadruplos(table, dirFuns)
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
     
-    #for fun in p[5]:
-    #    cuad.saveFunCuads()
+    for fun in p[5]:
+        cuad.saveFunCuads(fun)
 
     #for c in p[6]:
     #    cuad.saveFunCuads()
@@ -71,7 +72,7 @@ def p_vars(p):
 ## se hace vars simple poniendo su tipo y luego la declaracion
 def p_vars_simple(p):
     '''vars_simple : type_simple vars_simple_dec '''
-    p[0] = (p[1], p[2])
+    p[0] = [p[1], p[2]]
 
 ## se llama al id para poder poner arrays o no y el more para loopear
 def p_vars_simple_dec(p):
@@ -98,7 +99,6 @@ def p_vars_simple_more(p):
 def p_vars_simple_id(p):
     '''vars_simple_id : ID vars_simple_arr'''
     p[0] = [p[1], p[2]]
-    print(p[0])
     
 ## opcion para tener array de una dimension
 def p_vars_simple_arr(p):
@@ -109,8 +109,6 @@ def p_vars_simple_arr(p):
             p[0] = [p[2], p[4]]
         else:
             p[0] = [p[2]]
-    else:
-        p[0] = []
 
 ## opcion para tener array de dos dimensiones o dejarlo en una
 def p_vars_simple_arr2(p):
@@ -185,8 +183,9 @@ def p_dec_fun_more(p):
         p[0] = p[1]
 
 def p_fun(p):
-    '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
-    p[0] = [p[2], p[3], p[5], p[8], p[10]]
+    '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
+    p[0] = [p[2], p[3], p[5], p[8], p[9], p[11]]
+    print('function', p[0])
 
 def p_param_pos(p):
     '''param_pos : param
@@ -196,7 +195,10 @@ def p_param_pos(p):
 
 def p_param(p):
     '''param : type_simple ID param_more'''
-    p[0] = [[p[1], p[2]]] + p[3]
+    if p[3]:
+        p[0] = [[p[1], p[2]]] + p[3]
+    else: 
+        p[0] = [[p[1], p[2]]]
 
 def p_param_more(p):
     '''param_more : COMMA param

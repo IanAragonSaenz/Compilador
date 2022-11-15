@@ -1,7 +1,8 @@
 from symbol_table import symbolTable
+from DirFun import dirFun
 from SCube import sCube
 class cuadruplos:
-    def __init__(self, table: symbolTable):
+    def __init__(self, table: symbolTable, dirFuns: dirFun):
         self.cube = sCube()
         self.vp = []
         self.pOper = []
@@ -16,9 +17,12 @@ class cuadruplos:
         self.count = 0
         self.cuad = []
         self.table = table
+        self.dirFuns = dirFuns
         #{'accion' : '*', 'val1' : '1', 'val2' : 'count', 'final' : 't3'}
         
-    
+    def saveFunCuads(self, fun):
+        self.dirFuns.addFun(fun)
+
     def saveExpCuads(self, exp):
         self.readEXP(exp)
         val = self.expCuads()
