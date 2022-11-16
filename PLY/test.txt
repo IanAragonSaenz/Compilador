@@ -1,20 +1,20 @@
 program hola;
 var int yes[10], sepsp, xd;
 var float no, si;
-fun void fib(int param1, int param2){
+fun int fib(int param1, int param2){
 	var float prepucio;
 	if(3){
 		param1 = param2;
 		param2 = 3 * param1;
 	}
 
-	return;
+	return param1 + 2;
 }
 
 main() {
 	var int op;
 	while(2*4+4){
-		op = 3+4;
+		op = 3 + fib(3+1, op+2);
 	}
 	fib(3+1, op+2);
 

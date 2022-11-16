@@ -44,6 +44,7 @@ class cuadruplos:
         self.clearTemp()
 
     def saveCallCuads(self, call):
+        # ['call', 'fib', [[3, '+', 1], ['op', '+', 2]]]
         cuadruplo =  {'accion': 'ERA', 'val1': '', 'val2': '', 'final': call[1]}
         self.addCuad(cuadruplo)
         params = self.dirFuns.getFunParams(call[1])
@@ -54,6 +55,7 @@ class cuadruplos:
         p = 1
         for param in call[2]:
             val = self.saveExpCuads(param)
+            
             dtype = self.checkType(val)
 
             if dtype != params[p-1]:
@@ -76,6 +78,8 @@ class cuadruplos:
             cuadruplo =  {'accion': '=', 'val1': call[1], 'val2': '', 'final': 't{}'.format(self.t)}
             self.addCuad(cuadruplo)
             self.t = self.t + 1
+            return 't{}'.format(self.t-1)
+        return False
 
     def saveExpCuads(self, exp):
         self.readEXP(exp)
@@ -225,7 +229,8 @@ class cuadruplos:
     def expCuads(self):
         operandStack = []
         tokenList = self.vp
-        
+        self.vp = []
+
         for token in tokenList:
             if token in self.operators:
                 operand2 = operandStack.pop()
@@ -233,6 +238,12 @@ class cuadruplos:
                 type2 = self.pTipos.pop()
                 type1 = self.pTipos.pop()
 
+                # Do cuads for call in case a function is being used in an exp
+                if type(operand1) == list:
+                    operand1 = self.saveCallCuads(operand1)
+                if type(operand2) == list:
+                    operand2 = self.saveCallCuads(operand2)
+                
                 typeResult = self.cube.typeCheck(type1, type2, token)
                 if typeResult == 'x':
                     exit('Type mismatch between {} and {}'.format(operand1, operand2))
@@ -259,7 +270,12 @@ class cuadruplos:
     def readEXP(self, exp):
         for index in exp:
             if index not in self.operators:
-                if type(index) is str and index[0] == '"' and len(index) == 3:
+                if type(index) is list:
+                    dtype = self.dirFuns.getFunType(index[1])
+                    if dtype == 'void':
+                        exit(f'void function can\'t be used in an expression')
+                    self.pTipos.append(dtype)
+                elif type(index) is str and index[0] == '"' and len(index) == 3:
                     self.pTipos.append('char')
                 elif type(index) is str:
                     dtype = self.getType(index)
@@ -268,8 +284,6 @@ class cuadruplos:
                     self.pTipos.append(self.table.getValType(index))
 
                 self.addVP(index)
-                #print('VP is', self.vp)
-                #print('pilaT is', self.pTipos)
             elif index in self.plusMinus:
                 multdiv = 1
                 while multdiv:

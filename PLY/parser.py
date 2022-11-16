@@ -42,7 +42,7 @@ def p_dec_vars_mult(p):
 
         ret = table.idSplit(p[0], 'global')
         if ret == -1:
-            print("Error: variable ya declarada")
+            exit("Error: variable ya declarada")
         # [int, [['sum', []], ['count', []]],  float, [['salaverga', []]]]
 
 def p_dec_vars_idk(p):
@@ -266,7 +266,6 @@ def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
     p[0] = p[1]
 
-
 def p_dec_exp_s(p):
     '''dec_exp_s : dec_term pm_op'''
     p[0] = p[1] + p[2]
@@ -408,8 +407,10 @@ def p_dec_assign(p):
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
     p[0] = ['call', p[1], p[3]]
-    print(p[0])
-    #if len(p[2]) != table.
+
+def p_dec_call_exp(p):
+    '''dec_call_exp : ID LEFTPAREN call_pos RIGHTPAREN'''
+    p[0] = [['call', p[1], p[3]]]
     
 def p_call_pos(p):
     '''call_pos : call
@@ -487,7 +488,8 @@ def p_dec_method(p):
 
 def p_var_cte(p):
     '''var_cte : var_id
-               | var_const'''
+                | dec_call_exp
+                | var_const'''
     p[0] = p[1]
 
 def p_var_const(p):
