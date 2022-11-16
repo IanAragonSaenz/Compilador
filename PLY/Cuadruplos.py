@@ -26,15 +26,14 @@ class cuadruplos:
     #['float', [['prepucio', None]]], 
     #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
     #[3]]
+
     def saveFunCuads(self, fun):
-        size = 0
         self.funName = fun[1]
         self.dirFuns.addFun(fun, self.count)
         for block in fun[4]:
-            size += self.blockHandleFun(block)
-        ret, tsize = self.saveExpCuads(fun[5])
-        size += tsize
-        self.dirFuns.addTemp(fun[1], size) 
+            self.blockHandleFun(block)
+        ret = self.saveExpCuads(fun[5])
+        #self.dirFuns.addTemp(fun[1], size) 
         cuadruplo =  {'accion': 'return', 'val1': '', 'val2': '', 'final': ret}
         self.addCuad(cuadruplo)
 
@@ -44,32 +43,63 @@ class cuadruplos:
         self.dirFuns.printSelf()
         self.clearTemp()
 
+    def saveCallCuads(self, call):
+        cuadruplo =  {'accion': 'ERA', 'val1': '', 'val2': '', 'final': call[1]}
+        self.addCuad(cuadruplo)
+        params = self.dirFuns.getFunParams(call[1])
+
+        if len(params) != len(call[2]):
+            exit(f'params don\'t match with function {call[1]} definition')
+        
+        p = 1
+        for param in call[2]:
+            val = self.saveExpCuads(param)
+            dtype = self.checkType(val)
+
+            if dtype != params[p-1]:
+                exit(f'type mismatch on parameter {param} from function {call[1]}')
+
+            cuadruplo =  {'accion': 'param', 'val1': val, 'val2': '', 'final': f'par{p}'}
+            self.addCuad(cuadruplo)
+            p += 1
+
+        cuadruplo =  {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': call[1]}
+        self.addCuad(cuadruplo)
+
+        funType = self.dirFuns.getFunType(call[1])
+        if funType != 'void':
+            if self.funName == '':
+                self.table.addVar('t{}'.format(self.t), funType, 'temporal')
+            else:
+                self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), funType)
+            
+            cuadruplo =  {'accion': '=', 'val1': call[1], 'val2': '', 'final': 't{}'.format(self.t)}
+            self.addCuad(cuadruplo)
+            self.t = self.t + 1
 
     def saveExpCuads(self, exp):
         self.readEXP(exp)
-        val, tSize = self.expCuads()
+        val = self.expCuads()
         self.clearCache()
-        return val, tSize
+        return val
 
     
     def saveOutcoCuads(self, code):
-        size = 0
         for x in code[1]:
             if type(x) is str:
-                val, tsize = self.saveExpCuads([x])
+                val = self.saveExpCuads([x])
             else:
-                val, tsize = self.saveExpCuads(x)
+                val= self.saveExpCuads(x)
             cuadruplo =  {'accion': 'outco', 'val1': val, 'val2': '', 'final': ''} 
             self.addCuad(cuadruplo)
-            size += tsize
-        return size
+
            
         
     def saveIncoCuads(self, code):
         val = code[1]
         cuadruplo =  {'accion': 'inco', 'val1': val, 'val2': '', 'final': ''} 
         self.addCuad(cuadruplo)
-        return 0
+
         
     def getType(self, index):
         if len(self.funName) > 0:
@@ -90,36 +120,38 @@ class cuadruplos:
                 return dtype
         return -1
 
+    def checkType(self, val):
+        if type(val) is str and val[0] == '"' and len(val) == 3:
+            dtype = 'char'
+        elif type(val) is str:
+            dtype = self.getType(val)
+        else:
+            dtype = self.table.getValType(val)
+        return dtype
+
     def saveAssignCuads(self, code):
-        val, size = self.saveExpCuads(code[2])
+        val = self.saveExpCuads(code[2])
         left = self.getType(code[1])
 
-        if type(val) is str and val[0] == '"' and len(val) == 3:
-            right = 'char'
-        elif type(val) is str:
-            right = self.getType(val)
-        else:
-            right = self.table.getValType(val)
-
+        right = self.checkType(val)
 
         typeCheck = self.cube.typeCheck(left, right, '=')
         if typeCheck == 'x':
-            print(f'type mismatch when assigning value {code[1]}')
+            exit(f'type mismatch when assigning value {code[1]}')
         #elif typeCheck != left and left == 'int' and typeCheck == 'float':
 
 
         cuadruplo =  {'accion': '=', 'val1': val, 'val2': '', 'final': code[1]}
         self.addCuad(cuadruplo)
-        return size
         
     def saveConditionCuads(self, code):
-        val, size = self.saveExpCuads(code[1])
+        val = self.saveExpCuads(code[1])
         cuadruplo =  {'accion': 'gotoF', 'val1': val, 'val2': '', 'final': ''}
         self.addCuad(cuadruplo)
         self.pSalto.append(self.count-1)
         
         for block in code[2]:
-            size += self.blockHandle(block)
+            self.blockHandle(block)
 
         # check for else
         if code[3]:
@@ -129,57 +161,57 @@ class cuadruplos:
             self.pSalto.append(self.count-1)
             self.cuad[falso]['final'] = self.count
             for block in code[3]:
-                size += self.blockHandle(block)
+                self.blockHandle(block)
 
         salto = self.pSalto.pop()
         self.cuad[salto]['final'] = self.count
-        return size
-
         
     def saveWhileCuads(self, code):
         self.pSalto.append(self.count) #Revaluar 3
-        val, size = self.saveExpCuads(code[1])
+        val = self.saveExpCuads(code[1])
         cuadruplo =  {'accion': 'gotoF', 'val1': val, 'val2': '', 'final': ''}
         self.addCuad(cuadruplo)
         self.pSalto.append(self.count-1) #guardar donde va el gotoF, para ponerle a donde saltar
         
         for block in code[2]:
-            size += self.blockHandle(block)
+            self.blockHandle(block)
         
         falso = self.pSalto.pop()
         retorno = self.pSalto.pop()
         cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': retorno}
         self.addCuad(cuadruplo)
         self.cuad[falso]['final'] = self.count
-        return size
 
     def blockHandle(self, code):
         if code[0] == 'condition':
-            return self.saveConditionCuads(code)
+            self.saveConditionCuads(code)
         elif code[0] == 'assign':
-            return self.saveAssignCuads(code)
+            self.saveAssignCuads(code)
             # ['assign', p[1], p[3]]
         elif code[0] == 'while':
-            return self.saveWhileCuads(code)
+            self.saveWhileCuads(code)
         elif code[0] == 'outco':
-            return self.saveOutcoCuads(code)
+            self.saveOutcoCuads(code)
         elif code[0] == 'inco':
-            return self.saveIncoCuads(code)
+            self.saveIncoCuads(code)
+        elif code[0] == 'call':
+            self.saveCallCuads(code)
         else:
-            print("Error: statement non existant")
-            return 0
+            exit("Error: statement non existant")
     
     def blockHandleFun(self, code):
         if code[0] == 'condition':
-            return self.saveConditionCuads(code)
+            self.saveConditionCuads(code)
         elif code[0] == 'assign':
-            return self.saveAssignCuads(code)
+            self.saveAssignCuads(code)
         elif code[0] == 'while':
-            return self.saveWhileCuads(code)
+            self.saveWhileCuads(code)
         elif code[0] == 'outco':
-            return self.saveOutcoCuads(code)
+            self.saveOutcoCuads(code)
         elif code[0] == 'inco':
-            return self.saveIncoCuads(code)
+            self.saveIncoCuads(code)
+        elif code[0] == 'call':
+            self.saveCallCuads(code)
         elif code[0] == 'return':
             return 0
 
@@ -193,7 +225,6 @@ class cuadruplos:
     def expCuads(self):
         operandStack = []
         tokenList = self.vp
-        size = 0
         
         for token in tokenList:
             if token in self.operators:
@@ -218,13 +249,12 @@ class cuadruplos:
                 self.addCuad(cuadruplo)
                 operandStack.append('t{}'.format(self.t))
                 self.t = self.t + 1
-                size = size + 1
             else:
                 operandStack.append(token)
         if len(operandStack) < 1:
-            return '', size
+            return ''
         else:
-            return operandStack.pop(), size
+            return operandStack.pop()
         
     def readEXP(self, exp):
         for index in exp:

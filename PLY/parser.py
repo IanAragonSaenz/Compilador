@@ -407,17 +407,29 @@ def p_dec_assign(p):
     p[0] = ['assign', p[1], p[3]]
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
+    p[0] = ['call', p[1], p[3]]
+    print(p[0])
+    #if len(p[2]) != table.
     
 def p_call_pos(p):
     '''call_pos : call
                 | empty'''
+    if p[1]:
+        p[0] = p[1]
 
 def p_call(p):
     '''call : dec_exp call_more'''
+    if p[2]:
+        join = [p[1]] + p[2]
+        p[0] = join
+    else:
+        p[0] = [p[1]]
 
 def p_call_more(p):
     '''call_more : COMMA call
                 | empty'''
+    if len(p) == 3:
+        p[0] = p[2]
     
     
 

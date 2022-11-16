@@ -29,7 +29,6 @@ class dirFun:
             return -1
 
         size = 0 
-
         self.fun[fun[1]] = {}
         self.fun[fun[1]]['type'] = fun[0]
         self.fun[fun[1]]['dirI'] = dirI
@@ -76,6 +75,7 @@ class dirFun:
             
     def addTemp(self, funName, size):
         self.fun[funName]['size'] = size + self.fun[funName]['size']
+        
     
     def addTempVar(self, funName, temp, dtype):
         var = {
@@ -85,6 +85,25 @@ class dirFun:
             "dim":[]
         }
         self.fun[funName]['temp'].append(var)
+        self.fun[funName]['size'] = self.fun[funName]['size'] + 1
+
+    def getFunDirI(self, funName):
+        if funName in self.fun:
+            return self.fun[funName]['DirI']
+        else:
+            exit(f'function {funName} doesn\'t exist')
+
+    def getFunParams(self, funName):
+        if funName in self.fun:
+            return self.fun[funName]['param']
+        else:
+            exit(f'function {funName} doesn\'t exist')
+
+    def getFunType(self, funName):
+        if funName in self.fun:
+            return self.fun[funName]['type']
+        else:
+            exit(f'function {funName} doesn\'t exist')
 
     def getIdType(self, funName, varName): 
         if funName in self.fun:
