@@ -12,15 +12,18 @@ def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
     
-    for fun in p[5]:
-        cuad.saveFunCuads(fun)
+    if p[5]:
+        for fun in p[5]:
+            cuad.saveFunCuads(fun)
 
+    #if p[6]:
     #for c in p[6]:
     #    cuad.saveFunCuads()
-
-    for block in p[12]:
-        print(block)
-        cuad.blockHandle(block)
+    
+    if p[12]:
+        for block in p[12]:
+            print(block)
+            cuad.blockHandle(block)
         
     print(table)
     print(cuad)
@@ -171,13 +174,13 @@ def p_dec_fun(p):
 def p_dec_fun_idk(p):
     '''dec_fun_idk : fun dec_fun_more'''
     if p[2]:
-        funs = p[1] + p[2]
+        funs = [p[1]] +  p[2]
         p[0] = funs
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 def p_dec_fun_more(p):
-    '''dec_fun_more : dec_vars_idk
+    '''dec_fun_more : dec_fun_idk
                     | empty'''
     if p[1]:
         p[0] = p[1]
@@ -484,8 +487,8 @@ def p_var_const(p):
 def p_var_id(p):
     '''var_id : ID'''
     p[0] = p[1]
-    if table.checkVar(p[1]) == -1:
-        print("Error: Variable", p[1], "no definida")
+    #if table.checkVar(p[1]) == -1:
+    #    print("Error: Variable", p[1], "no definida")
 
 def p_fun_id(p):
     '''fun_id : ID'''

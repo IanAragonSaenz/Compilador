@@ -222,3 +222,5 @@ class sCube:
             return 'c'
         if dtype == 'bool':
             return 'b'
+        else:
+            exit('type {} doesn\'t exist'.format(dtype))

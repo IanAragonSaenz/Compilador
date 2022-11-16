@@ -23,22 +23,23 @@ class dirFun:
        #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
        #[3]]
 
-    def addFun(self, fun):
+    def addFun(self, fun, dirI):
         if fun[1] in self.fun:
             # "error variable is already declared"
             return -1
 
-        size = 0
+        size = 0 
 
         self.fun[fun[1]] = {}
         self.fun[fun[1]]['type'] = fun[0]
-        #self.fun[fun[1]]['dirI'] = 2
+        self.fun[fun[1]]['dirI'] = dirI
 
         self.fun[fun[1]]['param'] = []
-        self.fun[fun[1]]['vars'] = {}
+        self.fun[fun[1]]['vars'] = []
+        self.fun[fun[1]]['temp'] = []
+
         for param in fun[2]:
             self.fun[fun[1]]['param'].append(param[0])
-            print('paraaaaaaaam', param)
             var = {
                 "id":param[1],
                 "type":param[0],
@@ -47,36 +48,58 @@ class dirFun:
             }
             self.fun[fun[1]]['vars'].append(var)
             size = size + 1
-        
-        for vars in fun[3]:
-            dtype = ''
-            for index in range(len(vars)):
-                if index%2 == 0:
-                    dtype = vars[index]
-                else:
-                    for var in vars[index]: 
-                        var = {
-                            "id":var[0],
-                            "type":dtype,
-                            "dirV":"",
-                            "dim":[]
-                        }
-                        if var[1]:
-                            count = 1
-                            for i in var[1]:
-                                count = i * count
-                                var['dim'].append(i)
-                            size = size + count
-                        else:
-                            size = size + 1
-                        self.fun[fun[1]]['vars'].append(var)
+
+        #['float', [['prepucio', None]]]
+        dtype = ''
+        for index in range(len(fun[3])):
+            if index%2 == 0:
+                dtype = fun[3][index]
+            else:
+                for temp in fun[3][index]:
+                    var = {
+                        "id":temp[0],
+                        "type":dtype,
+                        "dirV":"",
+                        "dim":[]
+                    }
+                    if temp[1]:
+                        count = 1
+                        for i in temp[1]:
+                            count = i * count
+                            var['dim'].append(i)
+                        size = size + count
+                    else:
+                        size = size + 1
+                    self.fun[fun[1]]['vars'].append(var)
 
         self.fun[fun[1]]['size'] = size
-        print(self.fun)
             
+    def addTemp(self, funName, size):
+        self.fun[funName]['size'] = size + self.fun[funName]['size']
+    
+    def addTempVar(self, funName, temp, dtype):
+        var = {
+            "id":temp,
+            "type":dtype,
+            "dirV":"",
+            "dim":[]
+        }
+        self.fun[funName]['temp'].append(var)
 
+    def getIdType(self, funName, varName): 
+        if funName in self.fun:
+            for var in self.fun[funName]['vars']:
+                if var['id'] == varName:
+                    return var['type']
+            for var in self.fun[funName]['temp']:
+                if var['id'] == varName:
+                    return var['type'] 
+            return -1
+        return -1               
 
-
+    def printSelf(self):
+        #for fun in self.fun:
+        print("FUN DIR", self.fun)
         
         
         

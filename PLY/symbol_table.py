@@ -44,7 +44,7 @@ class symbolTable:
     
     
     def checkVar(self, id):
-        if id not in self.symbol:
+        if id not in self.symbol or id:
             # "error variable no declarada"
             return -1
         return 1
@@ -73,7 +73,11 @@ class symbolTable:
         return self.dirV[self.symbol[id]['dirV']]
 
     def getIdType(self, id):
-        return self.symbol[id]['type']
+        if id in self.symbol:
+            return self.symbol[id]['type']
+        else:
+            return -1
+        
 
     def dirVGet(self, gtype):
         min = 0

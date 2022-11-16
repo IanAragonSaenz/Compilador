@@ -37,7 +37,7 @@ Rule 27    type_complex -> ID
 Rule 28    dec_fun -> dec_fun_idk
 Rule 29    dec_fun -> empty
 Rule 30    dec_fun_idk -> fun dec_fun_more
-Rule 31    dec_fun_more -> dec_vars_idk
+Rule 31    dec_fun_more -> dec_fun_idk
 Rule 32    dec_fun_more -> empty
 Rule 33    fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 Rule 34    param_pos -> param
@@ -190,14 +190,14 @@ dec_exp_method       : 33 102
 dec_exp_s            : 53 55 56 58 72
 dec_fact             : 60
 dec_fun              : 1 83 83
-dec_fun_idk          : 28
+dec_fun_idk          : 28 31
 dec_fun_more         : 30
 dec_inherit          : 83
 dec_method           : 52
 dec_read             : 48
 dec_term             : 54 61 62
 dec_vars             : 4
-dec_vars_idk         : 2 5 31
+dec_vars_idk         : 2 5
 dec_vars_more        : 4
 dec_vars_mult        : 1 1 33 83 83
 dec_write            : 49
@@ -347,13 +347,13 @@ state 8
     FUN             reduce using rule 110 (empty -> .)
     CLASS           reduce using rule 110 (empty -> .)
     MAIN            reduce using rule 110 (empty -> .)
-    PUBLIC          reduce using rule 110 (empty -> .)
-    RIGHTBRACKET    reduce using rule 110 (empty -> .)
     ID              reduce using rule 110 (empty -> .)
     INCO            reduce using rule 110 (empty -> .)
     OUTCO           reduce using rule 110 (empty -> .)
     IF              reduce using rule 110 (empty -> .)
     WHILE           reduce using rule 110 (empty -> .)
+    RIGHTBRACKET    reduce using rule 110 (empty -> .)
+    PUBLIC          reduce using rule 110 (empty -> .)
     RETURN          reduce using rule 110 (empty -> .)
     VAR             shift and go to state 9
 
@@ -427,22 +427,22 @@ state 12
 state 13
 
     (30) dec_fun_idk -> fun . dec_fun_more
-    (31) dec_fun_more -> . dec_vars_idk
+    (31) dec_fun_more -> . dec_fun_idk
     (32) dec_fun_more -> . empty
-    (4) dec_vars_idk -> . dec_vars dec_vars_more
+    (30) dec_fun_idk -> . fun dec_fun_more
     (110) empty -> .
-    (7) dec_vars -> . VAR vars SEMICOLON
+    (33) fun -> . FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET
 
     CLASS           reduce using rule 110 (empty -> .)
     MAIN            reduce using rule 110 (empty -> .)
     PUBLIC          reduce using rule 110 (empty -> .)
     RIGHTBRACKET    reduce using rule 110 (empty -> .)
-    VAR             shift and go to state 9
+    FUN             shift and go to state 14
 
+    fun                            shift and go to state 13
     dec_fun_more                   shift and go to state 33
-    dec_vars_idk                   shift and go to state 34
+    dec_fun_idk                    shift and go to state 34
     empty                          shift and go to state 35
-    dec_vars                       shift and go to state 8
 
 state 14
 
@@ -468,13 +468,13 @@ state 15
     FUN             reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     CLASS           reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     MAIN            reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
-    PUBLIC          reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
-    RIGHTBRACKET    reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     ID              reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     INCO            reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     OUTCO           reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     IF              reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     WHILE           reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
+    RIGHTBRACKET    reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
+    PUBLIC          reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
     RETURN          reduce using rule 4 (dec_vars_idk -> dec_vars dec_vars_more .)
 
 
@@ -485,13 +485,13 @@ state 16
     FUN             reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     CLASS           reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     MAIN            reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
-    PUBLIC          reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
-    RIGHTBRACKET    reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     ID              reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     INCO            reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     OUTCO           reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     IF              reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     WHILE           reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
+    RIGHTBRACKET    reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
+    PUBLIC          reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
     RETURN          reduce using rule 5 (dec_vars_more -> dec_vars_idk .)
 
 
@@ -502,13 +502,13 @@ state 17
     FUN             reduce using rule 6 (dec_vars_more -> empty .)
     CLASS           reduce using rule 6 (dec_vars_more -> empty .)
     MAIN            reduce using rule 6 (dec_vars_more -> empty .)
-    PUBLIC          reduce using rule 6 (dec_vars_more -> empty .)
-    RIGHTBRACKET    reduce using rule 6 (dec_vars_more -> empty .)
     ID              reduce using rule 6 (dec_vars_more -> empty .)
     INCO            reduce using rule 6 (dec_vars_more -> empty .)
     OUTCO           reduce using rule 6 (dec_vars_more -> empty .)
     IF              reduce using rule 6 (dec_vars_more -> empty .)
     WHILE           reduce using rule 6 (dec_vars_more -> empty .)
+    RIGHTBRACKET    reduce using rule 6 (dec_vars_more -> empty .)
+    PUBLIC          reduce using rule 6 (dec_vars_more -> empty .)
     RETURN          reduce using rule 6 (dec_vars_more -> empty .)
 
 
@@ -645,12 +645,12 @@ state 33
 
 state 34
 
-    (31) dec_fun_more -> dec_vars_idk .
+    (31) dec_fun_more -> dec_fun_idk .
 
-    CLASS           reduce using rule 31 (dec_fun_more -> dec_vars_idk .)
-    MAIN            reduce using rule 31 (dec_fun_more -> dec_vars_idk .)
-    PUBLIC          reduce using rule 31 (dec_fun_more -> dec_vars_idk .)
-    RIGHTBRACKET    reduce using rule 31 (dec_fun_more -> dec_vars_idk .)
+    CLASS           reduce using rule 31 (dec_fun_more -> dec_fun_idk .)
+    MAIN            reduce using rule 31 (dec_fun_more -> dec_fun_idk .)
+    PUBLIC          reduce using rule 31 (dec_fun_more -> dec_fun_idk .)
+    RIGHTBRACKET    reduce using rule 31 (dec_fun_more -> dec_fun_idk .)
 
 
 state 35
@@ -694,13 +694,13 @@ state 39
     FUN             reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     CLASS           reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     MAIN            reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
-    PUBLIC          reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
-    RIGHTBRACKET    reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     ID              reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     INCO            reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     OUTCO           reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     IF              reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     WHILE           reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
+    RIGHTBRACKET    reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
+    PUBLIC          reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
     RETURN          reduce using rule 7 (dec_vars -> VAR vars SEMICOLON .)
 
 
@@ -3816,7 +3816,7 @@ state 215
 
     (33) fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .
 
-    VAR             reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
+    FUN             reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
     CLASS           reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
     MAIN            reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)
     PUBLIC          reduce using rule 33 (fun -> FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET .)

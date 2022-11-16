@@ -1,32 +1,20 @@
 program hola;
 var int yes[10], sepsp, xd;
 var float no, si;
-
-fun int fib(int param1, int param2){
+fun void fib(int param1, int param2){
 	var float prepucio;
 	if(3){
 		param1 = param2;
+		param2 = 3 * param1;
 	}
 
-	return 3;
+	return;
 }
 
-
 main() {
-	var int numero, sope, yessir;
-	var char hello;
-	hello = "c";
-	numero = 21+3;
-	outco(numero, sope, yessir, 1-4);
-	inco(sope);
-	if(3+2*3/4){
-		sope = 3;
-	}else{
-		numero = 420;
+	var int op;
+	while(2*4+4){
+		op = 3+4;
 	}
 
-	while(3>4){
-		yessir = 22*2;
-	}
-	yessir = 3;
 }
