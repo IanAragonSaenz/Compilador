@@ -14,11 +14,13 @@ class cuadruplos:
         self.comparison = ["<", ">", "==", "<>"]
         self.andOr = ["&&", "||"]
         self.t = 1
+        self.tp = 1
         self.count = 0
         self.cuad = []
         self.table = table
         self.dirFuns = dirFuns
         self.funName = ''
+        self.returns = 0
         #{'accion' : '*', 'val1' : '1', 'val2' : 'count', 'final' : 't3'}
         
     #function ['int', 'fib', 
@@ -29,19 +31,89 @@ class cuadruplos:
 
     def saveFunCuads(self, fun):
         self.funName = fun[1]
+        self.returns = 0
         self.dirFuns.addFun(fun, self.count)
-        for block in fun[4]:
-            self.blockHandleFun(block)
-        ret = self.saveExpCuads(fun[5])
-        #self.dirFuns.addTemp(fun[1], size) 
-        cuadruplo =  {'accion': 'return', 'val1': '', 'val2': '', 'final': ret}
-        self.addCuad(cuadruplo)
+        if fun[4]:
+            for block in fun[4]:
+                self.blockHandle(block)
+
+        if fun[0] != 'void' and self.returns == 0:
+            exit(f'Error: function type {fun[0]} has no returns, function name: {fun[1]}')
 
         cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
         self.addCuad(cuadruplo)
         self.funName = ''
         self.dirFuns.printSelf()
         self.clearTemp()
+        self.returns = 0
+
+    def saveReturnCuads(self, code):
+        if self.funName == '':
+            exit('Error: return used outside of a function')
+
+        funType = self.dirFuns.getFunType(self.funName)
+        if funType != 'void' and not code[1]:
+            exit(f'Error: {funType} function not returning a value, function name: {self.funName[-1]}')
+        elif funType == 'void' and code[1]:
+            exit(f'Error: void function returning a value, function name: {self.funName[-1]}')
+        elif funType != 'void' and code[1]:
+            ret = self.saveExpCuads(code[1])
+            cuadruplo =  {'accion': 'return', 'val1': '', 'val2': '', 'final': ret}
+            self.addCuad(cuadruplo)
+        else:
+            cuadruplo =  {'accion': 'return', 'val1': '', 'val2': '', 'final': ''}
+            self.addCuad(cuadruplo)
+        
+        self.returns += 1
+    
+    def saveArrayCuads(self, code):
+        address = self.table.getIdDirV(code[1])
+        dimMin = 0
+        dimMax = self.getArrayDim(code[1])
+        if len(dimMax) != len(code[2]) or len(dimMax) == 0:
+            exit(f'Error: dimensions are not the same in var {code[1]}')
+        
+        print(code[1])
+        dtype = self.getType(code[1])
+        exp = code[2][0]
+        val = self.saveExpCuads(exp)
+        cuadruplo = {'accion': 'ver', 'val1': val, 'val2': dimMin, 'final': dimMax[0]}
+        self.addCuad(cuadruplo)
+
+        if len(dimMax) == 2:
+            cuadruplo = {'accion': '*', 'val1': val, 'val2': dimMax[1], 'final': 't{}'.format(self.t)}
+            self.addCuad(cuadruplo)
+            if self.funName == '':
+                self.table.addVar('t{}'.format(self.t), [], dtype, 'temporal')
+            else:
+                self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), dtype)
+            t = self.t
+            self.t += 1
+
+            
+            exp = code[2][1]
+            val = self.saveExpCuads(exp)
+            cuadruplo = {'accion': 'ver', 'val1': val, 'val2': dimMin, 'final': dimMax[1]}
+            self.addCuad(cuadruplo)
+            cuadruplo = {'accion': '+', 'val1': val, 'val2': 't{}'.format(t), 'final': 't{}'.format(self.t)}
+            self.addCuad(cuadruplo)
+            if self.funName == '':
+                self.table.addVar('t{}'.format(self.t), [], dtype, 'temporal')
+            else:
+                self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), dtype)
+            self.t += 1
+
+            cuadruplo = {'accion': '+', 'val1': 't{}'.format(self.t-1), 'val2': address, 'final': 'tp{}'.format(self.tp)}
+        else:
+            cuadruplo = {'accion': '+', 'val1': val, 'val2': address, 'final': 'tp{}'.format(self.tp)}
+        
+        self.addCuad(cuadruplo)
+        if self.funName == '':
+            self.table.addVar('tp{}'.format(self.tp), [], dtype, 'tp')
+        else:
+            self.dirFuns.addTempVar(self.funName, 'tp{}'.format(self.tp), dtype)
+        self.tp += 1
+        return 'tp{}'.format(self.tp-1)
 
     def saveCallCuads(self, call):
         # ['call', 'fib', [[3, '+', 1], ['op', '+', 2]]]
@@ -101,6 +173,8 @@ class cuadruplos:
         
     def saveIncoCuads(self, code):
         val = code[1]
+        if type(code[1]) == list and code[1][0] == 'array':
+            val = self.saveArrayCuads(code[1])
         cuadruplo =  {'accion': 'inco', 'val1': val, 'val2': '', 'final': ''} 
         self.addCuad(cuadruplo)
 
@@ -111,7 +185,7 @@ class cuadruplos:
             if fun == -1:
                 dtype = self.table.getIdType(index)
                 if dtype == -1:
-                    exit('var doesnt exist {}'.format(index))
+                    exit('var doesnt exist no{}'.format(index))
                 else:
                     return dtype
             else:
@@ -119,10 +193,27 @@ class cuadruplos:
         else:
             dtype = self.table.getIdType(index)
             if dtype == -1:
-                exit('var doesnt exist {}'.format(index))
+                exit('var doesnt exist yes{}'.format(index))
             else:
                 return dtype
-        return -1
+
+    def getArrayDim(self, index):
+        if len(self.funName) > 0:
+            fun = self.dirFuns.getIdDim(self.funName, index)
+            if fun == -1:
+                dtype = self.table.getIdDim(index)
+                if dtype == -1:
+                    exit('var doesnt exist no{}'.format(index))
+                else:
+                    return dtype
+            else:
+                return fun
+        else:
+            dtype = self.table.getIdDim(index)
+            if dtype == -1:
+                exit('var doesnt exist yes{}'.format(index))
+            else:
+                return dtype
 
     def checkType(self, val):
         if type(val) is str and val[0] == '"' and len(val) == 3:
@@ -134,10 +225,22 @@ class cuadruplos:
         return dtype
 
     def saveAssignCuads(self, code):
-        val = self.saveExpCuads(code[2])
-        left = self.getType(code[1])
+        print('codeee', code)
+        if type(code[1]) == list and code[1][0] == 'array':
+            tp = self.saveArrayCuads(code[1])
+            left = self.getType(code[1][1])
+            code[1] = tp
+        else:
+            left = self.getType(code[1])
 
+        #if type(code[2]) == list and code[2][0] == 'array':
+        #    tp = self.saveExpCuads(code[2])
+        #    right = self.checkType(code[2][1])
+        #    code[2] = tp
+        #else:
+        val = self.saveExpCuads(code[2])
         right = self.checkType(val)
+        
 
         typeCheck = self.cube.typeCheck(left, right, '=')
         if typeCheck == 'x':
@@ -186,24 +289,8 @@ class cuadruplos:
         self.addCuad(cuadruplo)
         self.cuad[falso]['final'] = self.count
 
-    def blockHandle(self, code):
-        if code[0] == 'condition':
-            self.saveConditionCuads(code)
-        elif code[0] == 'assign':
-            self.saveAssignCuads(code)
-            # ['assign', p[1], p[3]]
-        elif code[0] == 'while':
-            self.saveWhileCuads(code)
-        elif code[0] == 'outco':
-            self.saveOutcoCuads(code)
-        elif code[0] == 'inco':
-            self.saveIncoCuads(code)
-        elif code[0] == 'call':
-            self.saveCallCuads(code)
-        else:
-            exit("Error: statement non existant")
     
-    def blockHandleFun(self, code):
+    def blockHandle(self, code):
         if code[0] == 'condition':
             self.saveConditionCuads(code)
         elif code[0] == 'assign':
@@ -217,7 +304,11 @@ class cuadruplos:
         elif code[0] == 'call':
             self.saveCallCuads(code)
         elif code[0] == 'return':
-            return 0
+            self.saveReturnCuads(code)
+        elif code[0] == 'array':
+            self.saveArrayCuads(code)
+        else:
+            exit(f"Error: statement {code[0]} non existant")
 
     def addCuad(self, cuadruplo):
         self.cuad.append(cuadruplo)
@@ -229,28 +320,41 @@ class cuadruplos:
     def expCuads(self):
         operandStack = []
         tokenList = self.vp
+        typeList = self.pTipos
         self.vp = []
+        self.pTipos = []
 
+        print('tokennnList', tokenList)
         for token in tokenList:
+            print('tokennn', token)
             if token in self.operators:
                 operand2 = operandStack.pop()
                 operand1 = operandStack.pop()
-                type2 = self.pTipos.pop()
-                type1 = self.pTipos.pop()
+                type2 = typeList.pop()
+                type1 = typeList.pop()
 
                 # Do cuads for call in case a function is being used in an exp
                 if type(operand1) == list:
-                    operand1 = self.saveCallCuads(operand1)
+                    if operand1[0] == 'call':
+                        operand1 = self.saveCallCuads(operand1)
+                    elif operand1[0] == 'array':
+                        operand1 = self.saveArrayCuads(operand1)
+                        print('operandddmelapelasalaverga', operand1)
+                        
                 if type(operand2) == list:
-                    operand2 = self.saveCallCuads(operand2)
+                    if operand2[0] == 'call':
+                        operand2 = self.saveCallCuads(operand2)
+                    elif operand2[0] == 'array':
+                        operand2 = self.saveArrayCuads(operand2)
+                        print('operandddmelapelasalaverga', operand2)
                 
                 typeResult = self.cube.typeCheck(type1, type2, token)
                 if typeResult == 'x':
                     exit('Type mismatch between {} and {}'.format(operand1, operand2))
                 else:
-                    self.pTipos.append(typeResult)
+                    typeList.append(typeResult)
                     if self.funName == '':
-                        self.table.addVar('t{}'.format(self.t), typeResult, 'temporal')
+                        self.table.addVar('t{}'.format(self.t), [], typeResult, 'temporal')
                     else:
                         self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), typeResult)
                     
@@ -261,6 +365,13 @@ class cuadruplos:
                 operandStack.append('t{}'.format(self.t))
                 self.t = self.t + 1
             else:
+                if type(token) == list:
+                    if token[0] == 'call':
+                        token = self.saveCallCuads(token)
+                    elif token[0] == 'array':
+                        print('operandddmelapelasalaverga', token)
+                        token = self.saveArrayCuads(token)
+                        
                 operandStack.append(token)
         if len(operandStack) < 1:
             return ''
@@ -268,12 +379,16 @@ class cuadruplos:
             return operandStack.pop()
         
     def readEXP(self, exp):
+        print('expppp', exp)
         for index in exp:
             if index not in self.operators:
                 if type(index) is list:
-                    dtype = self.dirFuns.getFunType(index[1])
-                    if dtype == 'void':
-                        exit(f'void function can\'t be used in an expression')
+                    if index[0] == 'array':
+                        dtype = self.getType(index[1])
+                    else:
+                        dtype = self.dirFuns.getFunType(index[1])
+                        if dtype == 'void':
+                            exit(f'void function can\'t be used in an expression')
                     self.pTipos.append(dtype)
                 elif type(index) is str and index[0] == '"' and len(index) == 3:
                     self.pTipos.append('char')

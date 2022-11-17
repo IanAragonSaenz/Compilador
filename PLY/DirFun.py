@@ -32,45 +32,50 @@ class dirFun:
         self.fun[fun[1]] = {}
         self.fun[fun[1]]['type'] = fun[0]
         self.fun[fun[1]]['dirI'] = dirI
+        self.fun[fun[1]]['dirV'] = 0
 
         self.fun[fun[1]]['param'] = []
         self.fun[fun[1]]['vars'] = []
         self.fun[fun[1]]['temp'] = []
 
-        for param in fun[2]:
-            self.fun[fun[1]]['param'].append(param[0])
-            var = {
-                "id":param[1],
-                "type":param[0],
-                "dirV":"",
-                "dim":[]
-            }
-            self.fun[fun[1]]['vars'].append(var)
-            size = size + 1
+        if fun[2]:
+            for param in fun[2]:
+                self.fun[fun[1]]['param'].append(param[0])
+                var = {
+                    "id":param[1],
+                    "type":param[0],
+                    "dirV":self.fun[fun[1]]['dirV'],
+                    "dim":[]
+                }
+                self.fun[fun[1]]['vars'].append(var)
+                size = size + 1
+                self.fun[fun[1]]['dirV'] += 1
 
         #['float', [['prepucio', None]]]
         dtype = ''
-        for index in range(len(fun[3])):
-            if index%2 == 0:
-                dtype = fun[3][index]
-            else:
-                for temp in fun[3][index]:
-                    var = {
-                        "id":temp[0],
-                        "type":dtype,
-                        "dirV":"",
-                        "dim":[]
-                    }
-                    if temp[1]:
+        if fun[3]:
+            for index in range(len(fun[3])):
+                if index%2 == 0:
+                    dtype = fun[3][index]
+                else:
+                    for temp in fun[3][index]:
+                        var = {
+                            "id":temp[0],
+                            "type":dtype,
+                            "dirV":self.fun[fun[1]]['dirV'],
+                            "dim":[]
+                        }
                         count = 1
-                        for i in temp[1]:
-                            count = i * count
-                            var['dim'].append(i)
-                        size = size + count
-                    else:
-                        size = size + 1
-                    self.fun[fun[1]]['vars'].append(var)
-
+                        if temp[1]:
+                            for i in temp[1]:
+                                count = i * count
+                                var['dim'].append(i)
+                            size = size + count
+                        else:
+                            size = size + 1
+                        self.fun[fun[1]]['dirV'] += count
+                        self.fun[fun[1]]['vars'].append(var)
+        #print(self.fun)
         self.fun[fun[1]]['size'] = size
             
     def addTemp(self, funName, size):
@@ -81,9 +86,10 @@ class dirFun:
         var = {
             "id":temp,
             "type":dtype,
-            "dirV":"",
+            "dirV":self.fun[funName]['dirV'],
             "dim":[]
         }
+        self.fun[funName]['dirV'] += 1
         self.fun[funName]['temp'].append(var)
         self.fun[funName]['size'] = self.fun[funName]['size'] + 1
 
@@ -114,7 +120,18 @@ class dirFun:
                 if var['id'] == varName:
                     return var['type'] 
             return -1
-        return -1               
+        return -1    
+
+    def getIdDim(self, funName, varName): 
+        if funName in self.fun:
+            for var in self.fun[funName]['vars']:
+                if var['id'] == varName:
+                    return var['dim']
+            for var in self.fun[funName]['temp']:
+                if var['id'] == varName:
+                    return var['dim'] 
+            return -1
+        return -1              
 
     def printSelf(self):
         #for fun in self.fun:

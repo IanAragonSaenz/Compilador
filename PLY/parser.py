@@ -12,6 +12,9 @@ def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
     
+    if p[4]:
+        table.idSplit(p[4], 'global')
+
     if p[5]:
         for fun in p[5]:
             cuad.saveFunCuads(fun)
@@ -20,10 +23,15 @@ def p_program(p):
     #for c in p[6]:
     #    cuad.saveFunCuads()
     
+    decVars = None
+    if p[11]:
+        decVars = p[11]
+    
+    decBlock = None
     if p[12]:
-        for block in p[12]:
-            print(block)
-            cuad.blockHandle(block)
+        decBlock = p[12]
+
+    cuad.saveFunCuads(['void', 'main', None, decVars, decBlock])
         
     print(table)
     print(cuad)
@@ -39,11 +47,6 @@ def p_dec_vars_mult(p):
                 | empty'''
     if p[1]:
         p[0] = p[1]
-
-        ret = table.idSplit(p[0], 'global')
-        if ret == -1:
-            exit("Error: variable ya declarada")
-        # [int, [['sum', []], ['count', []]],  float, [['salaverga', []]]]
 
 def p_dec_vars_idk(p):
     '''dec_vars_idk : dec_vars dec_vars_more'''
@@ -82,10 +85,10 @@ def p_vars_simple_dec(p):
     '''vars_simple_dec : vars_simple_id vars_simple_more'''
     if p[2]:
         if type(p[2]) is list:
-            p[2].append(p[1])
-            p[0] = p[2]
+            arr = [p[1]] + p[2]
+            p[0] = arr
         else:
-            p[0] = [p[2], p[1]]
+            p[0] = [p[1], p[2]]
     else:
         p[0] = [p[1]]
     
@@ -186,8 +189,8 @@ def p_dec_fun_more(p):
         p[0] = p[1]
 
 def p_fun(p):
-    '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RETURN dec_exp_method SEMICOLON RIGHTBRACKET'''
-    p[0] = [p[2], p[3], p[5], p[8], p[9], p[11]]
+    '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
+    p[0] = [p[2], p[3], p[5], p[8], p[9]]
     print('function', p[0])
 
 def p_param_pos(p):
@@ -213,6 +216,10 @@ def p_fun_type(p):
     '''fun_type : type_simple
                 | VOID'''
     p[0] = p[1]
+
+def p_fun_return(p):
+    '''fun_return : RETURN dec_exp_method SEMICOLON'''
+    p[0] = ['return', p[2]]
 
 
 
@@ -250,7 +257,8 @@ def p_statement(p):
                         | dec_write
                         | dec_condition
                         | dec_cycle
-                        | dec_method'''
+                        | dec_method
+                        | fun_return'''
     p[0] = [p[1]]
 
 
@@ -399,10 +407,6 @@ def p_dec_inherit(p):
 
 def p_dec_assign(p):
     '''dec_assign : var_id COMP_EQUAL dec_exp SEMICOLON'''
-    #val = cuad.saveExpCuads(p[3])
-    #cuad.saveAssignCuads(p[1], val)
-    # count = 1+2
-    #table.assignVal(p[3], p[1])
     p[0] = ['assign', p[1], p[3]]
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
@@ -490,7 +494,10 @@ def p_var_cte(p):
     '''var_cte : var_id
                 | dec_call_exp
                 | var_const'''
-    p[0] = p[1]
+    if type(p[1]) == list and p[1][0] == 'array':
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1]
 
 def p_var_const(p):
     '''var_const : CTEI
@@ -499,22 +506,24 @@ def p_var_const(p):
     p[0] = p[1]
 
 def p_var_id(p):
-    '''var_id : ID'''
-    p[0] = p[1]
-    #if table.checkVar(p[1]) == -1:
-    #    print("Error: Variable", p[1], "no definida")
+    '''var_id : ID
+                | ID LEFTKEY dec_exp RIGHTKEY
+                | ID LEFTKEY dec_exp RIGHTKEY LEFTKEY dec_exp RIGHTKEY'''
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 5:
+        p[0] = ['array', p[1], [p[3]]]
+    else:
+        p[0] = ['array', p[1], [p[3], p[6]]]
 
 def p_fun_id(p):
     '''fun_id : ID'''
     p[0] = p[1]
-    #if table.checkVar(p[1]) == -1:
-    #    print("Error: Variable", p[1], "no definida")
 
 
 # Error rule for syntax errors
 def p_error(p):
-    # raise Exception("Syntax error in input! - {} ".format(p))
-    print("Error de sintaxis! - {} ".format(p))
+    exit("Error de sintaxis! - {} ".format(p))
 
 
 def p_empty(p):
