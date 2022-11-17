@@ -12,6 +12,8 @@ def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = ("COMPILED", p[1], p[2], p[3], p[4])
     
+    cuad.goToMain()
+
     if p[4]:
         table.idSplit(p[4], 'global')
 
@@ -31,10 +33,12 @@ def p_program(p):
     if p[12]:
         decBlock = p[12]
 
+    cuad.fillGoToMain()
     cuad.saveFunCuads(['void', 'main', None, decVars, decBlock])
         
-    print(table)
-    print(cuad)
+    #print(table)
+    #print(cuad)
+    cuad.saveCuads(p[2])
 
 
 
@@ -151,7 +155,8 @@ def p_vars_complex_more(p):
 def p_type_simple(p):
     '''type_simple : INT
             | FLOAT
-            | CHAR'''
+            | CHAR
+            | BOOL'''
     p[0] = p[1]
             
 ## tipos complejos           
@@ -191,7 +196,7 @@ def p_dec_fun_more(p):
 def p_fun(p):
     '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = [p[2], p[3], p[5], p[8], p[9]]
-    print('function', p[0])
+    #print('function', p[0])
 
 def p_param_pos(p):
     '''param_pos : param
@@ -315,25 +320,24 @@ def p_md_op(p):
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : var_cte
-                | hyper_call'''
+                | LEFTPAREN hyper_call LEFTPAREN'''
     if type(p[1]) is list:
         p[0] = p[1]
     else:
         p[0] = [p[1]]
 
-def p_hyper_call(p):
-    '''hyper_call : h_exp
-                | LEFTPAREN h_exp RIGHTPAREN'''
-    if len(p) == 2:
-        p[0] = p[1]
-    else:
+    if len(p) == 4:
         p[0] = ['('] + p[2] + [')']
     
+def p_hyper_call(p):
+    '''hyper_call : h_exp'''
+    if len(p) == 2:
+        p[0] = p[1]
+
 ## declaracion de hiper expresion             
 def p_h_exp(p):
     '''h_exp : s_exp ao_op'''
     p[0] = p[1] + p[2]
-
 
 def p_ao_op(p):
     '''ao_op : COMP_AND h_exp
@@ -350,18 +354,15 @@ def p_s_exp(p):
     p[0] = p[1] + p[2]
     
 def p_comp_op(p):
-    '''comp_op : COMP_LESS s_exp
-                | COMP_GREATER s_exp
-                | COMP_EQUAL s_exp
-                | COMP_NOTEQUAL s_exp
+    '''comp_op : COMP_LESS dec_exp_s
+                | COMP_GREATER dec_exp_s
+                | COMP_EQUAL dec_exp_s
+                | COMP_NOTEQUAL dec_exp_s
                 | empty'''
     if len(p) == 3:
         p[0] = [p[1]] + p[2]
     else:
         p[0] = []
-
-
-
 
 
 
@@ -406,7 +407,7 @@ def p_dec_inherit(p):
 
 
 def p_dec_assign(p):
-    '''dec_assign : var_id COMP_EQUAL dec_exp SEMICOLON'''
+    '''dec_assign : var_id ASSIGN hyper_call SEMICOLON'''
     p[0] = ['assign', p[1], p[3]]
 def p_dec_call(p):
     '''dec_call : ID LEFTPAREN call_pos RIGHTPAREN SEMICOLON'''
@@ -423,7 +424,7 @@ def p_call_pos(p):
         p[0] = p[1]
 
 def p_call(p):
-    '''call : dec_exp call_more'''
+    '''call : hyper_call call_more'''
     if p[2]:
         join = [p[1]] + p[2]
         p[0] = join
@@ -454,7 +455,7 @@ def p_dec_write(p):
     p[0] = ['outco', p[3]]
 
 def p_write(p):
-    '''write : dec_exp write_more'''
+    '''write : hyper_call write_more'''
     if p[2]:
         write = [p[1]] + p[2]
         p[0] = write
@@ -469,7 +470,7 @@ def p_write_more(p):
     
 ## declaracion condicion
 def p_dec_condition(p):
-    '''dec_condition : IF LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
+    '''dec_condition : IF LEFTPAREN hyper_call RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET dec_else'''
     #cuad.saveExpCuads(p[3])
     p[0] = ['condition', p[3], p[6], p[8]]
 
@@ -482,7 +483,7 @@ def p_dec_else(p):
 
 ## declaracion while
 def p_dec_cycle(p):
-    '''dec_cycle : WHILE LEFTPAREN dec_exp RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
+    '''dec_cycle : WHILE LEFTPAREN hyper_call RIGHTPAREN LEFTBRACKET dec_block RIGHTBRACKET'''
     p[0] = ['while', p[3], p[6]]
 ## llamada metodo
 def p_dec_method(p):
@@ -500,10 +501,17 @@ def p_var_cte(p):
         p[0] = p[1]
 
 def p_var_const(p):
-    '''var_const : CTEI
-               | CTEF
-               | CHAR_DEC'''
+    '''var_const : CTEF
+               | CTEI
+               | CHAR_DEC
+               | TRUE
+               | FALSE'''
     p[0] = p[1]
+    if p[1] == 'true':
+        p[0] = True
+    elif p[1] == 'false':
+        p[0] = False
+        
 
 def p_var_id(p):
     '''var_id : ID
@@ -547,7 +555,7 @@ if __name__ == '__main__':
             data = f.read()
             f.close()
             dat = yacc.parse(data)
-            print(dat)
+            #print(dat)
             if dat == "COMPILED":
                 print("Compilado")
         except EOFError:

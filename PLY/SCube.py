@@ -123,6 +123,20 @@ class sCube:
                 '=': 'char'
             },
 
+            "bb": {
+                '+': 'x',
+                '-': 'x',
+                '*': 'x',
+                '/': 'x',
+                '&&': 'bool',
+                '||': 'bool',
+                '<': 'x',
+                '>': 'x',
+                '==': 'bool',
+                '<>': 'bool',
+                '=': 'bool'
+            },
+
 # cambio a los opuestos
 
             "fi": {

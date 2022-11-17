@@ -82,13 +82,15 @@ class dirFun:
         self.fun[funName]['size'] = size + self.fun[funName]['size']
         
     
-    def addTempVar(self, funName, temp, dtype):
+    def addTempVar(self, funName, temp, dtype, tp=False):
         var = {
             "id":temp,
             "type":dtype,
             "dirV":self.fun[funName]['dirV'],
             "dim":[]
         }
+        if tp:
+            self.fun[funName]['gtype'] ='tp'
         self.fun[funName]['dirV'] += 1
         self.fun[funName]['temp'].append(var)
         self.fun[funName]['size'] = self.fun[funName]['size'] + 1

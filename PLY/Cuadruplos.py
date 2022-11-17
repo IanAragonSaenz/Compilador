@@ -29,6 +29,35 @@ class cuadruplos:
     #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
     #[3]]
 
+    def goToMain(self):
+        cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': ''}
+        self.addCuad(cuadruplo)
+        self.pSalto.append(0)
+    
+    def fillGoToMain(self):
+        goto = self.pSalto.pop()
+        self.cuad[goto]['final'] = self.count
+
+    def saveCuads(self, progName):
+        f = open(f"{progName}.txt", "w")
+        f.write(f"@@@@@{progName}.txt\r")
+        f.close()
+
+        f = open(f"{progName}.txt", "a")
+        f.write('@@@@@_SymbolTable\n')
+        for element in self.table.symbol:
+            f.write(f'{element} : {self.table.symbol[element]}\n')
+
+        f.write('@@@@@_DirFun\n')
+        for element in self.dirFuns.fun:
+            f.write(f'{element} : {self.dirFuns.fun[element]}\n')
+        
+        f.write('@@@@@_Cuadruplos\n')
+        for i in range(len(self.cuad)):
+            f.write(f'{i} : {self.cuad[i]}\n')
+        f.close()
+
+
     def saveFunCuads(self, fun):
         self.funName = fun[1]
         self.returns = 0
@@ -43,7 +72,6 @@ class cuadruplos:
         cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
         self.addCuad(cuadruplo)
         self.funName = ''
-        self.dirFuns.printSelf()
         self.clearTemp()
         self.returns = 0
 
@@ -73,7 +101,6 @@ class cuadruplos:
         if len(dimMax) != len(code[2]) or len(dimMax) == 0:
             exit(f'Error: dimensions are not the same in var {code[1]}')
         
-        print(code[1])
         dtype = self.getType(code[1])
         exp = code[2][0]
         val = self.saveExpCuads(exp)
@@ -111,7 +138,7 @@ class cuadruplos:
         if self.funName == '':
             self.table.addVar('tp{}'.format(self.tp), [], dtype, 'tp')
         else:
-            self.dirFuns.addTempVar(self.funName, 'tp{}'.format(self.tp), dtype)
+            self.dirFuns.addTempVar(self.funName, 'tp{}'.format(self.tp), dtype, True)
         self.tp += 1
         return 'tp{}'.format(self.tp-1)
 
@@ -225,7 +252,6 @@ class cuadruplos:
         return dtype
 
     def saveAssignCuads(self, code):
-        print('codeee', code)
         if type(code[1]) == list and code[1][0] == 'array':
             tp = self.saveArrayCuads(code[1])
             left = self.getType(code[1][1])
@@ -233,13 +259,8 @@ class cuadruplos:
         else:
             left = self.getType(code[1])
 
-        #if type(code[2]) == list and code[2][0] == 'array':
-        #    tp = self.saveExpCuads(code[2])
-        #    right = self.checkType(code[2][1])
-        #    code[2] = tp
-        #else:
         val = self.saveExpCuads(code[2])
-        right = self.checkType(val)
+        right = self.getType(val)
         
 
         typeCheck = self.cube.typeCheck(left, right, '=')
@@ -324,42 +345,37 @@ class cuadruplos:
         self.vp = []
         self.pTipos = []
 
-        print('tokennnList', tokenList)
         for token in tokenList:
-            print('tokennn', token)
             if token in self.operators:
                 operand2 = operandStack.pop()
                 operand1 = operandStack.pop()
-                type2 = typeList.pop()
-                type1 = typeList.pop()
-
-                # Do cuads for call in case a function is being used in an exp
+                # Do cuads for call or an array in case a function is being used in an exp
                 if type(operand1) == list:
                     if operand1[0] == 'call':
                         operand1 = self.saveCallCuads(operand1)
                     elif operand1[0] == 'array':
                         operand1 = self.saveArrayCuads(operand1)
-                        print('operandddmelapelasalaverga', operand1)
-                        
+
+                # Do cuads for call or an array in case a function is being used in an exp    
                 if type(operand2) == list:
                     if operand2[0] == 'call':
                         operand2 = self.saveCallCuads(operand2)
                     elif operand2[0] == 'array':
                         operand2 = self.saveArrayCuads(operand2)
-                        print('operandddmelapelasalaverga', operand2)
+
+                type2 = self.getType(operand2)
+                type1 = self.getType(operand1)
                 
                 typeResult = self.cube.typeCheck(type1, type2, token)
                 if typeResult == 'x':
-                    exit('Type mismatch between {} and {}'.format(operand1, operand2))
+                    exit('Type mismatch between {} : {} and {} : {}'.format(operand1, type1, operand2, type2))
                 else:
                     typeList.append(typeResult)
                     if self.funName == '':
                         self.table.addVar('t{}'.format(self.t), [], typeResult, 'temporal')
                     else:
                         self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), typeResult)
-                    
-                #result = self.calculate(token, operand1, operand2)
-                
+                                    
                 cuadruplo =  {'accion': token, 'val1': operand1, 'val2': operand2, 'final': 't{}'.format(self.t)}
                 self.addCuad(cuadruplo)
                 operandStack.append('t{}'.format(self.t))
@@ -369,7 +385,6 @@ class cuadruplos:
                     if token[0] == 'call':
                         token = self.saveCallCuads(token)
                     elif token[0] == 'array':
-                        print('operandddmelapelasalaverga', token)
                         token = self.saveArrayCuads(token)
                         
                 operandStack.append(token)
@@ -379,26 +394,24 @@ class cuadruplos:
             return operandStack.pop()
         
     def readEXP(self, exp):
-        print('expppp', exp)
         for index in exp:
-            if index not in self.operators:
+            if index not in self.operators:                                     # non operators
                 if type(index) is list:
-                    if index[0] == 'array':
+                    if index[0] == 'array':                                     #for arrays
                         dtype = self.getType(index[1])
-                    else:
+                    else:                                                       #For Functions
                         dtype = self.dirFuns.getFunType(index[1])
                         if dtype == 'void':
                             exit(f'void function can\'t be used in an expression')
-                    self.pTipos.append(dtype)
-                elif type(index) is str and index[0] == '"' and len(index) == 3:
-                    self.pTipos.append('char')
-                elif type(index) is str:
+                elif type(index) is str and index[0] == '"' and len(index) == 3:    # chars
+                    self.table.addVar(index, [], 'char', 'cte')
+                elif type(index) is str:                                            #for variables
                     dtype = self.getType(index)
-                    self.pTipos.append(dtype)
                 else:
-                    self.pTipos.append(self.table.getValType(index))
+                    self.table.addVar(index, [], self.table.getValType(index), 'cte')
 
                 self.addVP(index)
+
             elif index in self.plusMinus:
                 multdiv = 1
                 while multdiv:
@@ -443,7 +456,8 @@ class cuadruplos:
             compar = self.checkComp()
         andOr = 1
         while andOr:
-            andOr = self.checkAndOr()            
+            andOr = self.checkAndOr()
+                
             
     
     def polishEval(self, table: symbolTable):
@@ -481,7 +495,10 @@ class cuadruplos:
             return operand1 == operand2
         elif operator == "<>":
             return operand1 != operand2
-        
+        elif operator == "&&":
+            return operand1 and operand2
+        elif operator == "||":
+            return operand1 or operand2
     def clearCache(self):
         self.vp = []
         self.pOper = []

@@ -2,8 +2,9 @@ class symbolTable:
     
     def __init__(self):
         self.symbol = {}
-        self.dirV = [None] * 1000
+        self.dirV = [None] * 10000
     
+
 
     #['float', [['prepucio', None]]]
     #['int', [['yes', [10]]]]
@@ -22,6 +23,8 @@ class symbolTable:
     
     def addVar(self, id, dim, dtype, gtype):
         if id in self.symbol:
+            if gtype == 'cte':
+                return
             exit("error variable is already declared")
         
         self.symbol[id] = {}
@@ -123,19 +126,19 @@ class symbolTable:
         max = 0
         if gtype == 'global':
             min = 0
-            max = 250
+            max = 2000
         elif gtype == 'local':
-            min = 250
-            max = 500
+            min = 2000
+            max = 4000
         elif gtype == 'temporal':
-            min = 500
-            max = 750
+            min = 4000
+            max = 6000
         elif gtype == 'cte':
-            min = 750
-            max = 1000
+            min = 6000
+            max = 8000
         elif gtype == 'tp':
-            min = 1000
-            max = 1250
+            min = 8000
+            max = 10000
         
         for x in range(min, max):
             if self.dirV[x] == None:
