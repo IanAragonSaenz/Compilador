@@ -1,12 +1,19 @@
 @@@@@hola.txt@@@@@_SymbolTable
 1 : {'dim': [], 'type': 'int', 'dirV': 6000}
--4 : {'dim': [], 'type': 'int', 'dirV': 6001}
-2 : {'dim': [], 'type': 'int', 'dirV': 6002}
+0 : {'dim': [], 'type': 'int', 'dirV': 6001}
+-10 : {'dim': [], 'type': 'int', 'dirV': 6002}
+9 : {'dim': [], 'type': 'int', 'dirV': 6003}
+2 : {'dim': [], 'type': 'int', 'dirV': 6004}
 @@@@@_DirFun
-main : {'type': 'void', 'dirI': 1, 'dirV': 2, 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': []}], 'size': 2}
+main : {'type': 'void', 'dirI': 1, 'dirV': 4, 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 1, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': []}, {'id': 't3', 'type': 'int', 'dirV': 3, 'dim': []}], 'size': 4}
 @@@@@_Cuadruplos
 0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 1}
-1 : {'accion': '=', 'val1': -4, 'val2': '', 'final': 'num'}
-2 : {'accion': '-', 'val1': 'num', 'val2': 2, 'final': 't1'}
-3 : {'accion': 'outco', 'val1': 't1', 'val2': '', 'final': ''}
-4 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+1 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
+2 : {'accion': '>', 'val1': 'num', 'val2': -10, 'final': 't1'}
+3 : {'accion': 'gotoF', 'val1': 't1', 'val2': '', 'final': 9}
+4 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't2'}
+5 : {'accion': 'outco', 'val1': 't2', 'val2': '', 'final': ''}
+6 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't3'}
+7 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'num'}
+8 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 2}
+9 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}

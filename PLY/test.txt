@@ -2,6 +2,10 @@ program hola;
 
 main(){
 	var int num;
-	num = -4;
-	outco(num-2);
+	num = 0;
+	while(num > -10){
+		outco(num-1);
+		num = num - 1;
+	}
+	
 }

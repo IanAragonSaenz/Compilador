@@ -1,5 +1,7 @@
 import sys
 import ast
+import re
+
 symbolTable = {}
 cuadruplos = []
 countSym = 0
@@ -10,10 +12,11 @@ progName = ''
 ip = 0
 funName = ['main']
 funParamName = []
-tCount = 4000
 tempMin = 4000
 cteMin = 6000
 tpMin = 8000
+tCount = tempMin
+
 
 def output(data):
     part = -1
@@ -76,7 +79,7 @@ def execCuad(cuad):
         ip -= 1
         
     elif cuad['accion'] == 'gotoF':
-        if dirV[getDirV(cuad['val1'])]:
+        if not dirV[getDirV(cuad['val1'])]:
             print("GotoFalso")
             ip = dirV[getDirV(cuad['final'])]
             ip -=1
@@ -84,7 +87,7 @@ def execCuad(cuad):
         print("Suma")
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])] + dirV[getDirV(cuad['val2'])]
     elif cuad['accion'] == '-':
-        print("Resta", dirV[getDirV(cuad['val1'])], dirV[getDirV(cuad['val2'])])
+        print("Resta", type(dirV[getDirV(cuad['val1'])]), dirV[getDirV(cuad['val1'])], type(dirV[getDirV(cuad['val2'])]), dirV[getDirV(cuad['val2'])])
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])] - dirV[getDirV(cuad['val2'])]
         #{'accion': '-', 'val1': 'num', 'val2': 2, 'final': 't1'}
     elif cuad['accion'] == '*':
@@ -106,9 +109,6 @@ def execCuad(cuad):
     elif cuad['accion'] == '=':
         print("Asigna")
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])]
-        for i in range(len(dirV)):
-                if i >= tempMin and i < 4050:
-                    print(f'{i} : {dirV[i]}')
         
     elif cuad['accion'] == '==':
         print("Compara")
@@ -152,7 +152,7 @@ def execCuad(cuad):
         print("S")
         ip -= 1
     elif cuad['accion'] == 'END':
-        print("S")
+        print("END")
         ip = -10
     ip += 1
 
@@ -194,11 +194,14 @@ def saveSymbolTable(data):
     sub = data[start:] 
     res = ast.literal_eval(sub)
     if res['dirV'] >= cteMin and res['dirV'] < tpMin:
-        if id.replace('.','',1).isdigit():
-            if id.isdigit():
+        if id.replace('.','',1).replace('-','',1).isdigit():
+            if id.replace('-','',1).isdigit():
+                print('int  ', id)
                 dirV[res['dirV']] = int(id)
             else:
+                print('float  ', id)
                 dirV[res['dirV']] = float(id)
+                
         else:
             dirV[res['dirV']] = id
     symbolTable[id] = res
