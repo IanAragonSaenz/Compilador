@@ -1,7 +1,7 @@
-@@@@@hola.txt
-@@@@@_SymbolTable
--4 : {'dim': [], 'type': 'int', 'dirV': 6000}
-2 : {'dim': [], 'type': 'int', 'dirV': 6001}
+@@@@@hola.txt@@@@@_SymbolTable
+1 : {'dim': [], 'type': 'int', 'dirV': 6000}
+-4 : {'dim': [], 'type': 'int', 'dirV': 6001}
+2 : {'dim': [], 'type': 'int', 'dirV': 6002}
 @@@@@_DirFun
 main : {'type': 'void', 'dirI': 1, 'dirV': 2, 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': []}], 'size': 2}
 @@@@@_Cuadruplos

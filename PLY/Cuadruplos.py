@@ -37,6 +37,7 @@ class cuadruplos:
     def fillGoToMain(self):
         goto = self.pSalto.pop()
         self.cuad[goto]['final'] = self.count
+        self.table.addVar(self.count, [], 'int', 'cte')
 
     def saveCuads(self, progName):
         f = open(f"{progName}.txt", "w")
@@ -293,11 +294,13 @@ class cuadruplos:
             self.addCuad(cuadruplo)
             self.pSalto.append(self.count-1)
             self.cuad[falso]['final'] = self.count
+            self.table.addVar(self.count, [], 'int', 'cte')
             for block in code[3]:
                 self.blockHandle(block)
 
         salto = self.pSalto.pop()
         self.cuad[salto]['final'] = self.count
+        self.table.addVar(self.count, [], 'int', 'cte')
         
     def saveWhileCuads(self, code):
         self.pSalto.append(self.count) #Revaluar 3
@@ -314,6 +317,8 @@ class cuadruplos:
         cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': retorno}
         self.addCuad(cuadruplo)
         self.cuad[falso]['final'] = self.count
+        self.table.addVar(self.count, [], 'int', 'cte')
+        self.table.addVar(retorno, [], 'int', 'cte')
 
     
     def blockHandle(self, code):
