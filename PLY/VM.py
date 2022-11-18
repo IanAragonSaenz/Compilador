@@ -8,8 +8,8 @@ dirV = [None] * 10000
 pSaltos = []
 progName = ''
 ip = 0
-
 funName = ['main']
+funParamName = []
 
 def output(data):
     part = -1
@@ -41,7 +41,7 @@ def getDirV(id):
             if vars['id'] == id:
                 return vars['dirV'] + dirFun[funName[-1]]['dirV'][-1]
         for temp in dirFun[funName[-1]]['temp']: #
-            if temp['id'] == id:
+            if temp['id'] == id:                                                     #check for TP
                 return temp['dirV'] + dirFun[funName[-1]]['dirV'][-1]
     
     if id in symbolTable:
@@ -49,21 +49,35 @@ def getDirV(id):
     else:
         exit(f'Value {id} was not declared')
 
-
+def getDirVParam(id, par):
+    if len(funName) > 0:
+        if len(dirFun[funName[-1]]['dirV']) == 0: #we are inside of a function with no memory
+            exit(f'Function {funName[-1]} didn\'t get initialized')
+        param = dirFun[funName[-1]]['param'] #get 
+        paramSize = len(param)
+        if par > paramSize:
+             exit(f'Function {id} doesnt have {par} params')
+        
+        return dirFun[funName[-1]]['vars'][par-1] + dirFun[funName[-1]]['dirV'][-1]
+    else:
+        exit(f'Function {id} wasnt initialized')
 
 def execCuad(cuad):
     if cuad['accion'] == 'goto':
-        print("S")
+        ip = dirV[getDirV(cuad['final'])]
+        print("Goto")
         ip -= 1
     elif cuad['accion'] == 'gotoF':
-        print("S")
-        ip -= 1
+        if dirV[getDirV(cuad['val1'])]:
+            ip = dirV[getDirV(cuad['final'])]
+            ip -=1
+        print("GotoFalso")
     elif cuad['accion'] == '+':
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])] + dirV[getDirV(cuad['val2'])]
-        print("S")
+        print("Suma")
     elif cuad['accion'] == '-':
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])] - dirV[getDirV(cuad['val2'])]
-        print("S")
+        print("Resta")
         #{'accion': '-', 'val1': 'count', 'val2': 1, 'final': 't4'}
     elif cuad['accion'] == '*':
         dirV[getDirV(cuad['final'])] = dirV[getDirV(cuad['val1'])] * dirV[getDirV(cuad['val2'])]
@@ -88,20 +102,49 @@ def execCuad(cuad):
         print("Imprimido")
     elif cuad['accion'] == 'inco':
         dirV[getDirV(cuad['val1'])] = input()
-        print("S")
+        print("Input")
     elif cuad['accion'] == 'ver':
-        print("S")
+        if(dirV[getDirV(cuad['val1'])]) < dirV[getDirV(cuad['val2'])] or (dirV[getDirV(cuad['val1'])]) > dirV[getDirV(cuad['final'])]:
+            exit("Indice fuera de rango")
+        print('Verficacion')
     elif cuad['accion'] == 'ERA':
-        print("S")
+        createRecord(cuad['final'])
+        funParamName.append(cuad['final'])
+        print("ERA")
     elif cuad['accion'] == 'return':
-        print("S")
+        if len(funName) < 2:
+            exit('Return found outside of a function')
+        dirV[getDirV(funName[-1])] = dirV[getDirV(cuad['final'])]
+        
+        print("Return")
         ip -= 1
     elif cuad['accion'] == 'param':
+        #{'accion': 'param', 'val1': 3, 'val2': '', 'final': 'par1'}
+        if len(funParamName) < 1:
+            exit('Sending param to no function')
+        par = cuad['final'][3:]
+        dirV[getDirVParam(funParamName[-1], par)] = dirV[getDirV(cuad['val1'])]
         print("S")
     elif cuad['accion'] == 'Gosub':
+        #{'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
+        funName.append(cuad['final'])
+        funParamName.pop()
+        ip = dirFun[cuad['final']]['dirI']
+        print("S")
+        ip -= 1
+    elif cuad['accion'] == 'EndProc':
+        print("S")
+        ip -= 1
+    elif cuad['accion'] == 'END':
         print("S")
         ip -= 1
     ip += 1
+
+def createRecord(id):
+    size = dirFun[id]['size']
+
+    for x in dirV:
+
 
 
 def saveSymbolTable(data):

@@ -11,19 +11,19 @@ reserved = {'program':'PROGRAM','var':'VAR', 'if':'IF', 'else':'ELSE', 'int':'IN
 #Definimos los tokens
 
 tokens = ['LEFTPAREN','RIGHTPAREN', 'LEFTBRACKET', 'RIGHTBRACKET', 'SEMICOLON', 'COMP_EQUAL', 'COMP_NOTEQUAL',
-		  'COMMA', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'CTEF', 'CTEI', 'ID', 'COMP_GREATER', 
-		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY', 'DOT', 'CHAR_DEC', 'ASSIGN'] + list(reserved.values())
+		  'COMMA', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'CTEF', 'CTEI', 'COMP_GREATER', 
+		  'COMP_LESS', 'COLON', 'COMP_OR', 'COMP_AND', 'LEFTKEY', 'RIGHTKEY', 'DOT', 'CHAR_DEC', 'ASSIGN', 'ID'] + list(reserved.values())
 
 #Definimos las regex
 
 def t_CTEF(t):
-	r'[-+]?\d+\.\d+'
+	r'\d+\.\d+'
 	#[+-]?([0-9]*[.])?[0-9]+
 	t.value = float(t.value)
 	return t
 
 def t_CTEI(t):
-	r'[-+]?\d+'
+	r'\d+'
 	t.value = int(t.value)
 	return t
 

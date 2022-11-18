@@ -135,6 +135,12 @@ class dirFun:
             return -1
         return -1              
 
+    def funExists(self, funName):
+        if funName in self.fun:
+            return True
+        else:
+            return False
+    
     def printSelf(self):
         #for fun in self.fun:
         print("FUN DIR", self.fun)

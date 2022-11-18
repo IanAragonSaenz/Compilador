@@ -501,8 +501,7 @@ def p_var_cte(p):
         p[0] = p[1]
 
 def p_var_const(p):
-    '''var_const : CTEF
-               | CTEI
+    '''var_const : cte_num
                | CHAR_DEC
                | TRUE
                | FALSE'''
@@ -512,7 +511,15 @@ def p_var_const(p):
     elif p[1] == 'false':
         p[0] = False
         
-
+def p_cte_num(p):
+    '''cte_num : CTEF
+               | CTEI
+               | MINUS CTEI
+                | MINUS CTEF'''
+    if len(p) == 3:
+        p[0] = p[2] * -1
+    else:
+        p[0] = p[1]
 def p_var_id(p):
     '''var_id : ID
                 | ID LEFTKEY dec_exp RIGHTKEY

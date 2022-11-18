@@ -69,8 +69,13 @@ class cuadruplos:
         if fun[0] != 'void' and self.returns == 0:
             exit(f'Error: function type {fun[0]} has no returns, function name: {fun[1]}')
 
-        cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-        self.addCuad(cuadruplo)
+        if fun[1] == 'main':
+            cuadruplo =  {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+            self.addCuad(cuadruplo)
+        else:
+            cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+            self.addCuad(cuadruplo)
+            self.table.addVar(fun[1], [], fun[0], 'global')
         self.funName = ''
         self.clearTemp()
         self.returns = 0
