@@ -320,7 +320,7 @@ def p_md_op(p):
 ## declaracion de factor
 def p_dec_fact(p):
     '''dec_fact : var_cte
-                | LEFTPAREN hyper_call LEFTPAREN'''
+                | LEFTPAREN hyper_call RIGHTPAREN'''
     if type(p[1]) is list:
         p[0] = p[1]
     else:
@@ -331,8 +331,8 @@ def p_dec_fact(p):
     
 def p_hyper_call(p):
     '''hyper_call : h_exp'''
-    if len(p) == 2:
-        p[0] = p[1]
+    p[0] = p[1]
+
 
 ## declaracion de hiper expresion             
 def p_h_exp(p):
@@ -455,7 +455,7 @@ def p_dec_write(p):
     p[0] = ['outco', p[3]]
 
 def p_write(p):
-    '''write : hyper_call write_more'''
+    '''write : print_sign write_more'''
     if p[2]:
         write = [p[1]] + p[2]
         p[0] = write
@@ -520,6 +520,12 @@ def p_cte_num(p):
         p[0] = p[2] * -1
     else:
         p[0] = p[1]
+    
+def p_print_sign(p):
+    '''print_sign : hyper_call
+                | SIGN'''
+    p[0] = p[1]
+
 def p_var_id(p):
     '''var_id : ID
                 | ID LEFTKEY dec_exp RIGHTKEY

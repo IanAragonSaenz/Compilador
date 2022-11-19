@@ -196,7 +196,11 @@ class cuadruplos:
     def saveOutcoCuads(self, code):
         for x in code[1]:
             if type(x) is str:
-                val = self.saveExpCuads([x])
+                if x[0] == '"':
+                    self.table.addVar(x, [], 'char', 'cte')
+                    val = x
+                else:
+                    val = self.saveExpCuads([x])
             else:
                 val= self.saveExpCuads(x)
             cuadruplo =  {'accion': 'outco', 'val1': val, 'val2': '', 'final': ''} 
@@ -355,6 +359,8 @@ class cuadruplos:
         self.vp = []
         self.pTipos = []
 
+        
+
         for token in tokenList:
             if token in self.operators:
                 operand2 = operandStack.pop()
@@ -434,6 +440,8 @@ class cuadruplos:
                 self.addOP(index)
                 
             elif index in self.comparison:
+                self.checkPlusMinus()
+                self.checkMultDiv()
                 self.checkComp()
                 self.addOP(index)
 

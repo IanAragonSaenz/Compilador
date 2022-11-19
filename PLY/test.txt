@@ -1,9 +1,43 @@
 program hola;
+var int glo;
+
+fun int fib(int param1){
+	param1 = param1 + 2;
+	return param1+1;
+}
+
+fun float f(float si, int yes){
+	outco(si, yes, 3 * si / (4 + 3) * 1 + yes > 3 || (yes < -5));
+	if(3 * si / (4 + 3) * 1 + yes > 3 && (yes < -5)){
+		outco("en el i", 3);
+		return 3;
+	} else {
+		outco("elseee", si + yes);
+		return si + yes;
+	}
+}
+
+fun void vacio(){
+	return;
+}
 
 main(){
 	var int num;
+	var float fi;
 	num = 0;
-	while(num > -10){
+	num = fib(num) - 1;
+	fi = f(3.25, num);
+	outco("fib", fib);
+	if(num > 0){
+		outco("num" , num);
+		while(num > -3){
+			outco(num-1);
+			num = num - 1;
+		}
+	} else {
+		outco("fue en el else");
+	}
+	while(num > -3){
 		outco(num-1);
 		num = num - 1;
 	}

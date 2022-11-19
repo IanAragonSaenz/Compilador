@@ -1,19 +1,106 @@
 @@@@@hola.txt@@@@@_SymbolTable
-1 : {'dim': [], 'type': 'int', 'dirV': 6000}
-0 : {'dim': [], 'type': 'int', 'dirV': 6001}
--10 : {'dim': [], 'type': 'int', 'dirV': 6002}
-9 : {'dim': [], 'type': 'int', 'dirV': 6003}
-2 : {'dim': [], 'type': 'int', 'dirV': 6004}
+glo : {'dim': [], 'type': 'int', 'dirV': 0}
+2 : {'dim': [], 'type': 'int', 'dirV': 6000}
+1 : {'dim': [], 'type': 'int', 'dirV': 6001}
+fib : {'dim': [], 'type': 'int', 'dirV': 1}
+3 : {'dim': [], 'type': 'int', 'dirV': 6002}
+4 : {'dim': [], 'type': 'int', 'dirV': 6003}
+-5 : {'dim': [], 'type': 'int', 'dirV': 6004}
+"en el i" : {'dim': [], 'type': 'char', 'dirV': 6005}
+30 : {'dim': [], 'type': 'int', 'dirV': 6006}
+"elseee" : {'dim': [], 'type': 'char', 'dirV': 6007}
+35 : {'dim': [], 'type': 'int', 'dirV': 6008}
+f : {'dim': [], 'type': 'float', 'dirV': 2}
+vacio : {'dim': [], 'type': 'void', 'dirV': 3}
+38 : {'dim': [], 'type': 'int', 'dirV': 6009}
+0 : {'dim': [], 'type': 'int', 'dirV': 6010}
+3.25 : {'dim': [], 'type': 'float', 'dirV': 6011}
+"fib" : {'dim': [], 'type': 'char', 'dirV': 6012}
+"num" : {'dim': [], 'type': 'char', 'dirV': 6013}
+-3 : {'dim': [], 'type': 'int', 'dirV': 6014}
+64 : {'dim': [], 'type': 'int', 'dirV': 6015}
+57 : {'dim': [], 'type': 'int', 'dirV': 6016}
+65 : {'dim': [], 'type': 'int', 'dirV': 6017}
+"fue en el else" : {'dim': [], 'type': 'char', 'dirV': 6018}
+66 : {'dim': [], 'type': 'int', 'dirV': 6019}
+73 : {'dim': [], 'type': 'int', 'dirV': 6020}
 @@@@@_DirFun
-main : {'type': 'void', 'dirI': 1, 'dirV': 4, 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 1, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': []}, {'id': 't3', 'type': 'int', 'dirV': 3, 'dim': []}], 'size': 4}
+fib : {'type': 'int', 'dirI': 1, 'dirV': 3, 'param': ['int'], 'vars': [{'id': 'param1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': []}], 'size': 3}
+f : {'type': 'float', 'dirI': 6, 'dirV': 20, 'param': ['float', 'int'], 'vars': [{'id': 'si', 'type': 'float', 'dirV': 0, 'dim': []}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'float', 'dirV': 2, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': []}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': []}, {'id': 't4', 'type': 'float', 'dirV': 5, 'dim': []}, {'id': 't5', 'type': 'float', 'dirV': 6, 'dim': []}, {'id': 't6', 'type': 'bool', 'dirV': 7, 'dim': []}, {'id': 't7', 'type': 'bool', 'dirV': 8, 'dim': []}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': []}, {'id': 't9', 'type': 'float', 'dirV': 10, 'dim': []}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': []}, {'id': 't11', 'type': 'float', 'dirV': 12, 'dim': []}, {'id': 't12', 'type': 'float', 'dirV': 13, 'dim': []}, {'id': 't13', 'type': 'float', 'dirV': 14, 'dim': []}, {'id': 't14', 'type': 'bool', 'dirV': 15, 'dim': []}, {'id': 't15', 'type': 'bool', 'dirV': 16, 'dim': []}, {'id': 't16', 'type': 'bool', 'dirV': 17, 'dim': []}, {'id': 't17', 'type': 'float', 'dirV': 18, 'dim': []}, {'id': 't18', 'type': 'float', 'dirV': 19, 'dim': []}], 'size': 20}
+vacio : {'type': 'void', 'dirI': 36, 'dirV': 0, 'param': [], 'vars': [], 'temp': [], 'size': 0}
+main : {'type': 'void', 'dirI': 38, 'dirV': 12, 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'fi', 'type': 'float', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': []}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': []}, {'id': 't4', 'type': 'bool', 'dirV': 5, 'dim': []}, {'id': 't5', 'type': 'bool', 'dirV': 6, 'dim': []}, {'id': 't6', 'type': 'int', 'dirV': 7, 'dim': []}, {'id': 't7', 'type': 'int', 'dirV': 8, 'dim': []}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': []}, {'id': 't9', 'type': 'int', 'dirV': 10, 'dim': []}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': []}], 'size': 12}
 @@@@@_Cuadruplos
-0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 1}
-1 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
-2 : {'accion': '>', 'val1': 'num', 'val2': -10, 'final': 't1'}
-3 : {'accion': 'gotoF', 'val1': 't1', 'val2': '', 'final': 9}
-4 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't2'}
-5 : {'accion': 'outco', 'val1': 't2', 'val2': '', 'final': ''}
-6 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't3'}
-7 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'num'}
-8 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 2}
-9 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 38}
+1 : {'accion': '+', 'val1': 'param1', 'val2': 2, 'final': 't1'}
+2 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'param1'}
+3 : {'accion': '+', 'val1': 'param1', 'val2': 1, 'final': 't2'}
+4 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't2'}
+5 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+6 : {'accion': 'outco', 'val1': 'si', 'val2': '', 'final': ''}
+7 : {'accion': 'outco', 'val1': 'yes', 'val2': '', 'final': ''}
+8 : {'accion': '*', 'val1': 3, 'val2': 'si', 'final': 't1'}
+9 : {'accion': '+', 'val1': 4, 'val2': 3, 'final': 't2'}
+10 : {'accion': '/', 'val1': 't1', 'val2': 't2', 'final': 't3'}
+11 : {'accion': '*', 'val1': 't3', 'val2': 1, 'final': 't4'}
+12 : {'accion': '+', 'val1': 't4', 'val2': 'yes', 'final': 't5'}
+13 : {'accion': '>', 'val1': 't5', 'val2': 3, 'final': 't6'}
+14 : {'accion': '<', 'val1': 'yes', 'val2': -5, 'final': 't7'}
+15 : {'accion': '||', 'val1': 't6', 'val2': 't7', 'final': 't8'}
+16 : {'accion': 'outco', 'val1': 't8', 'val2': '', 'final': ''}
+17 : {'accion': '*', 'val1': 3, 'val2': 'si', 'final': 't9'}
+18 : {'accion': '+', 'val1': 4, 'val2': 3, 'final': 't10'}
+19 : {'accion': '/', 'val1': 't9', 'val2': 't10', 'final': 't11'}
+20 : {'accion': '*', 'val1': 't11', 'val2': 1, 'final': 't12'}
+21 : {'accion': '+', 'val1': 't12', 'val2': 'yes', 'final': 't13'}
+22 : {'accion': '>', 'val1': 't13', 'val2': 3, 'final': 't14'}
+23 : {'accion': '<', 'val1': 'yes', 'val2': -5, 'final': 't15'}
+24 : {'accion': '&&', 'val1': 't14', 'val2': 't15', 'final': 't16'}
+25 : {'accion': 'gotoF', 'val1': 't16', 'val2': '', 'final': 30}
+26 : {'accion': 'outco', 'val1': '"en el i"', 'val2': '', 'final': ''}
+27 : {'accion': 'outco', 'val1': 3, 'val2': '', 'final': ''}
+28 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 3}
+29 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 35}
+30 : {'accion': 'outco', 'val1': '"elseee"', 'val2': '', 'final': ''}
+31 : {'accion': '+', 'val1': 'si', 'val2': 'yes', 'final': 't17'}
+32 : {'accion': 'outco', 'val1': 't17', 'val2': '', 'final': ''}
+33 : {'accion': '+', 'val1': 'si', 'val2': 'yes', 'final': 't18'}
+34 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't18'}
+35 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+36 : {'accion': 'return', 'val1': '', 'val2': '', 'final': ''}
+37 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+38 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
+39 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fib'}
+40 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par1'}
+41 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
+42 : {'accion': '=', 'val1': 'fib', 'val2': '', 'final': 't1'}
+43 : {'accion': '-', 'val1': 't1', 'val2': 1, 'final': 't2'}
+44 : {'accion': '=', 'val1': 't2', 'val2': '', 'final': 'num'}
+45 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'f'}
+46 : {'accion': 'param', 'val1': 3.25, 'val2': '', 'final': 'par1'}
+47 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par2'}
+48 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'f'}
+49 : {'accion': '=', 'val1': 'f', 'val2': '', 'final': 't3'}
+50 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'fi'}
+51 : {'accion': 'outco', 'val1': '"fib"', 'val2': '', 'final': ''}
+52 : {'accion': 'outco', 'val1': 'fib', 'val2': '', 'final': ''}
+53 : {'accion': '>', 'val1': 'num', 'val2': 0, 'final': 't4'}
+54 : {'accion': 'gotoF', 'val1': 't4', 'val2': '', 'final': 65}
+55 : {'accion': 'outco', 'val1': '"num"', 'val2': '', 'final': ''}
+56 : {'accion': 'outco', 'val1': 'num', 'val2': '', 'final': ''}
+57 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't5'}
+58 : {'accion': 'gotoF', 'val1': 't5', 'val2': '', 'final': 64}
+59 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't6'}
+60 : {'accion': 'outco', 'val1': 't6', 'val2': '', 'final': ''}
+61 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't7'}
+62 : {'accion': '=', 'val1': 't7', 'val2': '', 'final': 'num'}
+63 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 57}
+64 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 66}
+65 : {'accion': 'outco', 'val1': '"fue en el else"', 'val2': '', 'final': ''}
+66 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't8'}
+67 : {'accion': 'gotoF', 'val1': 't8', 'val2': '', 'final': 73}
+68 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't9'}
+69 : {'accion': 'outco', 'val1': 't9', 'val2': '', 'final': ''}
+70 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't10'}
+71 : {'accion': '=', 'val1': 't10', 'val2': '', 'final': 'num'}
+72 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 66}
+73 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
