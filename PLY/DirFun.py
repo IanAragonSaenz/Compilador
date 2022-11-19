@@ -25,8 +25,7 @@ class dirFun:
 
     def addFun(self, fun, dirI):
         if fun[1] in self.fun:
-            # "error variable is already declared"
-            return -1
+            exit("Error: Function is already declared")
 
         size = 0 
         self.fun[fun[1]] = {}
@@ -99,19 +98,19 @@ class dirFun:
         if funName in self.fun:
             return self.fun[funName]['DirI']
         else:
-            exit(f'function {funName} doesn\'t exist')
+            exit(f'function {funName} doesn\'t exist, DirI')
 
     def getFunParams(self, funName):
         if funName in self.fun:
             return self.fun[funName]['param']
         else:
-            exit(f'function {funName} doesn\'t exist')
+            exit(f'function {funName} doesn\'t exist, get function params')
 
     def getFunType(self, funName):
         if funName in self.fun:
             return self.fun[funName]['type']
         else:
-            exit(f'function {funName} doesn\'t exist')
+            exit(f'function {funName} doesn\'t exist, get function type')
 
     def getIdType(self, funName, varName): 
         if funName in self.fun:
@@ -140,6 +139,9 @@ class dirFun:
             return True
         else:
             return False
+
+    def closeFun(self, funName):
+        self.fun[funName]['dirV'] = []
     
     def printSelf(self):
         #for fun in self.fun:

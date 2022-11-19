@@ -21,9 +21,9 @@ def p_program(p):
         for fun in p[5]:
             cuad.saveFunCuads(fun)
 
-    #if p[6]:
-    #for c in p[6]:
-    #    cuad.saveFunCuads()
+    if p[6]:
+        for c in p[6]:
+            cuad.saveClassCuads(c)
     
     decVars = None
     if p[11]:
@@ -373,14 +373,16 @@ def p_comp_op(p):
 def p_dec_class(p):
     '''dec_class : dec_class_idk
                     | empty'''
+    if p[1]:
+        p[0] = p[1]
 
 def p_dec_class_idk(p):
     '''dec_class_idk : class_body dec_class_more'''
     if p[2]:
-        classes = p[1] + p[2]
+        classes = [p[1]] + p[2]
         p[0] = classes
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 def p_dec_class_more(p):
     '''dec_class_more : dec_class_idk
@@ -390,10 +392,13 @@ def p_dec_class_more(p):
 
 def p_class_body(p):
     '''class_body : CLASS ID dec_inherit LEFTBRACKET PRIVATE COLON dec_vars_mult dec_fun PUBLIC COLON dec_vars_mult dec_fun RIGHTBRACKET SEMICOLON'''
+    p[0] = [p[2], p[3], p[7], p[8], p[11], p[12]]
 
 def p_dec_inherit(p):
     '''dec_inherit : COLON INHERIT ID
                     | empty'''
+    if len(p) == 4:
+        p[0] = p[3]
 
 
 
@@ -488,6 +493,7 @@ def p_dec_cycle(p):
 ## llamada metodo
 def p_dec_method(p):
     '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
+    p[0] = ['method', p[1], p[3], p[5]]
 
 
 

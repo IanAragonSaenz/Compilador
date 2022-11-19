@@ -226,8 +226,11 @@ def EndProc():
     id = funName.pop()
     size = dirFun[id]['size']
     dirFun[id]['dirV'].pop()
+    fin = tCount
     tCount -= size
     ip = pSaltos.pop()
+    for i in range(tCount, fin):
+        dirV[i] = None
     if tCount < 4000:
         exit('Error: temporal memory count was not right')
 

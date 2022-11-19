@@ -1,9 +1,12 @@
 from symbol_table import symbolTable
 from DirFun import dirFun
 from SCube import sCube
+from DirClass import dirClass
+
 class cuadruplos:
     def __init__(self, table: symbolTable, dirFuns: dirFun):
         self.cube = sCube()
+        self.dirClasses = dirClass()
         self.vp = []
         self.pOper = []
         self.pSalto = []
@@ -20,6 +23,7 @@ class cuadruplos:
         self.table = table
         self.dirFuns = dirFuns
         self.funName = ''
+        self.className = ''
         self.returns = 0
         #{'accion' : '*', 'val1' : '1', 'val2' : 'count', 'final' : 't3'}
         
@@ -28,6 +32,47 @@ class cuadruplos:
     #['float', [['prepucio', None]]], 
     #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
     #[3]]
+
+    def saveClassCuads(self, c):
+        print(c)
+        id = c[0]
+        inherit = c[1]
+        prVars = c[2]
+        prFun = c[3]
+        pubVars = c[4]
+        pubFun = c[5]
+        self.className = id
+
+        self.dirClasses.saveClass(id, inherit, prVars, prFun, pubVars, pubFun, self.count)
+        if prFun:
+            for f in prFun:
+                self.saveClassFunCuads(id, 'prFun', f)
+        if pubFun:
+            for f in pubFun:
+                self.saveClassFunCuads(id, 'pubFun', f)
+        self.dirClasses.closeClass(id)
+        self.className = ''
+
+    def saveClassFunCuads(self, id, typeP, fun):
+        self.funName = fun[1]
+        self.returns = 0
+
+        self.dirClasses.dir[id][typeP].addFun(fun, self.count)
+        if fun[4]:
+            for block in fun[4]:
+                self.blockHandle(block)
+
+        if fun[0] != 'void' and self.returns == 0:
+            exit(f'Error: function type {fun[0]} has no returns, function name: {fun[1]}')
+
+        cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+        self.addCuad(cuadruplo)
+        self.table.addVar(fun[1], [], fun[0], 'global')
+
+        self.dirClasses.dir[id][typeP].closeFun(self.funName)
+        self.funName = ''
+        self.clearTemp()
+        self.returns = 0
 
     def goToMain(self):
         cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': ''}
@@ -77,6 +122,7 @@ class cuadruplos:
             cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
             self.addCuad(cuadruplo)
             self.table.addVar(fun[1], [], fun[0], 'global')
+        self.dirFuns.closeFun(self.funName)
         self.funName = ''
         self.clearTemp()
         self.returns = 0
@@ -85,7 +131,10 @@ class cuadruplos:
         if self.funName == '':
             exit('Error: return used outside of a function')
 
-        funType = self.dirFuns.getFunType(self.funName)
+        if self.className != '':
+            funType = self.dirClasses.findFunType(self.className, self.funName)
+        else:
+            funType = self.dirFuns.getFunType(self.funName)
         if funType != 'void' and not code[1]:
             exit(f'Error: {funType} function not returning a value, function name: {self.funName[-1]}')
         elif funType == 'void' and code[1]:
@@ -217,7 +266,17 @@ class cuadruplos:
 
         
     def getType(self, index):
-        if len(self.funName) > 0:
+        if self.className != '':
+            fun = self.dirClasses.getVarType(self.className, self.funName, index)
+            if fun == -1:
+                dtype = self.table.getIdType(index)
+                if dtype == -1:
+                    exit('var doesnt exist no{}'.format(index))
+                else:
+                    return dtype
+            else:
+                return fun
+        elif self.funName != '':
             fun = self.dirFuns.getIdType(self.funName, index)
             if fun == -1:
                 dtype = self.table.getIdType(index)
@@ -387,10 +446,12 @@ class cuadruplos:
                     exit('Type mismatch between {} : {} and {} : {}'.format(operand1, type1, operand2, type2))
                 else:
                     typeList.append(typeResult)
-                    if self.funName == '':
-                        self.table.addVar('t{}'.format(self.t), [], typeResult, 'temporal')
-                    else:
+                    if self.className != '':
+                        self.dirClasses.addTemp(self.className, self.funName, 't{}'.format(self.t), typeResult)
+                    elif self.funName != '':
                         self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), typeResult)
+                    else:
+                        self.table.addVar('t{}'.format(self.t), [], typeResult, 'temporal')
                                     
                 cuadruplo =  {'accion': token, 'val1': operand1, 'val2': operand2, 'final': 't{}'.format(self.t)}
                 self.addCuad(cuadruplo)

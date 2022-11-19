@@ -21,6 +21,18 @@ fun void vacio(){
 	return;
 }
 
+class clase {
+	private:
+		var int osi;
+
+	public:
+		var float esobrad;
+		fun char charfunc(int p1){
+			p1 = 3 * 8 + 5;
+			return "r";
+		}
+};
+
 main(){
 	var int num;
 	var float fi;
