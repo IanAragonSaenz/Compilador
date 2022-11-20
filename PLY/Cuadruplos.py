@@ -408,29 +408,33 @@ class cuadruplos:
         
         cuadruplo =  {'accion': 'ERAP', 'val1': code[1], 'val2': '', 'final': code[2]}
         self.addCuad(cuadruplo)
-
-        params = self.dirClasses.getClassFunParam(dtype, code[2])
+        
+        if self.className != '':
+            params = self.dirClasses.getClassFunParam(dtype, code[2])
+        else:
+            params = self.dirClasses.getClassFunParam(dtype, code[2], True)
 
         if len(params) != len(code[3]):
             exit(f'Error: Parameters mismatch at {code[2]} function call')
         
         p = 1
         for param in code[3]:
+            if type(param) is not list:
+                param = [param]
             val = self.saveExpCuads(param)
             dtype = self.checkType(val)
 
             if dtype != params[p-1]:
                 exit(f'Error: Parameter type mismatch at {param} in function {code[2]} call')
-
             cuadruplo =  {'accion': 'paramP', 'val1': val, 'val2': code[2], 'final': f'par{p}'}
             self.addCuad(cuadruplo)
             p += 1
 
         cuadruplo =  {'accion': 'GosubP', 'val1': code[1], 'val2': '', 'final': code[2]}
         self.addCuad(cuadruplo)
-        funType = self.dirClasses.findFunType(dtype, code[2])
+        dtype = self.dirFuns.getIdType(self.funName, code[1])
+        funType = self.dirClasses.findFunType(dtype, code[2], True)
 
-        
         if funType != 'void':
             if self.funName == '':
                 self.table.addVar('t{}'.format(self.t), funType, 'temporal')
@@ -523,6 +527,8 @@ class cuadruplos:
                         token = self.saveCallCuads(token)
                     elif token[0] == 'array':
                         token = self.saveArrayCuads(token)
+                    elif token[0] == 'method':
+                        token = self.saveMethodCuads(token)
                         
                 operandStack.append(token)
         if len(operandStack) < 1:
@@ -536,6 +542,8 @@ class cuadruplos:
                 if type(index) is list:
                     if index[0] == 'array':                                     #for arrays
                         dtype = self.getType(index[1])
+                    elif index[0] == 'method':
+                        dtype = 'method'
                     else:
                         if self.className != '':                                 #For Functions
                             dtype = self.dirClasses.findFunType(self.className, self.funName)

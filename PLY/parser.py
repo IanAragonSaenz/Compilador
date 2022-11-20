@@ -280,6 +280,7 @@ def p_statement(p):
 def p_dec_exp(p):
     '''dec_exp : dec_exp_s'''
     p[0] = p[1]
+    
 
 def p_dec_exp_s(p):
     '''dec_exp_s : dec_term pm_op'''
@@ -494,7 +495,7 @@ def p_dec_cycle(p):
     p[0] = ['while', p[3], p[6]]
 ## llamada metodo
 def p_dec_method(p):
-    '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
+    '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN'''
     p[0] = ['method', p[1], p[3], p[5]]
 
 
@@ -502,8 +503,9 @@ def p_dec_method(p):
 def p_var_cte(p):
     '''var_cte : var_id
                 | dec_call_exp
-                | var_const'''
-    if type(p[1]) == list and p[1][0] == 'array':
+                | var_const
+                | dec_method'''
+    if type(p[1]) == list and (p[1][0] == 'array' or p[1][0] == 'method'):
         p[0] = [p[1]]
     else:
         p[0] = p[1]
@@ -513,7 +515,7 @@ def p_var_const(p):
                | CHAR_DEC
                | TRUE
                | FALSE'''
-    p[0] = p[1]
+    p[0] = [p[1]]
     if p[1] == 'true':
         p[0] = True
     elif p[1] == 'false':

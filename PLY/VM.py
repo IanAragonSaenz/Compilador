@@ -6,6 +6,7 @@ symbolTable = {}
 cuadruplos = []
 countSym = 0
 dirFun = {}
+dirClasses = {}
 dirV = [None] * 10000
 pSaltos = []
 progName = ''
@@ -33,12 +34,16 @@ def output(data):
             part = 1
         elif line == '@@@@@_Cuadruplos\n':
             part = 2
+        elif line == '@@@@@_DirClasses\n':
+            part = 3
         elif part == 0:
             saveSymbolTable(line)
         elif part == 1:
             saveDirFun(line)
         elif part == 2:
             saveCuads(line)
+        elif part == 3:
+            saveMethodClass(line)
 
 def getDirV(id):
     if type(id) != str:
@@ -325,6 +330,16 @@ def saveCuads(data):
     
     cuadruplos.append(res)
 
+def saveMethodClass(data):
+    i = data[0:data.find(":")-1]
+    if i in dirClasses:
+        exit('Error: Saving same class twice')
+       
+    start = data.find(":") + 2
+    sub = data[start:] 
+    res = ast.literal_eval(sub)
+    
+    dirClasses[i] = res
 
 
 

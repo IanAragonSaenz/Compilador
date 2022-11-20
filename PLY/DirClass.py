@@ -74,34 +74,55 @@ class dirClass:
                         self.dir[id][typeP].append(var)
         self.dir[id]['size'] = size + self.dir[id]['size']
 
-    def findFunType(self, classID, funID):
+    def findFunType(self, classID, funID, out = False):
         if classID not in self.dir:
             exit('Error: Class was not declared')
-        if funID in self.dir[classID]['prFun'].fun:
-            return self.dir[classID]['prFun'].getFunType(funID)
-        elif funID in self.dir[classID]['pubFun'].fun:
-            return self.dir[classID]['pubFun'].getFunType(funID)
-        elif self.dir[classID]['inherit'] != '':
-            inheritID = self.dir[classID]['inherit']
+        
+        if not out:
+            if funID in self.dir[classID]['prFun'].fun:
+                return self.dir[classID]['prFun'].getFunType(funID)
+            elif funID in self.dir[classID]['pubFun'].fun:
+                return self.dir[classID]['pubFun'].getFunType(funID)
+            elif self.dir[classID]['inherit'] != '':
+                inheritID = self.dir[classID]['inherit']
 
-            if funID in self.dir[inheritID]['prFun'].fun:
-                return self.dir[inheritID]['prFun'].getFunType(funID)
-            elif funID in self.dir[inheritID]['pubFun'].fun:
-                return self.dir[inheritID]['pubFun'].getFunType(funID)
+                if funID in self.dir[inheritID]['prFun'].fun:
+                    return self.dir[inheritID]['prFun'].getFunType(funID)
+                elif funID in self.dir[inheritID]['pubFun'].fun:
+                    return self.dir[inheritID]['pubFun'].getFunType(funID)
+        else:
+            if funID in self.dir[classID]['prFun']:
+                return self.dir[classID]['prFun'][funID]['type']
+            elif funID in self.dir[classID]['pubFun']:
+                return self.dir[classID]['pubFun'][funID]['type']
+            elif self.dir[classID]['inherit'] != '':
+                inheritID = self.dir[classID]['inherit']
+
+                if funID in self.dir[inheritID]['prFun']:
+                    return self.dir[inheritID]['prFun'][funID]['type']
+                elif funID in self.dir[inheritID]['pubFun']:
+                    return self.dir[inheritID]['pubFun'][funID]['type']
         
         exit(f'Error: Function {funID} does not exist in class {classID}')
 
 
-    def getClassFunParam(self, className, funName):
+    def getClassFunParam(self, className, funName, out = False):
         if className not in self.dir:
             exit('Error: Class was not declared')
-        
-        if funName in self.dir[className]['prFun'].fun:
-            return self.dir[className]['prFun'].getFunParams(funName)
-        elif funName in self.dir[className]['pubFun'].fun:
-            return self.dir[className]['pubFun'].getFunParams(funName)
+        if not out:
+            if funName in self.dir[className]['prFun'].fun:
+                return self.dir[className]['prFun'].getFunParams(funName)
+            elif funName in self.dir[className]['pubFun'].fun:
+                return self.dir[className]['pubFun'].getFunParams(funName)
+            else:
+                exit(f'Error: Function {funName} does not exist')
         else:
-            exit(f'Error: Function {funName} does not exist')
+            if funName in self.dir[className]['prFun']:
+                return self.dir[className]['prFun'][funName]['param']
+            elif funName in self.dir[className]['pubFun']:
+                return self.dir[className]['pubFun'][funName]['param']
+            else:
+                exit(f'Error: Function {funName} does not exist')
 
     def getVarType(self, className, funName, id):
         for var in self.dir[className]['prVars'] + self.dir[className]['pubVars']:
