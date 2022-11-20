@@ -11,11 +11,10 @@ fib : {'dim': [], 'type': 'int', 'dirV': 1}
 "elseee" : {'dim': [], 'type': 'char', 'dirV': 6007}
 35 : {'dim': [], 'type': 'int', 'dirV': 6008}
 f : {'dim': [], 'type': 'float', 'dirV': 2}
-vacio : {'dim': [], 'type': 'void', 'dirV': 3}
 8 : {'dim': [], 'type': 'int', 'dirV': 6009}
 5 : {'dim': [], 'type': 'int', 'dirV': 6010}
 "r" : {'dim': [], 'type': 'char', 'dirV': 6011}
-charfunc : {'dim': [], 'type': 'char', 'dirV': 4}
+charfunc : {'dim': [], 'type': 'char', 'dirV': 3}
 43 : {'dim': [], 'type': 'int', 'dirV': 6012}
 0 : {'dim': [], 'type': 'int', 'dirV': 6013}
 3.25 : {'dim': [], 'type': 'float', 'dirV': 6014}
@@ -29,10 +28,10 @@ charfunc : {'dim': [], 'type': 'char', 'dirV': 4}
 71 : {'dim': [], 'type': 'int', 'dirV': 6022}
 78 : {'dim': [], 'type': 'int', 'dirV': 6023}
 @@@@@_DirFun
-fib : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'param1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': []}], 'size': 3}
-f : {'type': 'float', 'dirI': 6, 'dirV': [], 'param': ['float', 'int'], 'vars': [{'id': 'si', 'type': 'float', 'dirV': 0, 'dim': []}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'float', 'dirV': 2, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': []}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': []}, {'id': 't4', 'type': 'float', 'dirV': 5, 'dim': []}, {'id': 't5', 'type': 'float', 'dirV': 6, 'dim': []}, {'id': 't6', 'type': 'bool', 'dirV': 7, 'dim': []}, {'id': 't7', 'type': 'bool', 'dirV': 8, 'dim': []}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': []}, {'id': 't9', 'type': 'float', 'dirV': 10, 'dim': []}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': []}, {'id': 't11', 'type': 'float', 'dirV': 12, 'dim': []}, {'id': 't12', 'type': 'float', 'dirV': 13, 'dim': []}, {'id': 't13', 'type': 'float', 'dirV': 14, 'dim': []}, {'id': 't14', 'type': 'bool', 'dirV': 15, 'dim': []}, {'id': 't15', 'type': 'bool', 'dirV': 16, 'dim': []}, {'id': 't16', 'type': 'bool', 'dirV': 17, 'dim': []}, {'id': 't17', 'type': 'float', 'dirV': 18, 'dim': []}, {'id': 't18', 'type': 'float', 'dirV': 19, 'dim': []}], 'size': 20}
-vacio : {'type': 'void', 'dirI': 36, 'dirV': [], 'param': [], 'vars': [], 'temp': [], 'size': 0}
-main : {'type': 'void', 'dirI': 43, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'fi', 'type': 'float', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': []}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': []}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': []}, {'id': 't4', 'type': 'bool', 'dirV': 5, 'dim': []}, {'id': 't5', 'type': 'bool', 'dirV': 6, 'dim': []}, {'id': 't6', 'type': 'int', 'dirV': 7, 'dim': []}, {'id': 't7', 'type': 'int', 'dirV': 8, 'dim': []}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': []}, {'id': 't9', 'type': 'int', 'dirV': 10, 'dim': []}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': []}], 'size': 12}
+fib : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'param1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}
+f : {'type': 'float', 'dirI': 6, 'dirV': [], 'param': ['float', 'int'], 'vars': [{'id': 'si', 'type': 'float', 'dirV': 0, 'dim': []}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'float', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'float', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'float', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'bool', 'dirV': 7, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'bool', 'dirV': 8, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'float', 'dirV': 10, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'float', 'dirV': 12, 'dim': [], 'gtype': ''}, {'id': 't12', 'type': 'float', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't13', 'type': 'float', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 't14', 'type': 'bool', 'dirV': 15, 'dim': [], 'gtype': ''}, {'id': 't15', 'type': 'bool', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't16', 'type': 'bool', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't17', 'type': 'float', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't18', 'type': 'float', 'dirV': 19, 'dim': [], 'gtype': ''}], 'size': 20}
+vaciooo : {'type': 'void', 'dirI': 36, 'dirV': [], 'param': [], 'vars': [], 'temp': [], 'size': 0}
+main : {'type': 'void', 'dirI': 43, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'fi', 'type': 'float', 'dirV': 1, 'dim': []}, {'id': 'hola', 'type': 'clase', 'dirV': 2, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 4, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'float', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'bool', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'bool', 'dirV': 7, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'int', 'dirV': 8, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'int', 'dirV': 9, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'bool', 'dirV': 10, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'int', 'dirV': 11, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'int', 'dirV': 12, 'dim': [], 'gtype': ''}], 'size': 13}
 @@@@@_Cuadruplos
 0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 43}
 1 : {'accion': '+', 'val1': 'param1', 'val2': 2, 'final': 't1'}
@@ -113,3 +112,5 @@ main : {'type': 'void', 'dirI': 43, 'dirV': [], 'param': [], 'vars': [{'id': 'nu
 76 : {'accion': '=', 'val1': 't10', 'val2': '', 'final': 'num'}
 77 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 71}
 78 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+@@@@@_DirClasses
+clase : {'size': 5, 'dirI': 38, 'dirV': {}, 'inherit': '', 'prFun': {}, 'pubFun': {'charfunc': {'type': 'char', 'dirI': 38, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'p1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}}, 'prVars': [{'id': 'osi', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': [{'id': 'esobrad', 'type': 'float', 'dirV': 1, 'dim': []}]}

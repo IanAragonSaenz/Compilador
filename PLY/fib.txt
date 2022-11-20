@@ -1,0 +1,36 @@
+program hola;
+var int glo;
+
+fun int cara(int n){
+    var int a, b, c, i;
+    a = 0;
+    b = 1;
+    c = 0;
+    i = 0;
+
+    while(i < n){
+        outco(a);
+        c = a + b;
+        a = b;
+        b = c;
+        i = i + 1;
+    }
+    return a;
+}
+
+fun int fib(int n){
+	if(n < 1 || n == 1){
+        return n;
+    }
+    return fib(n-1) + fib(n-2) + cara(-3);
+}
+
+main(){
+	var int n, hold;	
+	inco(n);
+
+    outco("esto es fib", cara(n), "te la comes");
+
+    
+    
+}

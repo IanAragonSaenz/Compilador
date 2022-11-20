@@ -50,7 +50,9 @@ def getDirV(id):
             if vars['id'] == id:
                 return int(vars['dirV'] + dirFun[funName[-1]]['dirV'][-1])
         for temp in dirFun[funName[-1]]['temp']: #
-            if temp['id'] == id:                                                     #check for TP
+            if temp['id'] == id:
+                if temp['gtype'] == 'tp':                                   #check for TP
+                    return int(dirV[temp['dirV']] + dirFun[funName[-1]]['dirV'][-1])                                                    
                 return int(temp['dirV'] + dirFun[funName[-1]]['dirV'][-1])
     
     if id in symbolTable:
@@ -84,7 +86,6 @@ def getDirVParam(id, par):
         paramSize = len(param)
         if par > paramSize:
              exit(f'Function {id} doesnt have {par} params, but has {paramSize} params')
-        
         return dirFun[id]['vars'][par-1]['dirV'] + dirFun[id]['dirV'][-1]
     else:
         exit(f'Function {id} wasnt initialized')
@@ -165,7 +166,33 @@ def execCuad(cuad):
         print(dirV[getDirV(cuad['val1'])])
         print("Imprimido")
     elif cuad['accion'] == 'inco':
-        dirV[getDirV(cuad['val1'])] = input()
+        rigth = input()
+        left = cuad['val1']
+        dtype = ''
+
+        if rigth.replace('.','',1).replace('-','',1).isdigit():
+            if rigth.replace('-','',1).isdigit():
+                rigth = int(rigth)
+                dtype = 'int'
+            else:
+                rigth = float(rigth)
+                dtype = 'int'
+                if rigth.is_integer():
+                    rigth = int(rigth)
+                    dtype = 'int'
+        elif len(rigth) == 3 and rigth[0] == '"' and rigth[2] == '"':
+            dtype = 'char'
+        elif rigth == 'True':
+            rigth = True
+            dtype = 'bool'
+        elif rigth == 'False':
+            rigth = False
+            dtype = 'bool'
+
+        if getType(left) != dtype:
+            exit(f'Error: giving wrong type to {left} with {rigth}: {dtype}')
+
+        dirV[getDirV(left)] = rigth
         print("Input")
     elif cuad['accion'] == 'ver':
         if(dirV[getDirV(cuad['val1'])]) < dirV[getDirV(cuad['val2'])] or (dirV[getDirV(cuad['val1'])]) > dirV[getDirV(cuad['final'])]:
@@ -183,10 +210,24 @@ def execCuad(cuad):
         if len(funParamName) < 1:
             exit('Sending param to no function')
         par = int(cuad['final'][3:])
-        dirV[getDirVParam(funParamName[-1], par)] = dirV[getDirV(cuad['val1'])]
+        rigth = dirV[getDirV(cuad['val1'])]
+        
+        V = -1
+        if len(dirFun[funParamName[-1]]['dirVTemp']) > 0:
+            V = dirFun[funParamName[-1]]['dirVTemp'].pop()
+            dirFun[funParamName[-1]]['dirV'].append(V)
+
+        dirV[getDirVParam(funParamName[-1], par)] = rigth
+
+        if V != -1:
+            dirFun[funParamName[-1]]['dirV'].pop()
+            dirFun[funParamName[-1]]['dirVTemp'].append(V)
         print(f"Param{par}")
     elif cuad['accion'] == 'Gosub':
         #{'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
+        if len(dirFun[cuad['final']]['dirVTemp']) > 0:
+            V = dirFun[cuad['final']]['dirVTemp'].pop()
+            dirFun[cuad['final']]['dirV'].append(V)
         funName.append(cuad['final'])
         funParamName.pop()
         pSaltos.append(ip+1)
@@ -214,10 +255,13 @@ def createReturn(final):
 def createRecord(id):
     global tCount
     size = dirFun[id]['size']
-    dirFun[id]['dirV'].append(tCount)
-    tCount += size
     if id != 'main':
         funParamName.append(id)
+        dirFun[id]['dirVTemp'].append(tCount)
+    else:
+        dirFun[id]['dirV'].append(tCount) 
+    tCount += size
+    
     if tCount >= 6000:
         exit('Error: temporal memory full')
 
@@ -247,10 +291,8 @@ def saveSymbolTable(data):
     if res['dirV'] >= cteMin and res['dirV'] < tpMin:
         if id.replace('.','',1).replace('-','',1).isdigit():
             if id.replace('-','',1).isdigit():
-                print('int  ', id)
                 dirV[res['dirV']] = int(id)
             else:
-                print('float  ', id)
                 dirV[res['dirV']] = float(id)
                 
         else:
@@ -269,6 +311,7 @@ def saveDirFun(data):
     
     dirFun[id] = res 
     dirFun[id]['dirV'] = []
+    dirFun[id]['dirVTemp'] = []
         
 def saveCuads(data):
     i = data[0:data.find(":")-1]

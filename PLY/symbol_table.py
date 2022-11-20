@@ -1,8 +1,11 @@
+from DirClass import dirClass
+
 class symbolTable:
     
-    def __init__(self):
+    def __init__(self, dirClass: dirClass):
         self.symbol = {}
         self.dirV = [None] * 10000
+        self.dirClass = dirClass
     
 
 
@@ -30,12 +33,23 @@ class symbolTable:
         self.symbol[id] = {}
         self.symbol[id]['dim'] = []
         size = 1
-        if dim:
-            size = dim[0]
-            self.symbol[id]['dim'].append(dim[0])
-            if len(dim) == 2:
-                size *= dim[1]
-                self.symbol[id]['dim'].append(dim[1])
+        if dtype != 'bool' and dtype != 'int' and dtype != 'char' and dtype != 'float':
+            self.symbol[id]['class'] = dtype
+            dtype = 'id'
+            if len(dim) > 0:
+                exit('Error: no arrays with classes')
+            if gtype != 'global':
+                exit('Error: Class init outside of main')
+            if self.symbol[id]['class'] not in self.dirClass.dir:
+                exit(f'Error: Class doesnt exist with {id}')
+            size = self.dirClass.dir[self.symbol[id]['class']]['size']
+        else:
+            if dim:
+                size = dim[0]
+                self.symbol[id]['dim'].append(dim[0])
+                if len(dim) == 2:
+                    size *= dim[1]
+                    self.symbol[id]['dim'].append(dim[1])
 
         dirv = self.dirVGet(gtype)
 

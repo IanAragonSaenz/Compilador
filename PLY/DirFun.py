@@ -86,7 +86,8 @@ class dirFun:
             "id":temp,
             "type":dtype,
             "dirV":self.fun[funName]['dirV'],
-            "dim":[]
+            "dim":[],
+            "gtype":''
         }
         if tp:
             self.fun[funName]['gtype'] ='tp'

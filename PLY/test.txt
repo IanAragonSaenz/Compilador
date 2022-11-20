@@ -17,7 +17,7 @@ fun float f(float si, int yes){
 	}
 }
 
-fun void vacio(){
+fun void vaciooo(){
 	return;
 }
 
@@ -36,6 +36,7 @@ class clase {
 main(){
 	var int num;
 	var float fi;
+	var clase hola;
 	num = 0;
 	num = fib(num) - 1;
 	fi = f(3.25, num);

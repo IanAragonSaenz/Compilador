@@ -4,9 +4,9 @@ from SCube import sCube
 from DirClass import dirClass
 
 class cuadruplos:
-    def __init__(self, table: symbolTable, dirFuns: dirFun):
+    def __init__(self, table: symbolTable, dirFuns: dirFun, dirClass: dirClass):
         self.cube = sCube()
-        self.dirClasses = dirClass()
+        self.dirClasses = dirClass
         self.vp = []
         self.pOper = []
         self.pSalto = []
@@ -101,6 +101,10 @@ class cuadruplos:
         f.write('@@@@@_Cuadruplos\n')
         for i in range(len(self.cuad)):
             f.write(f'{i} : {self.cuad[i]}\n')
+
+        f.write('@@@@@_DirClasses\n')
+        for i in self.dirClasses.dir:
+            f.write(f'{i} : {self.dirClasses.dir[i]}\n')
         f.close()
 
 
@@ -121,7 +125,8 @@ class cuadruplos:
         else:
             cuadruplo =  {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
             self.addCuad(cuadruplo)
-            self.table.addVar(fun[1], [], fun[0], 'global')
+            if fun[0] != 'void':
+                self.table.addVar(fun[1], [], fun[0], 'global')
         self.dirFuns.closeFun(self.funName)
         self.funName = ''
         self.clearTemp()
@@ -400,6 +405,8 @@ class cuadruplos:
         elif code[0] == 'return':
             self.saveReturnCuads(code)
         elif code[0] == 'array':
+            self.saveArrayCuads(code)
+        elif code[0] == 'method':
             self.saveArrayCuads(code)
         else:
             exit(f"Error: statement {code[0]} non existant")

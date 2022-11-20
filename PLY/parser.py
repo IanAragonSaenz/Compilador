@@ -2,11 +2,14 @@ from symbol_table import symbolTable
 from SCube import sCube
 from Cuadruplos import cuadruplos
 from DirFun import dirFun
+from DirClass import dirClass
 
+
+dirClasses = dirClass()
 dirFuns = dirFun()
-table = symbolTable()
+table = symbolTable(dirClasses)
 cube = sCube()
-cuad = cuadruplos(table, dirFuns)
+cuad = cuadruplos(table, dirFuns, dirClasses)
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON dec_vars_mult dec_fun dec_class MAIN LEFTPAREN RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
@@ -131,17 +134,19 @@ def p_vars_simple_arr2(p):
 ## declaracion de vars complejas
 def p_vars_complex(p):
     '''vars_complex : type_complex vars_complex_dec '''
-    p[0] = (p[1], p[2])
+    p[0] = [p[1], p[2]]
 
 def p_vars_complex_dec(p):
     '''vars_complex_dec : ID vars_complex_more '''
+    p[1] = [p[1], []]
     if p[2]:
         if type(p[2]) is list:
-            p[0] = p[2].append(p[1])
+            arr = [p[1]] + p[2]
+            p[0] = arr
         else:
-            p[0] = [p[2], p[1]]
+            p[0] = [p[1], p[2]]
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 
 def p_vars_complex_more(p):
