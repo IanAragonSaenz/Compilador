@@ -23,7 +23,7 @@ class dirFun:
        #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
        #[3]]
 
-    def addFun(self, fun, dirI):
+    def addFun(self, fun, dirI, dirClasses = None):
         if fun[1] in self.fun:
             exit("Error: Function is already declared")
 
@@ -65,16 +65,28 @@ class dirFun:
                             "dim":[]
                         }
                         count = 1
-                        if temp[1]:
-                            for i in temp[1]:
-                                count = i * count
-                                var['dim'].append(i)
-                            size = size + count
-                        else:
-                            size = size + 1
+                        size = 0
+                        if dtype != 'bool' and dtype != 'int' and dtype != 'char' and dtype != 'float':
+                            var['class'] = dtype
+                            dtype = 'id'
+                            if temp[1]:
+                                exit(f'Error: no arrays with classes {temp[0]}')
+                            if fun[1] != 'main':
+                                exit('Error: Class init outside of main')
+                            if dirClasses and var['class'] not in dirClasses.dir:
+                                exit(f'Error: Class doesnt exist with {id}')
+                            count = dirClasses.dir[var['class']]['size']
+                        else: 
+                            
+                            if temp[1]:
+                                for i in temp[1]:
+                                    count = i * count
+                                    var['dim'].append(i)
+                                size = size + count
+                            else:
+                                size = size + 1
                         self.fun[fun[1]]['dirV'] += count
                         self.fun[fun[1]]['vars'].append(var)
-        #print(self.fun)
         self.fun[fun[1]]['size'] = size
             
     def addTemp(self, funName, size):

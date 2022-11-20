@@ -41,9 +41,6 @@ def t_comment(t):
     r'\//.*'
     pass
 
-
-    
-
 def t_CHAR_DEC(t):
 	r'\"[A-za-z0-9]\"'
 	t.value = str(t.value)

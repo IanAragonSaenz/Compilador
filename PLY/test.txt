@@ -20,15 +20,17 @@ fun float f(float si, int yes){
 fun void vaciooo(){
 	return;
 }
-
+// Esto es un comentario osi
 class clase {
 	private:
 		var int osi;
-
+		fun int yay(int par1){
+			return 3;
+		}
 	public:
 		var float esobrad;
 		fun char charfunc(int p1){
-			p1 = 3 * 8 + 5;
+			p1 = 3 * 8 + 5 + yay(3);
 			return "r";
 		}
 };
@@ -37,6 +39,8 @@ main(){
 	var int num;
 	var float fi;
 	var clase hola;
+	var char eit;
+	eit = hola.charfunc(3);
 	num = 0;
 	num = fib(num) - 1;
 	fi = f(3.25, num);

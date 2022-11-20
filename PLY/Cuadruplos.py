@@ -34,7 +34,6 @@ class cuadruplos:
     #[3]]
 
     def saveClassCuads(self, c):
-        print(c)
         id = c[0]
         inherit = c[1]
         prVars = c[2]
@@ -111,7 +110,7 @@ class cuadruplos:
     def saveFunCuads(self, fun):
         self.funName = fun[1]
         self.returns = 0
-        self.dirFuns.addFun(fun, self.count)
+        self.dirFuns.addFun(fun, self.count, self.dirClasses)
         if fun[4]:
             for block in fun[4]:
                 self.blockHandle(block)
@@ -141,9 +140,9 @@ class cuadruplos:
         else:
             funType = self.dirFuns.getFunType(self.funName)
         if funType != 'void' and not code[1]:
-            exit(f'Error: {funType} function not returning a value, function name: {self.funName[-1]}')
+            exit(f'Error: Function type {funType} has no return function name: {self.funName[-1]}')
         elif funType == 'void' and code[1]:
-            exit(f'Error: void function returning a value, function name: {self.funName[-1]}')
+            exit(f'Error: Function type void has return, function name: {self.funName[-1]}')
         elif funType != 'void' and code[1]:
             ret = self.saveExpCuads(code[1])
             cuadruplo =  {'accion': 'return', 'val1': '', 'val2': '', 'final': ret}
@@ -158,9 +157,9 @@ class cuadruplos:
         address = self.table.getIdDirV(code[1])
         dimMin = 0
         dimMax = self.getArrayDim(code[1])
-        if len(dimMax) != len(code[2]) or len(dimMax) == 0:
-            exit(f'Error: dimensions are not the same in var {code[1]}')
-        
+        if len(dimMax) != len(code[2]) and len(dimMax) != 0:
+            exit(f'Error: Missing index at array {code[1]}')
+
         dtype = self.getType(code[1])
         exp = code[2][0]
         val = self.saveExpCuads(exp)
@@ -206,10 +205,15 @@ class cuadruplos:
         # ['call', 'fib', [[3, '+', 1], ['op', '+', 2]]]
         cuadruplo =  {'accion': 'ERA', 'val1': '', 'val2': '', 'final': call[1]}
         self.addCuad(cuadruplo)
-        params = self.dirFuns.getFunParams(call[1])
+
+        if self.className != '':
+            params = self.dirClasses.getClassFunParam(self.className, self.funName)
+        else:
+            params = self.dirFuns.getFunParams(call[1])
+        
 
         if len(params) != len(call[2]):
-            exit(f'params don\'t match with function {call[1]} definition')
+            exit(f'Error: Parameters mismatch at {call[1]} function call')
         
         p = 1
         for param in call[2]:
@@ -218,7 +222,7 @@ class cuadruplos:
             dtype = self.checkType(val)
 
             if dtype != params[p-1]:
-                exit(f'type mismatch on parameter {param} from function {call[1]}')
+                exit(f'Error: Parameter type mismatch at {param} in function {call[1]} call')
 
             cuadruplo =  {'accion': 'param', 'val1': val, 'val2': '', 'final': f'par{p}'}
             self.addCuad(cuadruplo)
@@ -226,10 +230,15 @@ class cuadruplos:
 
         cuadruplo =  {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': call[1]}
         self.addCuad(cuadruplo)
-
-        funType = self.dirFuns.getFunType(call[1])
+        if self.className != '':
+            funType = self.dirClasses.findFunType(self.className, call[1])
+        else:
+            funType = self.dirFuns.getFunType(call[1])
+        
         if funType != 'void':
-            if self.funName == '':
+            if self.className != '':
+                self.dirClasses.addTemp(self.className, self.funName, 't{}'.format(self.t), funType)
+            elif self.funName == '':
                 self.table.addVar('t{}'.format(self.t), funType, 'temporal')
             else:
                 self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), funType)
@@ -276,7 +285,7 @@ class cuadruplos:
             if fun == -1:
                 dtype = self.table.getIdType(index)
                 if dtype == -1:
-                    exit('var doesnt exist no{}'.format(index))
+                    exit('Error: Undeclared variable at {}'.format(index))
                 else:
                     return dtype
             else:
@@ -286,7 +295,7 @@ class cuadruplos:
             if fun == -1:
                 dtype = self.table.getIdType(index)
                 if dtype == -1:
-                    exit('var doesnt exist no{}'.format(index))
+                    exit('Error: Undeclared variable at {}'.format(index))
                 else:
                     return dtype
             else:
@@ -294,7 +303,7 @@ class cuadruplos:
         else:
             dtype = self.table.getIdType(index)
             if dtype == -1:
-                exit('var doesnt exist yes{}'.format(index))
+                exit('Error: Undeclared variable at {}'.format(index))
             else:
                 return dtype
 
@@ -304,7 +313,7 @@ class cuadruplos:
             if fun == -1:
                 dtype = self.table.getIdDim(index)
                 if dtype == -1:
-                    exit('var doesnt exist no{}'.format(index))
+                    exit('Error: Undeclared variable at {}'.format(index))
                 else:
                     return dtype
             else:
@@ -312,7 +321,7 @@ class cuadruplos:
         else:
             dtype = self.table.getIdDim(index)
             if dtype == -1:
-                exit('var doesnt exist yes{}'.format(index))
+                exit('Error: Undeclared variable at {}'.format(index))
             else:
                 return dtype
 
@@ -339,7 +348,7 @@ class cuadruplos:
 
         typeCheck = self.cube.typeCheck(left, right, '=')
         if typeCheck == 'x':
-            exit(f'type mismatch when assigning value {code[1]}')
+            exit(f'Error: Type mismatch assignation at {code[1]}')
         #elif typeCheck != left and left == 'int' and typeCheck == 'float':
 
 
@@ -388,7 +397,53 @@ class cuadruplos:
         self.table.addVar(self.count, [], 'int', 'cte')
         self.table.addVar(retorno, [], 'int', 'cte')
 
-    
+    def saveMethodCuads(self, code):
+        #'''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
+        #p[0] = ['method', p[1], p[3], p[5]]
+        if self.funName != 'main':
+            exit('Error: Class declaration unsupported at main')
+        dtype = self.dirFuns.getIdType(self.funName, code[1])
+        if dtype not in self.dirClasses.dir and self.dirClasses.dir[dtype]['pubFun'][code[2]]:
+            exit(f'Error: No class declaration found for variable {code[1]}')
+        
+        cuadruplo =  {'accion': 'ERAP', 'val1': code[1], 'val2': '', 'final': code[2]}
+        self.addCuad(cuadruplo)
+
+        params = self.dirClasses.getClassFunParam(dtype, code[2])
+
+        if len(params) != len(code[3]):
+            exit(f'Error: Parameters mismatch at {code[2]} function call')
+        
+        p = 1
+        for param in code[3]:
+            val = self.saveExpCuads(param)
+            dtype = self.checkType(val)
+
+            if dtype != params[p-1]:
+                exit(f'Error: Parameter type mismatch at {param} in function {code[2]} call')
+
+            cuadruplo =  {'accion': 'paramP', 'val1': val, 'val2': code[2], 'final': f'par{p}'}
+            self.addCuad(cuadruplo)
+            p += 1
+
+        cuadruplo =  {'accion': 'GosubP', 'val1': code[1], 'val2': '', 'final': code[2]}
+        self.addCuad(cuadruplo)
+        funType = self.dirClasses.findFunType(dtype, code[2])
+
+        
+        if funType != 'void':
+            if self.funName == '':
+                self.table.addVar('t{}'.format(self.t), funType, 'temporal')
+            else:
+                self.dirFuns.addTempVar(self.funName, 't{}'.format(self.t), funType)
+            
+            cuadruplo =  {'accion': '=', 'val1': code[2], 'val2': '', 'final': 't{}'.format(self.t)}
+            self.addCuad(cuadruplo)
+            self.t = self.t + 1
+            return 't{}'.format(self.t-1)
+        return False
+        
+
     def blockHandle(self, code):
         if code[0] == 'condition':
             self.saveConditionCuads(code)
@@ -425,8 +480,6 @@ class cuadruplos:
         self.vp = []
         self.pTipos = []
 
-        
-
         for token in tokenList:
             if token in self.operators:
                 operand2 = operandStack.pop()
@@ -450,7 +503,7 @@ class cuadruplos:
                 
                 typeResult = self.cube.typeCheck(type1, type2, token)
                 if typeResult == 'x':
-                    exit('Type mismatch between {} : {} and {} : {}'.format(operand1, type1, operand2, type2))
+                    exit('Error: Type mismatch between {} : {} and {} : {}'.format(operand1, type1, operand2, type2))
                 else:
                     typeList.append(typeResult)
                     if self.className != '':
@@ -483,10 +536,13 @@ class cuadruplos:
                 if type(index) is list:
                     if index[0] == 'array':                                     #for arrays
                         dtype = self.getType(index[1])
-                    else:                                                       #For Functions
-                        dtype = self.dirFuns.getFunType(index[1])
+                    else:
+                        if self.className != '':                                 #For Functions
+                            dtype = self.dirClasses.findFunType(self.className, self.funName)
+                        else:                                             
+                            dtype = self.dirFuns.getFunType(index[1])
                         if dtype == 'void':
-                            exit(f'void function can\'t be used in an expression')
+                            exit(f'Error: Function type void has return value')
                 elif type(index) is str and index[0] == '"' and len(index) == 3:    # chars
                     self.table.addVar(index, [], 'char', 'cte')
                 elif type(index) is str:                                            #for variables

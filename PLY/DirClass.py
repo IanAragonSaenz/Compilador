@@ -6,9 +6,6 @@ class dirClass:
         self.dir = {}
 
 
-
-
-
     def saveClass(self, id, inherit, prVars, prFun, pubVars, pubFun, dirI):
         if id in self.dir:
             exit('Error: Class has already been declared')
@@ -48,8 +45,6 @@ class dirClass:
         self.dir[id]['pubFun'] = self.dir[id]['pubFun'].fun
 
         self.dir[id]['dirV'] = {}
-
-        print(self.dir)
 
 
     def addVars(self, id, vars, typeP):
@@ -96,6 +91,17 @@ class dirClass:
         
         exit(f'Error: Function {funID} does not exist in class {classID}')
 
+
+    def getClassFunParam(self, className, funName):
+        if className not in self.dir:
+            exit('Error: Class was not declared')
+        
+        if funName in self.dir[className]['prFun'].fun:
+            return self.dir[className]['prFun'].getFunParams(funName)
+        elif funName in self.dir[className]['pubFun'].fun:
+            return self.dir[className]['pubFun'].getFunParams(funName)
+        else:
+            exit(f'Error: Function {funName} does not exist')
 
     def getVarType(self, className, funName, id):
         for var in self.dir[className]['prVars'] + self.dir[className]['pubVars']:

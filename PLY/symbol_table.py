@@ -28,7 +28,7 @@ class symbolTable:
         if id in self.symbol:
             if gtype == 'cte':
                 return
-            exit("error variable is already declared")
+            exit(f'Error: Multiple declarations of variable {id}')
         
         self.symbol[id] = {}
         self.symbol[id]['dim'] = []
@@ -37,11 +37,11 @@ class symbolTable:
             self.symbol[id]['class'] = dtype
             dtype = 'id'
             if len(dim) > 0:
-                exit('Error: no arrays with classes')
+                exit('Error: Unsupported constructor array')
             if gtype != 'global':
-                exit('Error: Class init outside of main')
+                exit('Error: Class found outside of main')
             if self.symbol[id]['class'] not in self.dirClass.dir:
-                exit(f'Error: Class doesnt exist with {id}')
+                exit(f'Error: No class definition fount at {id}')
             size = self.dirClass.dir[self.symbol[id]['class']]['size']
         else:
             if dim:
@@ -54,7 +54,7 @@ class symbolTable:
         dirv = self.dirVGet(gtype)
 
         if dirv == -1:
-            exit("error no more memory for variable")
+            exit("Error: Out of memory")
         
         for d in range(size):
             if self.dirV[dirv + d]:
@@ -70,13 +70,12 @@ class symbolTable:
         self.symbol[id]['type'] = dtype
         self.symbol[id]['dirV'] = dirv
 
-        #print(self.symbol)
         return dirv
     
     
     def checkVar(self, id):
         if id not in self.symbol:
-            exit(f'Error: ID {id} doesnt exist')
+            exit(f'Error: Undeclared variable found at {id}')
         return 1
     
     def assignVal(self, val, id):
@@ -84,7 +83,7 @@ class symbolTable:
             if self.getValType(val) == self.symbol[id]['type'] or (self.symbol[id]['type'] == 'float' and self.getValType(val) == 'int'):
                 self.dirV[self.symbol[id]['dirV']] = val                
             else:
-                exit(f"Error: type mismatch {val}")
+                exit(f"Error: Type mismatch assignation at {val}")
         
     def getValType(self, val):
         if type(val) is int:
@@ -108,19 +107,19 @@ class symbolTable:
     def getIdVal(self, id):
         id = self.getRealID(id)
         if id not in self.symbol:
-            exit(f'Error: ID {id} doesnt exist, value')
+            exit(f'Error: Undeclared variable at {id}')
         return self.dirV[self.symbol[id]['dirV']]
 
     def getIdDirV(self, id):
         id = self.getRealID(id)
         if id not in self.symbol:
-            exit(f'Error: ID {id} doesnt exist, dirV')
+            exit(f'Error: Undeclared variable at {id}')
         return self.symbol[id]['dirV']
 
     def getIdType(self, id):
         id = self.getRealID(id)
         if id not in self.symbol:
-            exit(f'Error: ID {id} doesnt exist, Type')
+            exit(f'Error: Undeclared variable at {id}')
         if id in self.symbol:
             return self.symbol[id]['type']
         else:
@@ -129,7 +128,7 @@ class symbolTable:
     def getIdDim(self, id):
         id = self.getRealID(id)
         if id not in self.symbol:
-            exit(f'Error: ID {id} doesnt exist, Dim')
+            exit(f'Error: Undeclared variable at {id}')
         if id in self.symbol:
             return self.symbol[id]['dim']
         else:

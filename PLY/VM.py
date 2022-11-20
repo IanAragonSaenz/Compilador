@@ -26,7 +26,7 @@ def output(data):
                 progName = line[5:line.find('.txt')]
                 part = -2
             else:
-                exit('File is not object')
+                exit(f'File {data[0]} is not an executable file')
         elif line == '@@@@@_SymbolTable\n':
             part = 0
         elif line == '@@@@@_DirFun\n':
@@ -45,7 +45,7 @@ def getDirV(id):
         id = str(id)
     if len(funName) > 0:
         if len(dirFun[funName[-1]]['dirV']) == 0: #we are inside of a function with no memory
-            exit(f'Function {funName[-1]} didn\'t get initialized')
+            exit(f'Error: Function {funName[-1]} has no declaration')
         for vars in dirFun[funName[-1]]['vars']: #check vars in the function
             if vars['id'] == id:
                 return int(vars['dirV'] + dirFun[funName[-1]]['dirV'][-1])
@@ -58,7 +58,7 @@ def getDirV(id):
     if id in symbolTable:
         return int(symbolTable[id]['dirV'])
     else:
-        exit(f'Value {id} was not declared on {funName[-1]}')
+        exit(f'Error: Variable {id} was not declared on {funName[-1]}')
 
 def getType(id):
     if type(id) != str:
@@ -76,7 +76,7 @@ def getType(id):
     if id in symbolTable:
         return symbolTable[id]['type']
     else:
-        exit(f'Value {id} was not declared on {funName[-1]}')
+        exit(f'Error: Variable {id} was not declared on {funName[-1]}')
 
 def getDirVParam(id, par):
     if len(funParamName) > 0:
@@ -85,10 +85,10 @@ def getDirVParam(id, par):
         param = dirFun[id]['param'] #get 
         paramSize = len(param)
         if par > paramSize:
-             exit(f'Function {id} doesnt have {par} params, but has {paramSize} params')
+             exit(f'Error: Function {id} doesnt have {par} parameters, but has {paramSize} parameters')
         return dirFun[id]['vars'][par-1]['dirV'] + dirFun[id]['dirV'][-1]
     else:
-        exit(f'Function {id} wasnt initialized')
+        exit(f'Function {id} has no declaration')
 
 def execCuad(cuad):
     global ip, dirV
@@ -136,7 +136,7 @@ def execCuad(cuad):
         left = cuad['final']
         valRigth = dirV[getDirV(rigth)]
         if getType(left) == 'int' and getType(rigth) == 'float' and not valRigth.is_integer():
-            exit(f'Error: Giving an int variable:{left} a float value')
+            exit(f'Error: Assigining an int variable:{left} a float value')
 
         dirV[getDirV(left)] = valRigth
         
@@ -151,7 +151,7 @@ def execCuad(cuad):
         left = dirV[getDirV(cuad['val1'])]
         rigth = dirV[getDirV(cuad['val2'])]
         if type(left) != bool  or type(rigth) != bool:
-            exit('Error: using OR on a non bool')
+            exit('Error: OR found at non boolean expression')
         dirV[getDirV(cuad['final'])] = left or rigth
 
     elif cuad['accion'] == '&&':
@@ -159,7 +159,7 @@ def execCuad(cuad):
         left = dirV[getDirV(cuad['val1'])]
         rigth = dirV[getDirV(cuad['val2'])]
         if type(left) != bool  or type(rigth) != bool:
-            exit('Error: using AND on a non bool')
+            exit('Error: AND found at non boolean expression')
         dirV[getDirV(cuad['final'])] = left and rigth
         
     elif cuad['accion'] == 'outco':
@@ -196,7 +196,7 @@ def execCuad(cuad):
         print("Input")
     elif cuad['accion'] == 'ver':
         if(dirV[getDirV(cuad['val1'])]) < dirV[getDirV(cuad['val2'])] or (dirV[getDirV(cuad['val1'])]) > dirV[getDirV(cuad['final'])]:
-            exit("Indice fuera de rango")
+            exit("Error: Index out of range")
         print('Verficacion')
     elif cuad['accion'] == 'ERA':
         createRecord(cuad['final'])
@@ -283,7 +283,7 @@ def EndProc():
 def saveSymbolTable(data):
     id = data[0:data.find(":")-1]
     if id in symbolTable:
-        exit(f'Multiples declaraciones de {id}')
+        exit(f'Error: Multiple declaration found at {id}')
        
     start = data.find(":") + 2
     sub = data[start:] 
@@ -303,7 +303,7 @@ def saveSymbolTable(data):
 def saveDirFun(data):
     id = data[0:data.find(":")-1]
     if id in dirFun:
-        exit(f'Multiples declaraciones de funcion {id}')
+        exit(f'Error: Multiple declaration found at {id}')
        
     start = data.find(":") + 2
     sub = data[start:] 

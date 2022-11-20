@@ -38,9 +38,7 @@ def p_program(p):
 
     cuad.fillGoToMain()
     cuad.saveFunCuads(['void', 'main', None, decVars, decBlock])
-        
-    #print(table)
-    #print(cuad)
+
     cuad.saveCuads(p[2])
 
 
@@ -138,7 +136,7 @@ def p_vars_complex(p):
 
 def p_vars_complex_dec(p):
     '''vars_complex_dec : ID vars_complex_more '''
-    p[1] = [p[1], []]
+    p[1] = [p[1], None]
     if p[2]:
         if type(p[2]) is list:
             arr = [p[1]] + p[2]
@@ -201,7 +199,6 @@ def p_dec_fun_more(p):
 def p_fun(p):
     '''fun : FUN fun_type fun_id LEFTPAREN param_pos RIGHTPAREN LEFTBRACKET dec_vars_mult dec_block RIGHTBRACKET'''
     p[0] = [p[2], p[3], p[5], p[8], p[9]]
-    #print('function', p[0])
 
 def p_param_pos(p):
     '''param_pos : param
@@ -555,7 +552,7 @@ def p_fun_id(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    exit("Error de sintaxis! - {} ".format(p))
+    exit("Error: Sintax Error - {} ".format(p))
 
 
 def p_empty(p):
@@ -579,7 +576,6 @@ if __name__ == '__main__':
             data = f.read()
             f.close()
             dat = yacc.parse(data)
-            #print(dat)
             if dat == "COMPILED":
                 print("Compilado")
         except EOFError:
