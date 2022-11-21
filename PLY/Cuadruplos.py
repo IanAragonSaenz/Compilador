@@ -154,7 +154,14 @@ class cuadruplos:
         self.returns += 1
     
     def saveArrayCuads(self, code):
-        address = self.table.getIdDirV(code[1])
+        address = -1
+        if self.className != '':
+            address = self.dirClasses.findFunType(self.className, self.funName, code[1])
+        elif self.funName != '':
+            address = self.dirFuns.getVarDirV(self.funName, code[1])
+        if address == -1:
+            address = self.table.getIdDirV(code[1])
+
         dimMin = 0
         dimMax = self.getArrayDim(code[1])
         if len(dimMax) != len(code[2]) and len(dimMax) != 0:

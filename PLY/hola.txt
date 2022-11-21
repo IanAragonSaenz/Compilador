@@ -16,26 +16,28 @@ yay : {'dim': [], 'type': 'int', 'dirV': 3}
 5 : {'dim': [], 'type': 'int', 'dirV': 6010}
 "r" : {'dim': [], 'type': 'char', 'dirV': 6011}
 charfunc : {'dim': [], 'type': 'char', 'dirV': 4}
-50 : {'dim': [], 'type': 'int', 'dirV': 6012}
-"osiiiiiii" : {'dim': [], 'type': 'char', 'dirV': 6013}
-0 : {'dim': [], 'type': 'int', 'dirV': 6014}
-3.25 : {'dim': [], 'type': 'float', 'dirV': 6015}
-"fib" : {'dim': [], 'type': 'char', 'dirV': 6016}
-"num" : {'dim': [], 'type': 'char', 'dirV': 6017}
--3 : {'dim': [], 'type': 'int', 'dirV': 6018}
-83 : {'dim': [], 'type': 'int', 'dirV': 6019}
-76 : {'dim': [], 'type': 'int', 'dirV': 6020}
-84 : {'dim': [], 'type': 'int', 'dirV': 6021}
-"fue en el else" : {'dim': [], 'type': 'char', 'dirV': 6022}
-85 : {'dim': [], 'type': 'int', 'dirV': 6023}
-92 : {'dim': [], 'type': 'int', 'dirV': 6024}
+1054 : {'dim': [], 'type': 'int', 'dirV': 6012}
+esoo : {'dim': [], 'type': 'int', 'dirV': 5}
+49 : {'dim': [], 'type': 'int', 'dirV': 6013}
+"osiiiiiii" : {'dim': [], 'type': 'char', 'dirV': 6014}
+0 : {'dim': [], 'type': 'int', 'dirV': 6015}
+3.25 : {'dim': [], 'type': 'float', 'dirV': 6016}
+"fib" : {'dim': [], 'type': 'char', 'dirV': 6017}
+"num" : {'dim': [], 'type': 'char', 'dirV': 6018}
+-3 : {'dim': [], 'type': 'int', 'dirV': 6019}
+98 : {'dim': [], 'type': 'int', 'dirV': 6020}
+91 : {'dim': [], 'type': 'int', 'dirV': 6021}
+99 : {'dim': [], 'type': 'int', 'dirV': 6022}
+"fue en el else" : {'dim': [], 'type': 'char', 'dirV': 6023}
+100 : {'dim': [], 'type': 'int', 'dirV': 6024}
+107 : {'dim': [], 'type': 'int', 'dirV': 6025}
 @@@@@_DirFun
 fib : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'param1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}
 f : {'type': 'float', 'dirI': 6, 'dirV': [], 'param': ['float', 'int'], 'vars': [{'id': 'si', 'type': 'float', 'dirV': 0, 'dim': []}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'float', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'float', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'float', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'bool', 'dirV': 7, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'bool', 'dirV': 8, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'float', 'dirV': 10, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'float', 'dirV': 12, 'dim': [], 'gtype': ''}, {'id': 't12', 'type': 'float', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't13', 'type': 'float', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 't14', 'type': 'bool', 'dirV': 15, 'dim': [], 'gtype': ''}, {'id': 't15', 'type': 'bool', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't16', 'type': 'bool', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't17', 'type': 'float', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't18', 'type': 'float', 'dirV': 19, 'dim': [], 'gtype': ''}], 'size': 20}
 vaciooo : {'type': 'void', 'dirI': 36, 'dirV': [], 'param': [], 'vars': [], 'temp': [], 'size': 0}
-main : {'type': 'void', 'dirI': 50, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'fi', 'type': 'float', 'dirV': 1, 'dim': []}, {'id': 'hola', 'type': 'clase', 'dirV': 2, 'dim': [], 'class': 'clase'}, {'id': 'eit', 'type': 'char', 'dirV': 10, 'dim': []}], 'temp': [{'id': 't1', 'type': 'char', 'dirV': 11, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 12, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'int', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'float', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'bool', 'dirV': 15, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'bool', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'int', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'int', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'bool', 'dirV': 19, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'int', 'dirV': 20, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'int', 'dirV': 21, 'dim': [], 'gtype': ''}], 'size': 12}
+main : {'type': 'void', 'dirI': 49, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'arr', 'type': 'int', 'dirV': 1, 'dim': [2, 4]}, {'id': 'fi', 'type': 'float', 'dirV': 9, 'dim': []}, {'id': 'hola', 'type': 'clase', 'dirV': 10, 'dim': [], 'class': 'clase'}, {'id': 'eit', 'type': 'char', 'dirV': 12, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 'tp1', 'type': 'int', 'dirV': 15, 'dim': [], 'gtype': 'tp'}, {'id': 't3', 'type': 'int', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'char', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'int', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'int', 'dirV': 19, 'dim': [], 'gtype': ''}, {'id': 'tp2', 'type': 'int', 'dirV': 20, 'dim': [], 'gtype': 'tp'}, {'id': 't7', 'type': 'int', 'dirV': 21, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'int', 'dirV': 22, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'float', 'dirV': 23, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'bool', 'dirV': 24, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'bool', 'dirV': 25, 'dim': [], 'gtype': ''}, {'id': 't12', 'type': 'int', 'dirV': 26, 'dim': [], 'gtype': ''}, {'id': 't13', 'type': 'int', 'dirV': 27, 'dim': [], 'gtype': ''}, {'id': 't14', 'type': 'bool', 'dirV': 28, 'dim': [], 'gtype': ''}, {'id': 't15', 'type': 'int', 'dirV': 29, 'dim': [], 'gtype': ''}, {'id': 't16', 'type': 'int', 'dirV': 30, 'dim': [], 'gtype': ''}], 'size': 19}
 @@@@@_Cuadruplos
-0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 50}
+0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 49}
 1 : {'accion': '+', 'val1': 'param1', 'val2': 2, 'final': 't1'}
 2 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'param1'}
 3 : {'accion': '+', 'val1': 'param1', 'val2': 1, 'final': 't2'}
@@ -77,56 +79,71 @@ main : {'type': 'void', 'dirI': 50, 'dirV': [], 'param': [], 'vars': [{'id': 'nu
 39 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
 40 : {'accion': '*', 'val1': 3, 'val2': 8, 'final': 't1'}
 41 : {'accion': '+', 'val1': 't1', 'val2': 5, 'final': 't2'}
-42 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'yay'}
-43 : {'accion': 'param', 'val1': 3, 'val2': '', 'final': 'par1'}
-44 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'yay'}
-45 : {'accion': '=', 'val1': 'yay', 'val2': '', 'final': 't3'}
-46 : {'accion': '+', 'val1': 't2', 'val2': 't3', 'final': 't4'}
-47 : {'accion': '=', 'val1': 't4', 'val2': '', 'final': 'p1'}
-48 : {'accion': 'return', 'val1': '', 'val2': '', 'final': '"r"'}
-49 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-50 : {'accion': 'ERAP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
-51 : {'accion': 'paramP', 'val1': 3, 'val2': 'charfunc', 'final': 'par1'}
-52 : {'accion': 'GosubP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
-53 : {'accion': '=', 'val1': 'charfunc', 'val2': '', 'final': 't1'}
-54 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'eit'}
-55 : {'accion': 'outco', 'val1': 'eit', 'val2': '', 'final': ''}
-56 : {'accion': 'outco', 'val1': '"osiiiiiii"', 'val2': '', 'final': ''}
-57 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
-58 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fib'}
-59 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par1'}
-60 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
-61 : {'accion': '=', 'val1': 'fib', 'val2': '', 'final': 't2'}
-62 : {'accion': '-', 'val1': 't2', 'val2': 1, 'final': 't3'}
-63 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'num'}
-64 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'f'}
-65 : {'accion': 'param', 'val1': 3.25, 'val2': '', 'final': 'par1'}
-66 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par2'}
-67 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'f'}
-68 : {'accion': '=', 'val1': 'f', 'val2': '', 'final': 't4'}
-69 : {'accion': '=', 'val1': 't4', 'val2': '', 'final': 'fi'}
-70 : {'accion': 'outco', 'val1': '"fib"', 'val2': '', 'final': ''}
-71 : {'accion': 'outco', 'val1': 'fib', 'val2': '', 'final': ''}
-72 : {'accion': '>', 'val1': 'num', 'val2': 0, 'final': 't5'}
-73 : {'accion': 'gotoF', 'val1': 't5', 'val2': '', 'final': 84}
-74 : {'accion': 'outco', 'val1': '"num"', 'val2': '', 'final': ''}
-75 : {'accion': 'outco', 'val1': 'num', 'val2': '', 'final': ''}
-76 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't6'}
-77 : {'accion': 'gotoF', 'val1': 't6', 'val2': '', 'final': 83}
-78 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't7'}
-79 : {'accion': 'outco', 'val1': 't7', 'val2': '', 'final': ''}
-80 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't8'}
-81 : {'accion': '=', 'val1': 't8', 'val2': '', 'final': 'num'}
-82 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 76}
-83 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 85}
-84 : {'accion': 'outco', 'val1': '"fue en el else"', 'val2': '', 'final': ''}
-85 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't9'}
-86 : {'accion': 'gotoF', 'val1': 't9', 'val2': '', 'final': 92}
-87 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't10'}
-88 : {'accion': 'outco', 'val1': 't10', 'val2': '', 'final': ''}
-89 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't11'}
-90 : {'accion': '=', 'val1': 't11', 'val2': '', 'final': 'num'}
-91 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 85}
-92 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+42 : {'accion': '=', 'val1': 't2', 'val2': '', 'final': 'p1'}
+43 : {'accion': '=', 'val1': 4, 'val2': '', 'final': 'osi'}
+44 : {'accion': 'return', 'val1': '', 'val2': '', 'final': '"r"'}
+45 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+46 : {'accion': '=', 'val1': 1054, 'val2': '', 'final': 'osi'}
+47 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 'osi'}
+48 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+49 : {'accion': 'ver', 'val1': 1, 'val2': 0, 'final': 2}
+50 : {'accion': '*', 'val1': 1, 'val2': 4, 'final': 't1'}
+51 : {'accion': 'ver', 'val1': 2, 'val2': 0, 'final': 4}
+52 : {'accion': '+', 'val1': 2, 'val2': 't1', 'final': 't2'}
+53 : {'accion': '+', 'val1': 't2', 'val2': 1, 'final': 'tp1'}
+54 : {'accion': 'ERAP', 'val1': 'hola', 'val2': '', 'final': 'esoo'}
+55 : {'accion': 'paramP', 'val1': 3, 'val2': 'esoo', 'final': 'par1'}
+56 : {'accion': 'GosubP', 'val1': 'hola', 'val2': '', 'final': 'esoo'}
+57 : {'accion': '=', 'val1': 'esoo', 'val2': '', 'final': 't3'}
+58 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'tp1'}
+59 : {'accion': 'ERAP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
+60 : {'accion': 'paramP', 'val1': 3, 'val2': 'charfunc', 'final': 'par1'}
+61 : {'accion': 'GosubP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
+62 : {'accion': '=', 'val1': 'charfunc', 'val2': '', 'final': 't4'}
+63 : {'accion': '=', 'val1': 't4', 'val2': '', 'final': 'eit'}
+64 : {'accion': 'outco', 'val1': 'eit', 'val2': '', 'final': ''}
+65 : {'accion': 'outco', 'val1': '"osiiiiiii"', 'val2': '', 'final': ''}
+66 : {'accion': 'ver', 'val1': 1, 'val2': 0, 'final': 2}
+67 : {'accion': '*', 'val1': 1, 'val2': 4, 'final': 't5'}
+68 : {'accion': 'ver', 'val1': 2, 'val2': 0, 'final': 4}
+69 : {'accion': '+', 'val1': 2, 'val2': 't5', 'final': 't6'}
+70 : {'accion': '+', 'val1': 't6', 'val2': 1, 'final': 'tp2'}
+71 : {'accion': 'outco', 'val1': 'tp2', 'val2': '', 'final': ''}
+72 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
+73 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fib'}
+74 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par1'}
+75 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
+76 : {'accion': '=', 'val1': 'fib', 'val2': '', 'final': 't7'}
+77 : {'accion': '-', 'val1': 't7', 'val2': 1, 'final': 't8'}
+78 : {'accion': '=', 'val1': 't8', 'val2': '', 'final': 'num'}
+79 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'f'}
+80 : {'accion': 'param', 'val1': 3.25, 'val2': '', 'final': 'par1'}
+81 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par2'}
+82 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'f'}
+83 : {'accion': '=', 'val1': 'f', 'val2': '', 'final': 't9'}
+84 : {'accion': '=', 'val1': 't9', 'val2': '', 'final': 'fi'}
+85 : {'accion': 'outco', 'val1': '"fib"', 'val2': '', 'final': ''}
+86 : {'accion': 'outco', 'val1': 'fib', 'val2': '', 'final': ''}
+87 : {'accion': '>', 'val1': 'num', 'val2': 0, 'final': 't10'}
+88 : {'accion': 'gotoF', 'val1': 't10', 'val2': '', 'final': 99}
+89 : {'accion': 'outco', 'val1': '"num"', 'val2': '', 'final': ''}
+90 : {'accion': 'outco', 'val1': 'num', 'val2': '', 'final': ''}
+91 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't11'}
+92 : {'accion': 'gotoF', 'val1': 't11', 'val2': '', 'final': 98}
+93 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't12'}
+94 : {'accion': 'outco', 'val1': 't12', 'val2': '', 'final': ''}
+95 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't13'}
+96 : {'accion': '=', 'val1': 't13', 'val2': '', 'final': 'num'}
+97 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 91}
+98 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 100}
+99 : {'accion': 'outco', 'val1': '"fue en el else"', 'val2': '', 'final': ''}
+100 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't14'}
+101 : {'accion': 'gotoF', 'val1': 't14', 'val2': '', 'final': 107}
+102 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't15'}
+103 : {'accion': 'outco', 'val1': 't15', 'val2': '', 'final': ''}
+104 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't16'}
+105 : {'accion': '=', 'val1': 't16', 'val2': '', 'final': 'num'}
+106 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 100}
+107 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
 @@@@@_DirClasses
-clase : {'size': 8, 'dirI': 38, 'dirV': {}, 'inherit': '', 'prFun': {'yay': {'type': 'int', 'dirI': 38, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'par1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [], 'size': 1}}, 'pubFun': {'charfunc': {'type': 'char', 'dirI': 40, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'p1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'int', 'dirV': 4, 'dim': [], 'gtype': ''}], 'size': 5}}, 'prVars': [{'id': 'osi', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': [{'id': 'esobrad', 'type': 'float', 'dirV': 1, 'dim': []}]}
+clase : {'size': 2, 'dirI': 38, 'dirV': {}, 'inherit': '', 'prFun': {'yay': {'type': 'int', 'dirI': 38, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'par1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [], 'size': 1}}, 'pubFun': {'charfunc': {'type': 'char', 'dirI': 40, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'p1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}, 'esoo': {'type': 'int', 'dirI': 46, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'par1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [], 'size': 1}}, 'prVars': [{'id': 'osi', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': [{'id': 'esobrad', 'type': 'float', 'dirV': 1, 'dim': []}]}

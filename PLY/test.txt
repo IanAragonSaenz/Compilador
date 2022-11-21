@@ -30,18 +30,24 @@ class clase {
 	public:
 		var float esobrad;
 		fun char charfunc(int p1){
-			p1 = 3 * 8 + 5 + yay(3);
+			p1 = 3 * 8 + 5;
+			osi = 4;
 			return "r";
+		}
+		fun int esoo(int par1){
+			osi = 1054;
+			return osi;
 		}
 };
 
 main(){
-	var int num;
+	var int num, arr[2][4];
 	var float fi;
 	var clase hola;
 	var char eit;
+	arr[1][2] = hola.esoo(3);
 	eit = hola.charfunc(3);
-	outco(eit, "osiiiiiii");
+	outco(eit, "osiiiiiii", arr[1][2]);
 	num = 0;
 	num = fib(num) - 1;
 	fi = f(3.25, num);

@@ -102,7 +102,8 @@ class dirFun:
             "gtype":''
         }
         if tp:
-            self.fun[funName]['gtype'] ='tp'
+            print('holaaaa')
+            var['gtype'] = 'tp'
         self.fun[funName]['dirV'] += 1
         self.fun[funName]['temp'].append(var)
         self.fun[funName]['size'] = self.fun[funName]['size'] + 1
@@ -145,7 +146,15 @@ class dirFun:
                 if var['id'] == varName:
                     return var['dim'] 
             return -1
-        return -1              
+        return -1   
+
+    def getVarDirV(self, funName, varName): 
+        if funName in self.fun:
+            for var in self.fun[funName]['vars']:
+                if var['id'] == varName:
+                    return var['dirV']
+            return -1
+        return -1        
 
     def funExists(self, funName):
         if funName in self.fun:

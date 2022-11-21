@@ -35,11 +35,11 @@ class dirClass:
 
     def closeClass(self, id):
         size = 0
-        for f in self.dir[id]['prFun'].fun:
-            size += self.dir[id]['prFun'].fun[f]['size']
-        for f in self.dir[id]['pubFun'].fun:
-            size += self.dir[id]['pubFun'].fun[f]['size']
-        self.dir[id]['size'] += size
+        #for f in self.dir[id]['prFun'].fun:
+        #    size += self.dir[id]['prFun'].fun[f]['size']
+        #for f in self.dir[id]['pubFun'].fun:
+        #    size += self.dir[id]['pubFun'].fun[f]['size']
+        #self.dir[id]['size'] += size
 
         self.dir[id]['prFun'] = self.dir[id]['prFun'].fun
         self.dir[id]['pubFun'] = self.dir[id]['pubFun'].fun
@@ -74,6 +74,7 @@ class dirClass:
                         self.dir[id][typeP].append(var)
         self.dir[id]['size'] = size + self.dir[id]['size']
 
+
     def findFunType(self, classID, funID, out = False):
         if classID not in self.dir:
             exit('Error: Class was not declared')
@@ -104,6 +105,24 @@ class dirClass:
                     return self.dir[inheritID]['pubFun'][funID]['type']
         
         exit(f'Error: Function {funID} does not exist in class {classID}')
+        
+    def getVarDirV(self, classID, funID, varID):
+        if classID not in self.dir:
+            exit('Error: Class was not declared')
+        
+        if funID in self.dir[classID]['prFun'].fun:
+            return self.dir[classID]['prFun'].getVarDirV(funID, varID)
+        elif funID in self.dir[classID]['pubFun'].fun:
+            return self.dir[classID]['pubFun'].getVarDirV(funID, varID)
+        elif self.dir[classID]['inherit'] != '':
+            inheritID = self.dir[classID]['inherit']
+
+            if funID in self.dir[inheritID]['prFun'].fun:
+                return self.dir[inheritID]['prFun'].getVarDirV(funID, varID)
+            elif funID in self.dir[inheritID]['pubFun'].fun:
+                return self.dir[inheritID]['pubFun'].getVarDirV(funID, varID)
+        
+        return -1
 
 
     def getClassFunParam(self, className, funName, out = False):
