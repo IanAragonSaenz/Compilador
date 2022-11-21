@@ -1,149 +1,68 @@
 @@@@@hola.txt@@@@@_SymbolTable
 glo : {'dim': [], 'type': 'int', 'dirV': 0}
-2 : {'dim': [], 'type': 'int', 'dirV': 6000}
+0 : {'dim': [], 'type': 'int', 'dirV': 6000}
 1 : {'dim': [], 'type': 'int', 'dirV': 6001}
-fib : {'dim': [], 'type': 'int', 'dirV': 1}
-3 : {'dim': [], 'type': 'int', 'dirV': 6002}
-4 : {'dim': [], 'type': 'int', 'dirV': 6003}
--5 : {'dim': [], 'type': 'int', 'dirV': 6004}
-"en el i" : {'dim': [], 'type': 'char', 'dirV': 6005}
-30 : {'dim': [], 'type': 'int', 'dirV': 6006}
-"elseee" : {'dim': [], 'type': 'char', 'dirV': 6007}
-35 : {'dim': [], 'type': 'int', 'dirV': 6008}
-f : {'dim': [], 'type': 'float', 'dirV': 2}
-yay : {'dim': [], 'type': 'int', 'dirV': 3}
-8 : {'dim': [], 'type': 'int', 'dirV': 6009}
-5 : {'dim': [], 'type': 'int', 'dirV': 6010}
-"r" : {'dim': [], 'type': 'char', 'dirV': 6011}
-charfunc : {'dim': [], 'type': 'char', 'dirV': 4}
-1054 : {'dim': [], 'type': 'int', 'dirV': 6012}
-esoo : {'dim': [], 'type': 'int', 'dirV': 5}
-49 : {'dim': [], 'type': 'int', 'dirV': 6013}
-"osiiiiiii" : {'dim': [], 'type': 'char', 'dirV': 6014}
-0 : {'dim': [], 'type': 'int', 'dirV': 6015}
-3.25 : {'dim': [], 'type': 'float', 'dirV': 6016}
-"fib" : {'dim': [], 'type': 'char', 'dirV': 6017}
-"num" : {'dim': [], 'type': 'char', 'dirV': 6018}
--3 : {'dim': [], 'type': 'int', 'dirV': 6019}
-98 : {'dim': [], 'type': 'int', 'dirV': 6020}
-91 : {'dim': [], 'type': 'int', 'dirV': 6021}
-99 : {'dim': [], 'type': 'int', 'dirV': 6022}
-"fue en el else" : {'dim': [], 'type': 'char', 'dirV': 6023}
-100 : {'dim': [], 'type': 'int', 'dirV': 6024}
-107 : {'dim': [], 'type': 'int', 'dirV': 6025}
+15 : {'dim': [], 'type': 'int', 'dirV': 6002}
+5 : {'dim': [], 'type': 'int', 'dirV': 6003}
+fibiter : {'dim': [], 'type': 'int', 'dirV': 1}
+22 : {'dim': [], 'type': 'int', 'dirV': 6004}
+2 : {'dim': [], 'type': 'int', 'dirV': 6005}
+fibrec : {'dim': [], 'type': 'int', 'dirV': 2}
+35 : {'dim': [], 'type': 'int', 'dirV': 6006}
+"esto es fib iterativo" : {'dim': [], 'type': 'char', 'dirV': 6007}
+"esto es fib recursivo" : {'dim': [], 'type': 'char', 'dirV': 6008}
 @@@@@_DirFun
-fib : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'param1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}
-f : {'type': 'float', 'dirI': 6, 'dirV': [], 'param': ['float', 'int'], 'vars': [{'id': 'si', 'type': 'float', 'dirV': 0, 'dim': []}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'float', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'float', 'dirV': 4, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'float', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'float', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'bool', 'dirV': 7, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'bool', 'dirV': 8, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'bool', 'dirV': 9, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'float', 'dirV': 10, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'int', 'dirV': 11, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'float', 'dirV': 12, 'dim': [], 'gtype': ''}, {'id': 't12', 'type': 'float', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't13', 'type': 'float', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 't14', 'type': 'bool', 'dirV': 15, 'dim': [], 'gtype': ''}, {'id': 't15', 'type': 'bool', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't16', 'type': 'bool', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't17', 'type': 'float', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't18', 'type': 'float', 'dirV': 19, 'dim': [], 'gtype': ''}], 'size': 20}
-vaciooo : {'type': 'void', 'dirI': 36, 'dirV': [], 'param': [], 'vars': [], 'temp': [], 'size': 0}
-main : {'type': 'void', 'dirI': 49, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'arr', 'type': 'int', 'dirV': 1, 'dim': [2, 4]}, {'id': 'fi', 'type': 'float', 'dirV': 9, 'dim': []}, {'id': 'hola', 'type': 'clase', 'dirV': 10, 'dim': [], 'class': 'clase'}, {'id': 'eit', 'type': 'char', 'dirV': 12, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 14, 'dim': [], 'gtype': ''}, {'id': 'tp1', 'type': 'int', 'dirV': 15, 'dim': [], 'gtype': 'tp'}, {'id': 't3', 'type': 'int', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'char', 'dirV': 17, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'int', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'int', 'dirV': 19, 'dim': [], 'gtype': ''}, {'id': 'tp2', 'type': 'int', 'dirV': 20, 'dim': [], 'gtype': 'tp'}, {'id': 't7', 'type': 'int', 'dirV': 21, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'int', 'dirV': 22, 'dim': [], 'gtype': ''}, {'id': 't9', 'type': 'float', 'dirV': 23, 'dim': [], 'gtype': ''}, {'id': 't10', 'type': 'bool', 'dirV': 24, 'dim': [], 'gtype': ''}, {'id': 't11', 'type': 'bool', 'dirV': 25, 'dim': [], 'gtype': ''}, {'id': 't12', 'type': 'int', 'dirV': 26, 'dim': [], 'gtype': ''}, {'id': 't13', 'type': 'int', 'dirV': 27, 'dim': [], 'gtype': ''}, {'id': 't14', 'type': 'bool', 'dirV': 28, 'dim': [], 'gtype': ''}, {'id': 't15', 'type': 'int', 'dirV': 29, 'dim': [], 'gtype': ''}, {'id': 't16', 'type': 'int', 'dirV': 30, 'dim': [], 'gtype': ''}], 'size': 19}
+fibiter : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'n', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'a', 'type': 'int', 'dirV': 1, 'dim': []}, {'id': 'b', 'type': 'int', 'dirV': 2, 'dim': []}, {'id': 'c', 'type': 'int', 'dirV': 3, 'dim': []}, {'id': 'i', 'type': 'int', 'dirV': 4, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'int', 'dirV': 7, 'dim': [], 'gtype': ''}], 'size': 4}
+fibrec : {'type': 'int', 'dirI': 17, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'n', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'bool', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'bool', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'int', 'dirV': 4, 'dim': [], 'gtype': ''}, {'id': 't5', 'type': 'int', 'dirV': 5, 'dim': [], 'gtype': ''}, {'id': 't6', 'type': 'int', 'dirV': 6, 'dim': [], 'gtype': ''}, {'id': 't7', 'type': 'int', 'dirV': 7, 'dim': [], 'gtype': ''}, {'id': 't8', 'type': 'int', 'dirV': 8, 'dim': [], 'gtype': ''}], 'size': 9}
+main : {'type': 'void', 'dirI': 35, 'dirV': [], 'param': [], 'vars': [{'id': 'n', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'hold', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}], 'size': 3}
 @@@@@_Cuadruplos
-0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 49}
-1 : {'accion': '+', 'val1': 'param1', 'val2': 2, 'final': 't1'}
-2 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'param1'}
-3 : {'accion': '+', 'val1': 'param1', 'val2': 1, 'final': 't2'}
-4 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't2'}
-5 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-6 : {'accion': 'outco', 'val1': 'si', 'val2': '', 'final': ''}
-7 : {'accion': 'outco', 'val1': 'yes', 'val2': '', 'final': ''}
-8 : {'accion': '*', 'val1': 3, 'val2': 'si', 'final': 't1'}
-9 : {'accion': '+', 'val1': 4, 'val2': 3, 'final': 't2'}
-10 : {'accion': '/', 'val1': 't1', 'val2': 't2', 'final': 't3'}
-11 : {'accion': '*', 'val1': 't3', 'val2': 1, 'final': 't4'}
-12 : {'accion': '+', 'val1': 't4', 'val2': 'yes', 'final': 't5'}
-13 : {'accion': '>', 'val1': 't5', 'val2': 3, 'final': 't6'}
-14 : {'accion': '<', 'val1': 'yes', 'val2': -5, 'final': 't7'}
-15 : {'accion': '||', 'val1': 't6', 'val2': 't7', 'final': 't8'}
-16 : {'accion': 'outco', 'val1': 't8', 'val2': '', 'final': ''}
-17 : {'accion': '*', 'val1': 3, 'val2': 'si', 'final': 't9'}
-18 : {'accion': '+', 'val1': 4, 'val2': 3, 'final': 't10'}
-19 : {'accion': '/', 'val1': 't9', 'val2': 't10', 'final': 't11'}
-20 : {'accion': '*', 'val1': 't11', 'val2': 1, 'final': 't12'}
-21 : {'accion': '+', 'val1': 't12', 'val2': 'yes', 'final': 't13'}
-22 : {'accion': '>', 'val1': 't13', 'val2': 3, 'final': 't14'}
-23 : {'accion': '<', 'val1': 'yes', 'val2': -5, 'final': 't15'}
-24 : {'accion': '&&', 'val1': 't14', 'val2': 't15', 'final': 't16'}
-25 : {'accion': 'gotoF', 'val1': 't16', 'val2': '', 'final': 30}
-26 : {'accion': 'outco', 'val1': '"en el i"', 'val2': '', 'final': ''}
-27 : {'accion': 'outco', 'val1': 3, 'val2': '', 'final': ''}
-28 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 3}
-29 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 35}
-30 : {'accion': 'outco', 'val1': '"elseee"', 'val2': '', 'final': ''}
-31 : {'accion': '+', 'val1': 'si', 'val2': 'yes', 'final': 't17'}
-32 : {'accion': 'outco', 'val1': 't17', 'val2': '', 'final': ''}
-33 : {'accion': '+', 'val1': 'si', 'val2': 'yes', 'final': 't18'}
-34 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't18'}
-35 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-36 : {'accion': 'return', 'val1': '', 'val2': '', 'final': ''}
-37 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-38 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 3}
-39 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-40 : {'accion': '*', 'val1': 3, 'val2': 8, 'final': 't1'}
-41 : {'accion': '+', 'val1': 't1', 'val2': 5, 'final': 't2'}
-42 : {'accion': '=', 'val1': 't2', 'val2': '', 'final': 'p1'}
-43 : {'accion': '=', 'val1': 4, 'val2': '', 'final': 'osi'}
-44 : {'accion': 'return', 'val1': '', 'val2': '', 'final': '"r"'}
-45 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-46 : {'accion': '=', 'val1': 1054, 'val2': '', 'final': 'osi'}
-47 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 'osi'}
-48 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-49 : {'accion': 'ver', 'val1': 1, 'val2': 0, 'final': 2}
-50 : {'accion': '*', 'val1': 1, 'val2': 4, 'final': 't1'}
-51 : {'accion': 'ver', 'val1': 2, 'val2': 0, 'final': 4}
-52 : {'accion': '+', 'val1': 2, 'val2': 't1', 'final': 't2'}
-53 : {'accion': '+', 'val1': 't2', 'val2': 1, 'final': 'tp1'}
-54 : {'accion': 'ERAP', 'val1': 'hola', 'val2': '', 'final': 'esoo'}
-55 : {'accion': 'paramP', 'val1': 3, 'val2': 'esoo', 'final': 'par1'}
-56 : {'accion': 'GosubP', 'val1': 'hola', 'val2': '', 'final': 'esoo'}
-57 : {'accion': '=', 'val1': 'esoo', 'val2': '', 'final': 't3'}
-58 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'tp1'}
-59 : {'accion': 'ERAP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
-60 : {'accion': 'paramP', 'val1': 3, 'val2': 'charfunc', 'final': 'par1'}
-61 : {'accion': 'GosubP', 'val1': 'hola', 'val2': '', 'final': 'charfunc'}
-62 : {'accion': '=', 'val1': 'charfunc', 'val2': '', 'final': 't4'}
-63 : {'accion': '=', 'val1': 't4', 'val2': '', 'final': 'eit'}
-64 : {'accion': 'outco', 'val1': 'eit', 'val2': '', 'final': ''}
-65 : {'accion': 'outco', 'val1': '"osiiiiiii"', 'val2': '', 'final': ''}
-66 : {'accion': 'ver', 'val1': 1, 'val2': 0, 'final': 2}
-67 : {'accion': '*', 'val1': 1, 'val2': 4, 'final': 't5'}
-68 : {'accion': 'ver', 'val1': 2, 'val2': 0, 'final': 4}
-69 : {'accion': '+', 'val1': 2, 'val2': 't5', 'final': 't6'}
-70 : {'accion': '+', 'val1': 't6', 'val2': 1, 'final': 'tp2'}
-71 : {'accion': 'outco', 'val1': 'tp2', 'val2': '', 'final': ''}
-72 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'num'}
-73 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fib'}
-74 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par1'}
-75 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
-76 : {'accion': '=', 'val1': 'fib', 'val2': '', 'final': 't7'}
-77 : {'accion': '-', 'val1': 't7', 'val2': 1, 'final': 't8'}
-78 : {'accion': '=', 'val1': 't8', 'val2': '', 'final': 'num'}
-79 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'f'}
-80 : {'accion': 'param', 'val1': 3.25, 'val2': '', 'final': 'par1'}
-81 : {'accion': 'param', 'val1': 'num', 'val2': '', 'final': 'par2'}
-82 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'f'}
-83 : {'accion': '=', 'val1': 'f', 'val2': '', 'final': 't9'}
-84 : {'accion': '=', 'val1': 't9', 'val2': '', 'final': 'fi'}
-85 : {'accion': 'outco', 'val1': '"fib"', 'val2': '', 'final': ''}
-86 : {'accion': 'outco', 'val1': 'fib', 'val2': '', 'final': ''}
-87 : {'accion': '>', 'val1': 'num', 'val2': 0, 'final': 't10'}
-88 : {'accion': 'gotoF', 'val1': 't10', 'val2': '', 'final': 99}
-89 : {'accion': 'outco', 'val1': '"num"', 'val2': '', 'final': ''}
-90 : {'accion': 'outco', 'val1': 'num', 'val2': '', 'final': ''}
-91 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't11'}
-92 : {'accion': 'gotoF', 'val1': 't11', 'val2': '', 'final': 98}
-93 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't12'}
-94 : {'accion': 'outco', 'val1': 't12', 'val2': '', 'final': ''}
-95 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't13'}
-96 : {'accion': '=', 'val1': 't13', 'val2': '', 'final': 'num'}
-97 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 91}
-98 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 100}
-99 : {'accion': 'outco', 'val1': '"fue en el else"', 'val2': '', 'final': ''}
-100 : {'accion': '>', 'val1': 'num', 'val2': -3, 'final': 't14'}
-101 : {'accion': 'gotoF', 'val1': 't14', 'val2': '', 'final': 107}
-102 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't15'}
-103 : {'accion': 'outco', 'val1': 't15', 'val2': '', 'final': ''}
-104 : {'accion': '-', 'val1': 'num', 'val2': 1, 'final': 't16'}
-105 : {'accion': '=', 'val1': 't16', 'val2': '', 'final': 'num'}
-106 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 100}
-107 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 35}
+1 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'a'}
+2 : {'accion': '=', 'val1': 1, 'val2': '', 'final': 'b'}
+3 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'c'}
+4 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'i'}
+5 : {'accion': '<', 'val1': 'i', 'val2': 'n', 'final': 't1'}
+6 : {'accion': 'gotoF', 'val1': 't1', 'val2': '', 'final': 15}
+7 : {'accion': 'outco', 'val1': 'a', 'val2': '', 'final': ''}
+8 : {'accion': '+', 'val1': 'a', 'val2': 'b', 'final': 't2'}
+9 : {'accion': '=', 'val1': 't2', 'val2': '', 'final': 'c'}
+10 : {'accion': '=', 'val1': 'b', 'val2': '', 'final': 'a'}
+11 : {'accion': '=', 'val1': 'c', 'val2': '', 'final': 'b'}
+12 : {'accion': '+', 'val1': 'i', 'val2': 1, 'final': 't3'}
+13 : {'accion': '=', 'val1': 't3', 'val2': '', 'final': 'i'}
+14 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 5}
+15 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 'a'}
+16 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+17 : {'accion': '<', 'val1': 'n', 'val2': 1, 'final': 't1'}
+18 : {'accion': '==', 'val1': 'n', 'val2': 1, 'final': 't2'}
+19 : {'accion': '||', 'val1': 't1', 'val2': 't2', 'final': 't3'}
+20 : {'accion': 'gotoF', 'val1': 't3', 'val2': '', 'final': 22}
+21 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 'n'}
+22 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fibrec'}
+23 : {'accion': '-', 'val1': 'n', 'val2': 1, 'final': 't4'}
+24 : {'accion': 'param', 'val1': 't4', 'val2': '', 'final': 'par1'}
+25 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fibrec'}
+26 : {'accion': '=', 'val1': 'fibrec', 'val2': '', 'final': 't5'}
+27 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fibrec'}
+28 : {'accion': '-', 'val1': 'n', 'val2': 2, 'final': 't6'}
+29 : {'accion': 'param', 'val1': 't6', 'val2': '', 'final': 'par1'}
+30 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fibrec'}
+31 : {'accion': '=', 'val1': 'fibrec', 'val2': '', 'final': 't7'}
+32 : {'accion': '+', 'val1': 't5', 'val2': 't7', 'final': 't8'}
+33 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't8'}
+34 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+35 : {'accion': 'inco', 'val1': 'n', 'val2': '', 'final': ''}
+36 : {'accion': 'outco', 'val1': '"esto es fib iterativo"', 'val2': '', 'final': ''}
+37 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fibiter'}
+38 : {'accion': 'param', 'val1': 'n', 'val2': '', 'final': 'par1'}
+39 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fibiter'}
+40 : {'accion': '=', 'val1': 'fibiter', 'val2': '', 'final': 't1'}
+41 : {'accion': 'outco', 'val1': 't1', 'val2': '', 'final': ''}
+42 : {'accion': 'outco', 'val1': '"esto es fib recursivo"', 'val2': '', 'final': ''}
+43 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fibrec'}
+44 : {'accion': 'param', 'val1': 'n', 'val2': '', 'final': 'par1'}
+45 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fibrec'}
+46 : {'accion': '=', 'val1': 'fibrec', 'val2': '', 'final': 't2'}
+47 : {'accion': 'outco', 'val1': 't2', 'val2': '', 'final': ''}
+48 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
 @@@@@_DirClasses
-clase : {'size': 2, 'dirI': 38, 'dirV': {}, 'inherit': '', 'prFun': {'yay': {'type': 'int', 'dirI': 38, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'par1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [], 'size': 1}}, 'pubFun': {'charfunc': {'type': 'char', 'dirI': 40, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'p1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 3}, 'esoo': {'type': 'int', 'dirI': 46, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'par1', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [], 'size': 1}}, 'prVars': [{'id': 'osi', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': [{'id': 'esobrad', 'type': 'float', 'dirV': 1, 'dim': []}]}

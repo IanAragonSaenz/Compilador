@@ -1,7 +1,7 @@
 program hola;
 var int glo;
 
-fun int cara(int n){
+fun int fibiter(int n){
     var int a, b, c, i;
     a = 0;
     b = 1;
@@ -18,18 +18,18 @@ fun int cara(int n){
     return a;
 }
 
-fun int fib(int n){
+fun int fibrec(int n){
 	if(n < 1 || n == 1){
         return n;
     }
-    return fib(n-1) + fib(n-2) + cara(-3);
+    return fibrec(n-1) + fibrec(n-2);
 }
 
 main(){
 	var int n, hold;	
 	inco(n);
 
-    outco("esto es fib", cara(n), "te la comes");
+    outco("esto es fib iterativo", fibiter(n), "esto es fib recursivo", fibrec(n));
 
     
     
