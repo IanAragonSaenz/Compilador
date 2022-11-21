@@ -1,0 +1,17 @@
+program hola;
+var int glo;
+
+fun int fact(int n){
+    if(n < 1){
+        return 1;
+    }
+    return n * fact(n-1);
+}
+
+main(){
+	var int n, hold;	
+	inco(n);
+
+    outco("esto es fact", fact(n));
+    
+}
