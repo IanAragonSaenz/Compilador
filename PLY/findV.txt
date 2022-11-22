@@ -1,0 +1,27 @@
+program hola;
+
+main(){
+    var int num[10], i, n, find;
+    i = 0;
+    n = 10;
+    outco("Which value do you want to find?");
+    inco(find);
+
+    // Fill the vector
+    while(i < n){
+        outco("Input a number into the array");
+        inco(num[i]);
+        i = i + 1;
+    }
+
+    i = 0;
+    // Fill the vector
+    while(i < n){
+        if(num[i] == find){
+            outco("Found the value! on index=", i, "Value= ", num[i]);
+            i = n;
+        }
+        i = i + 1;
+    }
+
+}
