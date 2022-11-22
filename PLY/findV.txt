@@ -15,7 +15,7 @@ main(){
     }
 
     i = 0;
-    // Fill the vector
+    // print the vector
     while(i < n){
         if(num[i] == find){
             outco("Found the value! on index=", i, "Value= ", num[i]);

@@ -1,4 +1,5 @@
 program hola;
+
 class clase{
     private:
           var int num;

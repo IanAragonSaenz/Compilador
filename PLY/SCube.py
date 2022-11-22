@@ -223,10 +223,12 @@ class sCube:
             } 
         }
 
+    #typeCheck recibe dos numeros y un operador y regresa el tipo de dato que arroja esa operacion
     def typeCheck(self, num1, num2, op):
         dtype = self.shortenType(num1) + self.shortenType(num2)
         return self.cube[dtype][op]
 
+    #shortenType recibe el tipo de dato y regresa un version corta de ese tipo
     def shortenType(self, dtype):
         if dtype == 'int':
             return 'i'

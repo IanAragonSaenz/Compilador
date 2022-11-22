@@ -1,28 +1,10 @@
 class dirFun:
 
     def __init__(self):
-        self.fun = {#"fib":{
-            #"type":"int",
-            #"dirI":"2",
-            #"dirV":"12001"
-            #"size":"",
-            #"param":['int','int']
-            #}
-            #"vars":[
-            #   {
-            #    "id":"count",
-            #    "type":"int",
-            #    "dirV":"1000"
-            #    "dim":""
-            #   }
-            # ]
-        }
-       #function ['int', 'fib', 
-       #[['int', 'param1'], ['int', 'param2']], 
-       #['float', [['prepucio', None]]], 
-       #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
-       #[3]]
+        self.fun = {}
 
+    #addFun recibe una lista con los elementos de una funcion, y direccion virtual, la funcion agrega
+    # los datos de entrada y los introduce al directorio de funciones 
     def addFun(self, fun, dirI, dirClasses = None):
         if fun[1] in self.fun:
             exit("Error: Function is already declared")
@@ -50,7 +32,6 @@ class dirFun:
                 size = size + 1
                 self.fun[fun[1]]['dirV'] += 1
 
-        #['float', [['prepucio', None]]]
         dtype = ''
         if fun[3]:
             for index in range(len(fun[3])):
@@ -88,11 +69,13 @@ class dirFun:
                         self.fun[fun[1]]['dirV'] += count
                         self.fun[fun[1]]['vars'].append(var)
         self.fun[fun[1]]['size'] = size
-            
+    #addTemp recibe un nombre de funcion, y los recursos que usa, la funcion rellena el atributo size dentro del directorio 
+    # de funciones usando el nombre de funcion en la entrada        
     def addTemp(self, funName, size):
         self.fun[funName]['size'] = size + self.fun[funName]['size']
         
-    
+    #addTempVar recibe un nombre de funcion, un temporal, y tipo, la funcion agrega variables temporales al
+    #directorio de funciones bajo el nombre de funcion en la entrada
     def addTempVar(self, funName, temp, dtype, tp=False):
         var = {
             "id":temp,
@@ -107,24 +90,26 @@ class dirFun:
         self.fun[funName]['temp'].append(var)
         self.fun[funName]['size'] = self.fun[funName]['size'] + 1
 
+    #getFunDirI recibe el nombre de una funcion y busca la funcion en el directorio y regresa su direccion virtual
     def getFunDirI(self, funName):
         if funName in self.fun:
             return self.fun[funName]['DirI']
         else:
             exit(f'function {funName} doesn\'t exist, DirI')
-
+    #getFunParams recibe el nombre de una funcion, busca el nombre en el directorio y regresa los parametros
     def getFunParams(self, funName):
         if funName in self.fun:
             return self.fun[funName]['param']
         else:
             exit(f'function {funName} doesn\'t exist, get function params')
-
+    #getFunType recibe el nombre de una funcion, busca el nombre en el directorio y regresa el tipo de la funcion
     def getFunType(self, funName):
         if funName in self.fun:
             return self.fun[funName]['type']
         else:
             exit(f'function {funName} doesn\'t exist, get function type')
-
+    #getIdType recibe el nombre de una funcion y el nombre de una variable, busca el nombre en el directorio
+    #busca la variable bajo esa funcion y regresa el tipo
     def getIdType(self, funName, varName): 
         if funName in self.fun:
             for var in self.fun[funName]['vars']:
@@ -136,6 +121,8 @@ class dirFun:
             return -1
         return -1    
 
+    #getIDDimrecibe el nombre de una funcion y el nombre de una variable, busca el nombre en el directorio
+    #busca la variable bajo esa funcion y regresa las dimensiones de esa variable
     def getIdDim(self, funName, varName): 
         if funName in self.fun:
             for var in self.fun[funName]['vars']:
@@ -146,7 +133,8 @@ class dirFun:
                     return var['dim'] 
             return -1
         return -1   
-
+    #getVarDirV recibe el nombre de una funcion y el nombre de una variable, busca el nombre en el directorio
+    #busca la variable bajo esa funcion y regresa las la direccion virtual de esa variable
     def getVarDirV(self, funName, varName): 
         if funName in self.fun:
             for var in self.fun[funName]['vars']:
@@ -154,13 +142,13 @@ class dirFun:
                     return var['dirV']
             return -1
         return -1        
-
+    #funExists recibe el nombre de una funcion y regresa si existe o no en el directorio de funciones
     def funExists(self, funName):
         if funName in self.fun:
             return True
         else:
             return False
-
+    #closeFun recible el nombre de una funcion y limpia los valores de direccion virtual y direcciones temporales virtuales
     def closeFun(self, funName):
         self.fun[funName]['dirV'] = []
         self.fun[funName]['dirVTemp'] = []

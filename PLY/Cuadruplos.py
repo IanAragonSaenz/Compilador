@@ -3,6 +3,9 @@ from DirFun import dirFun
 from SCube import sCube
 from DirClass import dirClass
 
+# Cuadruplos es un conjunto de funciones para manejar todo lo que sale del parser, 
+# aqui utiliza de cubo semantico, tabla de simbolos, directorio de funciones y directorio de clases.
+
 class cuadruplos:
     def __init__(self, table: symbolTable, dirFuns: dirFun, dirClass: dirClass):
         self.cube = sCube()
@@ -25,14 +28,10 @@ class cuadruplos:
         self.funName = ''
         self.className = ''
         self.returns = 0
-        #{'accion' : '*', 'val1' : '1', 'val2' : 'count', 'final' : 't3'}
-        
-    #function ['int', 'fib', 
-    #[['int', 'param1'], ['int', 'param2']], 
-    #['float', [['prepucio', None]]], 
-    #[['condition', [3], [['assign', 'param1', ['param2']]], None]], 
-    #[3]]
 
+    # Guarda los cuadruplos que contiene las clases, asi como tambien guardar las variables, cte y funciones en la clase.
+    # Recibe una lista con toda la informacion de una clase, ejemplo: [className, Inherit, PrivateVars, PrivateFun, PublicVars, PublicFun]
+    # Regresa nada
     def saveClassCuads(self, c):
         id = c[0]
         inherit = c[1]
@@ -52,6 +51,9 @@ class cuadruplos:
         self.dirClasses.closeClass(id)
         self.className = ''
 
+    # Maneja las funciones dentro de una clase, guarda los cuadruplos y variables. Revisa que no haya funciones void con valores en los return o uno que no sea void sin valores en el return.
+    # Recibe una el id de la clase, el typeP para saber si es privada o publica y una lista con la informacion de la funcion.
+    # Regresa nada
     def saveClassFunCuads(self, id, typeP, fun):
         self.funName = fun[1]
         self.returns = 0
@@ -73,16 +75,25 @@ class cuadruplos:
         self.clearTemp()
         self.returns = 0
 
+    # Crea el primer cuadruplo que solo es para brincar al main.
+    # Recibe nada
+    # Regresa nada
     def goToMain(self):
         cuadruplo =  {'accion': 'goto', 'val1': '', 'val2': '', 'final': ''}
         self.addCuad(cuadruplo)
         self.pSalto.append(0)
     
+    # Una vez que encontramos el main en el parser rellenamos el goto del inicio
+    # Recibe nada
+    # Regresa nada
     def fillGoToMain(self):
         goto = self.pSalto.pop()
         self.cuad[goto]['final'] = self.count
         self.table.addVar(self.count, [], 'int', 'cte')
 
+    # Guarda en un archivo que tendra el mismo nombre al programa la informacion de la symbol table, directorio de funciones, cuadruplos y directorio de clases.
+    # Recibe el nombre del programa
+    # Regresa nada
     def saveCuads(self, progName):
         f = open(f"{progName}.txt", "w")
         f.write(f"@@@@@{progName}.txt\r")
@@ -107,6 +118,9 @@ class cuadruplos:
         f.close()
 
 
+    # Guarda los cuadruplos de una funcion (fuera de una clase).
+    # Recibe una lista con todo lo que tiene la funcion.
+    # Regresa nada
     def saveFunCuads(self, fun):
         self.funName = fun[1]
         self.returns = 0
@@ -131,6 +145,9 @@ class cuadruplos:
         self.clearTemp()
         self.returns = 0
 
+    # Guarda los cuadruplos de una funcion (fuera de una clase).
+    # Recibe una lista con todo lo que tiene la funcion.
+    # Regresa nada
     def saveReturnCuads(self, code):
         if self.funName == '':
             exit('Error: return used outside of a function')
@@ -153,6 +170,9 @@ class cuadruplos:
         
         self.returns += 1
     
+    # Guarda los cuadruplos para acceder a un indice dentro de un arreglo o matriz.
+    # Recibe una lista con el nombre de la variable y los indices a acceder.
+    # Regresa la varaible temporal pointer con el valor a acceder.
     def saveArrayCuads(self, code):
         address = -1
         if self.className != '':
@@ -214,6 +234,10 @@ class cuadruplos:
         self.tp += 1
         return 'tp{}'.format(self.tp-1)
 
+
+    # Guarda los cuadruplos para inicializar la memoria de una funcion
+    # Recibe una lista con todo lo que necesita la funcion a llamar
+    # Regresa la temporal con el resultado de la funcion (solo si no era void)
     def saveCallCuads(self, call):
         # ['call', 'fib', [[3, '+', 1], ['op', '+', 2]]]
         cuadruplo =  {'accion': 'ERA', 'val1': '', 'val2': '', 'final': call[1]}
@@ -262,13 +286,19 @@ class cuadruplos:
             return 't{}'.format(self.t-1)
         return False
 
+
+    # Recibe una expresion y llama las funciones que lo manejan.
+    # Recibe una lista con el orden de la expresion.
+    # Regresa la variable temporal o si no habia operaciones el unico valor en lo que se mando.
     def saveExpCuads(self, exp):
         self.readEXP(exp)
         val = self.expCuads()
         self.clearCache()
         return val
 
-    
+    # Guarda los cuadruplos para imprimir
+    # Recibe una lista con la informacion dentro del outco
+    # Regresa nada
     def saveOutcoCuads(self, code):
         for x in code[1]:
             if type(x) is str:
@@ -283,7 +313,9 @@ class cuadruplos:
             self.addCuad(cuadruplo)
 
            
-        
+    # Guarda los cuadruplos para recibir un valor de la consola
+    # Recibe una lista con la informacion dentro del inco
+    # Regresa nada
     def saveIncoCuads(self, code):
         val = code[1]
         if type(code[1]) == list and code[1][0] == 'array':
@@ -291,7 +323,10 @@ class cuadruplos:
         cuadruplo =  {'accion': 'inco', 'val1': val, 'val2': '', 'final': ''} 
         self.addCuad(cuadruplo)
 
-        
+    
+    # Consigue el tipo de una variable, utiliza los directorios para encontrar el tipo
+    # Recibe el nombre de la variable
+    # Regresa el tipo
     def getType(self, index):
         if self.className != '':
             fun = self.dirClasses.getVarType(self.className, self.funName, index)
@@ -320,6 +355,10 @@ class cuadruplos:
             else:
                 return dtype
 
+
+    # Regresa las dimensiones en una lista que tiene una variable
+    # Recibe el nombre de una variable
+    # Regresa una lista con las dimensiones de la variable
     def getArrayDim(self, index):
         if self.className != '':
             return self.dirClasses.getVarDim(self.className, self.funName, index)
@@ -342,6 +381,10 @@ class cuadruplos:
 
         return -1
 
+
+    # Regresa el tipo para lo que esta recibiendo, tambien checa para cte
+    # Recibe el valor a checar, puede ser nombre de una variable o una cte
+    # Regresa el tipo
     def checkType(self, val):
         if type(val) is str and val[0] == '"' and len(val) == 3:
             dtype = 'char'
@@ -351,6 +394,10 @@ class cuadruplos:
             dtype = self.table.getValType(val)
         return dtype
 
+
+    # Crea los cuadruplos de asignacion y maneja cuando hay asignacion de arreglos a multiplicacion de arreglos.
+    # Recibe una lista con la informacion de la asignacion.
+    # Regresa nada
     def saveAssignCuads(self, code):
         if type(code[1]) == list and code[1][0] == 'array':
             tp = self.saveArrayCuads(code[1])
@@ -390,7 +437,11 @@ class cuadruplos:
 
         cuadruplo =  {'accion': '=', 'val1': val, 'val2': '', 'final': code[1]}
         self.addCuad(cuadruplo)
-        
+
+
+    # Guarda los cuadruplos para un if
+    # Recibe una lista con la infromacion dentro del if (exp a checar y los bloques dentro)
+    # Regresa nada  
     def saveConditionCuads(self, code):
         val = self.saveExpCuads(code[1])
         cuadruplo =  {'accion': 'gotoF', 'val1': val, 'val2': '', 'final': ''}
@@ -414,7 +465,11 @@ class cuadruplos:
         salto = self.pSalto.pop()
         self.cuad[salto]['final'] = self.count
         self.table.addVar(self.count, [], 'int', 'cte')
-        
+    
+
+    # Guarda los cuadruplos para un while
+    # Recibe una lista con la informacion del while (expr a checar y los bloques dentro)
+    # Regresa nada
     def saveWhileCuads(self, code):
         self.pSalto.append(self.count) #Revaluar 3
         val = self.saveExpCuads(code[1])
@@ -433,9 +488,11 @@ class cuadruplos:
         self.table.addVar(self.count, [], 'int', 'cte')
         self.table.addVar(retorno, [], 'int', 'cte')
 
+
+    # Guarda los cuadruplos para llamar una funcion desde una varaible de tipo clase
+    # Recibe una lista con la informacion de la llamada (nombre de la variable, nombre de funcion, expr dentro de la llamada)
+    # Regresa la temporal con el resultado de la funcion
     def saveMethodCuads(self, code):
-        #'''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN SEMICOLON'''
-        #p[0] = ['method', p[1], p[3], p[5]]
         if self.funName != 'main':
             exit('Error: Class declaration unsupported at main')
         dtype = self.dirFuns.getIdType(self.funName, code[1])
@@ -484,6 +541,9 @@ class cuadruplos:
         return False
         
 
+    # Maneja los statements y manda a llamar la funcion necesaria
+    # Recibe una lista con un statement
+    # Regresa nada
     def blockHandle(self, code):
         if code[0] == 'condition':
             self.saveConditionCuads(code)
@@ -506,13 +566,25 @@ class cuadruplos:
         else:
             exit(f"Error: statement {code[0]} non existant")
 
+
+    # Guarda el cuadruplo y agrega un valor al contador
+    # Recibe un cuadruplo (string)
+    # Regresa nada
     def addCuad(self, cuadruplo):
         self.cuad.append(cuadruplo)
         self.count = self.count + 1
 
+
+    # Reinicia el numero de temporales
+    # Recibe nada
+    # Regresa nada
     def clearTemp(self):
         self.t = 1
 
+
+    # Usa los valores del vector polaco para hacer la expresion y guardar los cuadruplos (tmb maneja el caso de matriz *matriz)
+    # Recibe nada
+    # Regresa el valor final de la expresion o una lista de temporales en caso de matriz * matriz
     def expCuads(self):
         operandStack = []
         tokenList = self.vp
@@ -612,7 +684,11 @@ class cuadruplos:
             return ''
         else:
             return operandStack.pop()
-        
+    
+
+    # Guarda la expresion en orden correcto dentro del vector polaco
+    # Recibe una lista con la expresion
+    # Regresa nada
     def readEXP(self, exp):
         for index in exp:
             if index not in self.operators:                                     # non operators
@@ -685,58 +761,31 @@ class cuadruplos:
         while andOr:
             andOr = self.checkAndOr()
                 
-            
-    
-    def polishEval(self, table: symbolTable):
-        operandStack = []
-        tokenList = self.vp
-        
-        for token in tokenList:
-            if token in self.operators:
-                operand2 = operandStack.pop()
-                operand1 = operandStack.pop()
-                result = self.calculate(token, operand1, operand2)
-                operandStack.append(result)
-            else:
-                if token[0].isalpha():
-                    operandStack.append(float(table.getIdVal(token)))
-                else:
-                    operandStack.append(float(token))
-        return operandStack.pop()
-    
-    
-    def calculate(self, operator, operand1, operand2):
-        if operator == "+":
-            return operand1 + operand2
-        elif operator == "-":
-            return operand1 - operand2
-        elif operator == "*":
-            return operand1 * operand2
-        elif operator == "/":
-            return operand1 / operand2
-        elif operator == "<":
-            return operand1 < operand2
-        elif operator == ">":
-            return operand1 > operand2
-        elif operator == "==":
-            return operand1 == operand2
-        elif operator == "<>":
-            return operand1 != operand2
-        elif operator == "&&":
-            return operand1 and operand2
-        elif operator == "||":
-            return operand1 or operand2
+
+    # Reinicia las listas de vector polaco, pila de operadores, pila de tipos
+    # Recibe nada
+    # Regresa nada
     def clearCache(self):
         self.vp = []
         self.pOper = []
         self.pTipos = []
-            
+
+    # Agrega un valor al vector polaco
+    # Recibe un valor
+    # Regresa nada
     def addVP(self, val):
         self.vp.append(val)
-        
+
+    # Agrega un operador a la pila de operadores
+    # Recibe un operador
+    # Regresa nada 
     def addOP(self, val):
         self.pOper.append(val)
-        
+    
+
+    # Checa la pila de operadores por un + o - y los saca y mete dentro del vector polaco
+    # Recibe nada
+    # Regresa 1 o 0 depende de si encontro o no
     def checkPlusMinus(self):
         if len(self.pOper) > 0 and self.pOper[-1] in self.plusMinus:
             signo = self.pOper.pop(-1)
@@ -744,7 +793,9 @@ class cuadruplos:
             return 1
         return 0
             
-            
+    # Checa la pila de operadores por un * o / y los saca y mete dentro del vector polaco
+    # Recibe nada
+    # Regresa 1 o 0 depende de si encontro o no      
     def checkMultDiv(self):
         if len(self.pOper) > 0 and self.pOper[-1] in self.multDiv:
             signo = self.pOper.pop(-1)
@@ -752,6 +803,10 @@ class cuadruplos:
             return 1
         return 0
     
+
+    # Checa la pila de operadores por un > o < o <> o == y los saca y mete dentro del vector polaco
+    # Recibe nada
+    # Regresa 1 o 0 depende de si encontro o no
     def checkComp(self):
         if len(self.pOper) > 0 and self.pOper[-1] in self.comparison:
             signo = self.pOper.pop(-1)
@@ -759,6 +814,9 @@ class cuadruplos:
             return 1
         return 0
     
+    # Checa la pila de operadores por un || o && y los saca y mete dentro del vector polaco
+    # Recibe nada
+    # Regresa 1 o 0 depende de si encontro o no
     def checkAndOr(self):
         if len(self.pOper) > 0 and self.pOper[-1] in self.andOr:
             signo = self.pOper.pop(-1)

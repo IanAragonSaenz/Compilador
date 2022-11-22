@@ -9,8 +9,8 @@ class symbolTable:
     
 
 
-    #['float', [['prepucio', None]]]
-    #['int', [['yes', [10]]]]
+    #idSplit recibe un lista de variables y su tipo, la funcion toma el tipo de las variables y su id y 
+    # lo mete a la estructura correspondiente
     def idSplit(self, vars, gtype):
         dtype = ''
         for index in range(len(vars)):
@@ -23,7 +23,8 @@ class symbolTable:
                         return val
 
 
-    
+    #addVar recibe id de variable, dimensiones en caso de ser arreglo, tipo de dato, y tipo
+    #addVar mete los datos de entrada a la tabla de simbolos y en caso de ser arreglo le agrega informacion como dimensiones
     def addVar(self, id, dim, dtype, gtype):
         if id in self.symbol:
             if gtype == 'cte':
@@ -72,19 +73,21 @@ class symbolTable:
 
         return dirv
     
-    
+    #checkVar recibe un id de una variable y revisa en la tabla de simbolos si ya existe para comprobar que no 
+    #haya multiples declaraciones de una misma variable
     def checkVar(self, id):
         if id not in self.symbol:
             exit(f'Error: Undeclared variable found at {id}')
         return 1
     
+    #assignVal recibe el valor de una variable y el id, y lo asigna a memoria
     def assignVal(self, val, id):
        if self.checkVar(id) > 0:
             if self.getValType(val) == self.symbol[id]['type'] or (self.symbol[id]['type'] == 'float' and self.getValType(val) == 'int'):
                 self.dirV[self.symbol[id]['dirV']] = val                
             else:
                 exit(f"Error: Type mismatch assignation at {val}")
-        
+    #getValType recibe un valor y regresa su tipo de dato
     def getValType(self, val):
         if type(val) is int:
             return "int"
@@ -94,30 +97,21 @@ class symbolTable:
             return "float"
         elif type(val) is bool:
             return "bool"
-    
- #   def changeIdType(self, id):
-        
-    def getRealID(self, id):
-        #if type(id) == list:
-        #    id = id[0]
-        #    if type(id) == list:
-        #        id = id[0]
-        return id
 
+    #getIdVal recibe el id de una variable y regresa su direccion virtual
     def getIdVal(self, id):
-        id = self.getRealID(id)
         if id not in self.symbol:
             exit(f'Error: Undeclared variable at {id}')
         return self.dirV[self.symbol[id]['dirV']]
 
+    #getIdDirv recibe el id de una variable y regresa su direccion virtual
     def getIdDirV(self, id):
-        id = self.getRealID(id)
         if id not in self.symbol:
             exit(f'Error: Undeclared variable at {id}')
         return self.symbol[id]['dirV']
 
+    #getIdType recibe el id de una variable y regresa el tipo de esa variable
     def getIdType(self, id):
-        id = self.getRealID(id)
         if id not in self.symbol:
             exit(f'Error: Undeclared variable at {id}')
         if id in self.symbol:
@@ -125,8 +119,8 @@ class symbolTable:
         else:
             return -1
         
+    #getIdDim recibe el id de una variable y regresa las dimensiones de esa variable    
     def getIdDim(self, id):
-        id = self.getRealID(id)
         if id not in self.symbol:
             exit(f'Error: Undeclared variable at {id}')
         if id in self.symbol:
@@ -134,6 +128,7 @@ class symbolTable:
         else:
             return -1  
 
+    #dirVGet recibe el tipo de una variable y regresa la siguiente direccion virtual disponible
     def dirVGet(self, gtype):
         min = 0
         max = 0

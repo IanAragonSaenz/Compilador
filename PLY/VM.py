@@ -22,6 +22,9 @@ tpMin = 8000
 tCount = tempMin
 
 
+# Lee el archivo "ovejota" linea por linea y guarda seccion por seccion la informacion de memoria.
+# Recibe una variable con todo lo que contiene el archivo "ovejota"
+# Regresa nada
 def output(data):
     part = -1
     for line in data:
@@ -48,6 +51,10 @@ def output(data):
         elif part == 3:
             saveMethodClass(line)
 
+
+# Busca la direccion virtual de una variable dentro de directorio de classes, de funciones y de variables (asi como tambien cehcando en caso de que sea una variable tp)
+# Recibe un id de la variable a buscar y un booleano para un caso especifico con variables tp.
+# Regresa la direccion virtual
 def getDirV(id, left = False):
     if type(id) != str:
         id = str(id)
@@ -111,6 +118,10 @@ def getDirV(id, left = False):
     else:
         exit(f'Error: Variable {id} was not declared on {funName[-1]}')
 
+
+# Regresa el tipo de una variable.
+# Recibe un id de la variable.
+# Regresa el tipo de la variable.
 def getType(id):
     if type(id) != str:
         id = str(id)
@@ -154,6 +165,9 @@ def getType(id):
     else:
         exit(f'Error: Variable {id} was not declared on {funName[-1]}')
 
+# Consigue la direccion virtual de un parametro en una funcion.
+# Recibe un id de la funcion y el parametro que es.
+# Regresa la direccion virtual del parametro.
 def getDirVParam(id, par):
     if len(funParamName) > 0:
         if len(dirFun[id]['dirV']) == 0: #we are inside of a function with no memory
@@ -166,6 +180,9 @@ def getDirVParam(id, par):
     else:
         exit(f'Function {id} has no declaration')
 
+# Ejecuta un cuadruplo, con su accion hasta llegar a la accion de END donde termina
+# Recibe el cuadruplo a leer
+# Regresa nada
 def execCuad(cuad):
     global ip, dirV, classNameParams, className, varClassName
     if cuad['accion'] == 'goto':
@@ -382,6 +399,9 @@ def execCuad(cuad):
     ip += 1
 
 
+# Guarda un valor en cierto parametro de una funcion dentro de una clase
+# Recibe el valor a guardar, la funcion y el parametro a llenar.
+# Regresa nada
 def createParamP(val, f, param):
     if classNameParams == '':
         exit('Sending param to no function')
@@ -395,8 +415,11 @@ def createParamP(val, f, param):
         exit('Error: no memory for function in class')
 
     dirV[V + par-1] = rigth
-    #print(f"ParamP{par}")
 
+
+# Ejecuta el return de una funcion y guarda el valor a regresar dentro de la varaible global para la funcion
+# Recibe el valor a regresar
+# Regresa nada
 def createReturn(final):
     global className, varClassName
     if len(funName) < 2:
@@ -427,6 +450,9 @@ def createReturn(final):
     EndProc()
     
 
+# Reserva la memoria que necesitara una funcion y se la asigna
+# Recibe el id de la funcion
+# Regresa nada
 def createRecord(id):
     global tCount, className, funParamName
     if className != '':
@@ -452,6 +478,10 @@ def createRecord(id):
     if tCount >= 6000:
         exit('Error: temporal memory full')
 
+
+# Reserva la memoria para una funcion de una clase y le asigna su direccion virtual
+# Recibe la variable (la que es de tipo clase) y el id de la funcion
+# Regresa nada
 def createRecordMethod(var, funID):
     global tCount, classNameParams
 
@@ -474,6 +504,10 @@ def createRecordMethod(var, funID):
     if tCount >= 6000:
         exit('Error: temporal memory full')
 
+
+# Termina con la ejecucion de una fucnion y nos regresa al ultimo salto que se hizo, se borra/limpia la memoria de la funcion.
+# Recibe nada
+# Regresa nada
 def EndProc():
     global tCount, ip, pSaltos, className, varClassName, funName
     id = funName.pop()
@@ -507,7 +541,9 @@ def EndProc():
         exit(f'Error: temporal memory count was not right')
 
 
-
+# Guarda un valor en la tabla de simbolos de lo leido del archivo
+# Recibe un string con un valor de la tabla de simbolos
+# Regresa nada
 def saveSymbolTable(data):
     id = data[0:data.find(":")-1]
     if id in symbolTable:
@@ -527,7 +563,10 @@ def saveSymbolTable(data):
             dirV[res['dirV']] = id
     symbolTable[id] = res
     
-    
+
+# Guarda un valor en el directorio de funciones, de lo leido del archivo
+# Recibe un string con un valor del directorio de funciones
+# Regresa nada
 def saveDirFun(data):
     id = data[0:data.find(":")-1]
     if id in dirFun:
@@ -540,7 +579,11 @@ def saveDirFun(data):
     dirFun[id] = res 
     dirFun[id]['dirV'] = []
     dirFun[id]['dirVTemp'] = []
-        
+
+
+# Guarda un valor en la lista de cuadruplos de lo leido del archivo
+# Recibe un string con un valor de cuadruplos
+# Regresa nada
 def saveCuads(data):
     i = data[0:data.find(":")-1]
     i = int(i)
@@ -553,6 +596,9 @@ def saveCuads(data):
     
     cuadruplos.append(res)
 
+# Guarda un valor en el directorio de clases de lo leido del archivo
+# Recibe un string con un valor de el directorio de clases
+# Regresa nada
 def saveMethodClass(data):
     i = data[0:data.find(":")-1]
     if i in dirClasses:
@@ -572,14 +618,9 @@ if __name__ == '__main__':
         try:
             f = open(file, 'r')
             output(f)
-            print('\n\nSymbol Table', symbolTable)
-            print('\nDirFun', dirFun)
-            print('\nCuadruplos', cuadruplos)
-            
             f.close()
             createRecord('main')
             
-            print('\nDirFun', dirFun)
             while ip >= 0:
                 execCuad(cuadruplos[ip])
         except EOFError:

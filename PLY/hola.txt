@@ -1,24 +1,32 @@
 @@@@@hola.txt@@@@@_SymbolTable
+glo : {'dim': [], 'type': 'int', 'dirV': 0}
 1 : {'dim': [], 'type': 'int', 'dirV': 6000}
-sumaConNum : {'dim': [], 'type': 'int', 'dirV': 0}
-6 : {'dim': [], 'type': 'int', 'dirV': 6001}
-2 : {'dim': [], 'type': 'int', 'dirV': 6002}
+4 : {'dim': [], 'type': 'int', 'dirV': 6001}
+fact : {'dim': [], 'type': 'int', 'dirV': 1}
+12 : {'dim': [], 'type': 'int', 'dirV': 6002}
+"esto es fact" : {'dim': [], 'type': 'char', 'dirV': 6003}
 @@@@@_DirFun
-main : {'type': 'void', 'dirI': 6, 'dirV': [], 'param': [], 'vars': [{'id': 'obj', 'type': 'clase', 'dirV': 0, 'dim': [], 'class': 'clase'}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 2, 'dirVTemp': []}
+fact : {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int'], 'vars': [{'id': 'n', 'type': 'int', 'dirV': 0, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 1, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}, {'id': 't4', 'type': 'int', 'dirV': 4, 'dim': [], 'gtype': ''}], 'size': 5, 'dirVTemp': []}
+main : {'type': 'void', 'dirI': 12, 'dirV': [], 'param': [], 'vars': [{'id': 'n', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'hold', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 2, 'dirVTemp': []}
 @@@@@_Cuadruplos
-0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 6}
-1 : {'accion': '=', 'val1': 1, 'val2': '', 'final': 'num'}
-2 : {'accion': '+', 'val1': 'num', 'val2': 'op1', 'final': 't1'}
-3 : {'accion': '+', 'val1': 't1', 'val2': 'op2', 'final': 't2'}
-4 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't2'}
-5 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
-6 : {'accion': 'ERAP', 'val1': 'obj', 'val2': '', 'final': 'sumaConNum'}
-7 : {'accion': 'paramP', 'val1': 2, 'val2': 'sumaConNum', 'final': 'par1'}
-8 : {'accion': 'paramP', 'val1': 2, 'val2': 'sumaConNum', 'final': 'par2'}
-9 : {'accion': 'GosubP', 'val1': 'obj', 'val2': '', 'final': 'sumaConNum'}
-10 : {'accion': '=', 'val1': 'sumaConNum', 'val2': '', 'final': 't1'}
-11 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'yes'}
-12 : {'accion': 'outco', 'val1': 'yes', 'val2': '', 'final': ''}
-13 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 12}
+1 : {'accion': '<', 'val1': 'n', 'val2': 1, 'final': 't1'}
+2 : {'accion': 'gotoF', 'val1': 't1', 'val2': '', 'final': 4}
+3 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 1}
+4 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fact'}
+5 : {'accion': '-', 'val1': 'n', 'val2': 1, 'final': 't2'}
+6 : {'accion': 'param', 'val1': 't2', 'val2': '', 'final': 'par1'}
+7 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fact'}
+8 : {'accion': '=', 'val1': 'fact', 'val2': '', 'final': 't3'}
+9 : {'accion': '*', 'val1': 'n', 'val2': 't3', 'final': 't4'}
+10 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't4'}
+11 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+12 : {'accion': 'inco', 'val1': 'n', 'val2': '', 'final': ''}
+13 : {'accion': 'outco', 'val1': '"esto es fact"', 'val2': '', 'final': ''}
+14 : {'accion': 'ERA', 'val1': '', 'val2': '', 'final': 'fact'}
+15 : {'accion': 'param', 'val1': 'n', 'val2': '', 'final': 'par1'}
+16 : {'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fact'}
+17 : {'accion': '=', 'val1': 'fact', 'val2': '', 'final': 't1'}
+18 : {'accion': 'outco', 'val1': 't1', 'val2': '', 'final': ''}
+19 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
 @@@@@_DirClasses
-clase : {'size': 1, 'dirI': 1, 'dirV': {}, 'inherit': '', 'prFun': {}, 'pubFun': {'sumaConNum': {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int', 'int'], 'vars': [{'id': 'op1', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'op2', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}], 'size': 4, 'dirVTemp': []}}, 'prVars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': []}
