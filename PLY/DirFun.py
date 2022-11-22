@@ -102,7 +102,6 @@ class dirFun:
             "gtype":''
         }
         if tp:
-            print('holaaaa')
             var['gtype'] = 'tp'
         self.fun[funName]['dirV'] += 1
         self.fun[funName]['temp'].append(var)
@@ -164,6 +163,7 @@ class dirFun:
 
     def closeFun(self, funName):
         self.fun[funName]['dirV'] = []
+        self.fun[funName]['dirVTemp'] = []
     
     def printSelf(self):
         #for fun in self.fun:

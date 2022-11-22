@@ -126,18 +126,18 @@ def getType(id):
         if funName[-1] in dirClasses[className]['pubFun']:
             for var in dirClasses[className]['pubFun'][funName[-1]]['vars']:
                 if var['id'] == id:
-                    return var['dirV'] + dirClasses[className]['pubFun'][funName[-1]]['dirV'][-1]
+                    return var['type']
             for var in dirClasses[className]['pubFun'][funName[-1]]['temp']:
                 if var['id'] == id:
-                    return var['dirV'] + dirClasses[className]['pubFun'][funName[-1]]['dirV'][-1]
+                    return var['type']
 
         if funName[-1] in dirClasses[className]['prFun']:
             for var in dirClasses[className]['prFun'][funName[-1]]['vars']:
                 if var['id'] == id:
-                    return var['dirV'] + dirClasses[className]['prFun'][funName[-1]]['dirV'][-1]
+                    return var['type']
             for var in dirClasses[className]['prFun'][funName[-1]]['temp']:
                 if var['id'] == id:
-                    return var['dirV'] + dirClasses[className]['prFun'][funName[-1]]['dirV'][-1]
+                    return var['type']
 
     elif len(funName) > 0:
         if len(dirFun[funName[-1]]['dirV']) == 0: #we are inside of a function with no memory
@@ -271,7 +271,7 @@ def execCuad(cuad):
         if getType(left) != dtype:
             exit(f'Error: giving wrong type to {left} with {rigth}: {dtype}')
 
-        dirV[getDirV(left, True)] = rigth
+        dirV[getDirV(left)] = rigth
         print("Input")
     elif cuad['accion'] == 'ver':
         if(dirV[getDirV(cuad['val1'])]) < dirV[getDirV(cuad['val2'])] or (dirV[getDirV(cuad['val1'])]) > dirV[getDirV(cuad['final'])]:
@@ -291,26 +291,68 @@ def execCuad(cuad):
         par = int(cuad['final'][3:])
         rigth = dirV[getDirV(cuad['val1'])]
         
-        V = -1
-        if len(dirFun[funParamName[-1]]['dirVTemp']) > 0:
-            V = dirFun[funParamName[-1]]['dirVTemp'].pop()
-            dirFun[funParamName[-1]]['dirV'].append(V)
+        if className != '':
+            V = -1
+            ftype = ''
+            if funParamName[-1] in dirClasses[className]['pubFun']:
+                if len(dirClasses[className]['pubFun'][funParamName[-1]]['dirVTemp']) > 0:
+                    V = dirClasses[className]['pubFun'][funParamName[-1]]['dirVTemp'].pop()
+                    dirClasses[className]['pubFun'][funParamName[-1]]['dirV'].append(V)
+                    ftype = 'pubFun'
+            
+            if funParamName[-1] in dirClasses[className]['prFun']:
+                if len(dirClasses[className]['prFun'][funParamName[-1]]['dirVTemp']) > 0:
+                    V = dirClasses[className]['prFun'][funParamName[-1]]['dirVTemp'].pop()
+                    dirClasses[className]['prFun'][funParamName[-1]]['dirV'].append(V)
+                    ftype = 'prFun'
 
-        dirV[getDirVParam(funParamName[-1], par)] = rigth
+            dirV[V+par-1] = rigth
 
-        if V != -1:
-            dirFun[funParamName[-1]]['dirV'].pop()
-            dirFun[funParamName[-1]]['dirVTemp'].append(V)
+            if V != -1:
+                dirClasses[className][ftype][funParamName[-1]]['dirVTemp'].append(V)
+                dirClasses[className][ftype][funParamName[-1]]['dirV'].pop()
+        else:
+            V = -1
+            if len(dirFun[funParamName[-1]]['dirVTemp']) > 0:
+                V = dirFun[funParamName[-1]]['dirVTemp'].pop()
+                dirFun[funParamName[-1]]['dirV'].append(V)
+
+            dirV[getDirVParam(funParamName[-1], par)] = rigth
+
+            if V != -1:
+                dirFun[funParamName[-1]]['dirV'].pop()
+                dirFun[funParamName[-1]]['dirVTemp'].append(V)
         print(f"Param{par}")
     elif cuad['accion'] == 'Gosub':
         #{'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
-        if len(dirFun[cuad['final']]['dirVTemp']) > 0:
-            V = dirFun[cuad['final']]['dirVTemp'].pop()
-            dirFun[cuad['final']]['dirV'].append(V)
+        V = -1
+        if className != '':
+            ftype = ''
+            if funParamName[-1] in dirClasses[className]['pubFun']:
+                if len(dirClasses[className]['pubFun'][funParamName[-1]]['dirVTemp']) > 0:
+                    V = dirClasses[className]['pubFun'][funParamName[-1]]['dirVTemp'].pop()
+                    dirClasses[className]['pubFun'][funParamName[-1]]['dirV'].append(V)
+                    ftype = 'pubFun'
+            
+            if funParamName[-1] in dirClasses[className]['prFun']:
+                if len(dirClasses[className]['prFun'][funParamName[-1]]['dirVTemp']) > 0:
+                    V = dirClasses[className]['prFun'][funParamName[-1]]['dirVTemp'].pop()
+                    dirClasses[className]['prFun'][funParamName[-1]]['dirV'].append(V)
+                    ftype = 'prFun'
+        else:
+            if len(dirFun[cuad['final']]['dirVTemp']) > 0:
+                V = dirFun[cuad['final']]['dirVTemp'].pop()
+                dirFun[cuad['final']]['dirV'].append(V)
+        
+
+
         funName.append(cuad['final'])
         funParamName.pop()
         pSaltos.append(ip+1)
-        ip = dirFun[cuad['final']]['dirI']
+        if className != '':
+            ip = dirClasses[className][ftype][funName[-1]]['dirI']
+        else:
+            ip = dirFun[cuad['final']]['dirI']
         print("GoSub")
         ip -= 1
     elif cuad['accion'] == 'EndProc':
@@ -352,7 +394,7 @@ def createParamP(val, f, param):
     else:
         exit('Error: no memory for function in class')
 
-    dirV[V + par] = rigth
+    dirV[V + par-1] = rigth
     print(f"ParamP{par}")
 
 def createReturn(final):
@@ -360,30 +402,54 @@ def createReturn(final):
     if len(funName) < 2:
         exit('Return found outside of a function')
     
+    dtype = ''
     if className != '':
-        dtype = dirClasses[className]['pubFun'][funName[-1]]['type']
-        if dtype != 'void':
-            dirV[getDirV(funName[-1])] = dirV[getDirV(final)]
-    
+        if len(funName) == 2:
+            dtype = dirClasses[className]['pubFun'][funName[-1]]['type']
+            if dtype != 'void':
+                dirV[getDirV(funName[-1])] = dirV[getDirV(final)]
+        else:
+            print('yesssdsdfwefewfewfewfw')
+            if funName[-1] in dirClasses[className]['pubFun']:
+                dtype = dirClasses[className]['pubFun'][funName[-1]]['type']
+            
+            if funName[-1] in dirClasses[className]['prFun']:
+                dtype = dirClasses[className]['prFun'][funName[-1]]['type']
+            if dtype != 'void':
+                dirV[getDirV(funName[-1])] = dirV[getDirV(final)]
+
     else:
         dtype = dirFun[funName[-1]]['type']
         if dtype != 'void':
             dirV[getDirV(funName[-1])] = dirV[getDirV(final)]
-
+    
     if dtype != 'void' and dtype != getType(final):
-        exit('Error: Return value is not the same type as function')
+        exit(f'Error: Return value is not the same type as function {dtype} {final} {getType(final)}')
     EndProc()
     
 
 def createRecord(id):
     global tCount, className, funParamName
 
-    size = dirFun[id]['size']
-    if id != 'main':
-        funParamName.append(id)
-        dirFun[id]['dirVTemp'].append(tCount)
+    if className != '':
+        if id in dirClasses[className]['pubFun']:
+            size = dirClasses[className]['pubFun'][id]['size']
+            funParamName.append(id)
+            dirClasses[className]['pubFun'][id]['dirVTemp'].append(tCount)
+
+        elif id in dirClasses[className]['prFun']:
+            size = dirClasses[className]['prFun'][id]['size']
+            funParamName.append(id)
+            dirClasses[className]['prFun'][id]['dirVTemp'].append(tCount)
+        else:
+            exit('Error: Function is not in this class')
     else:
-        dirFun[id]['dirV'].append(tCount) 
+        size = dirFun[id]['size']
+        if id != 'main':
+            funParamName.append(id)
+            dirFun[id]['dirVTemp'].append(tCount)
+        else:
+            dirFun[id]['dirV'].append(tCount) 
     tCount += size
     
     if tCount >= 6000:
@@ -412,15 +478,24 @@ def createRecordMethod(var, funID):
         exit('Error: temporal memory full')
 
 def EndProc():
-    global tCount, ip, pSaltos, className, varClassName
+    global tCount, ip, pSaltos, className, varClassName, funName
     id = funName.pop()
 
     if className != '':
-        size = dirClasses[className]['pubFun'][id]['size']
-        dirClasses[className]['pubFun'][id]['dirV'].pop()
-        className = ''
-        varClassName = ''
 
+        if len(funName) == 1:
+            size = dirClasses[className]['pubFun'][id]['size']
+            dirClasses[className]['pubFun'][id]['dirV'].pop()
+            className = ''
+            varClassName = ''
+        else:
+            if id in dirClasses[className]['pubFun']:
+                size = dirClasses[className]['pubFun'][id]['size']
+                dirClasses[className]['pubFun'][id]['dirV'].pop()
+            
+            if id in dirClasses[className]['prFun']:
+                size = dirClasses[className]['prFun'][id]['size']
+                dirClasses[className]['prFun'][id]['dirV'].pop()
     else:
         size = dirFun[id]['size']
         dirFun[id]['dirV'].pop()
