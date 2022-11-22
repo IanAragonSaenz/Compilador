@@ -622,7 +622,6 @@ class cuadruplos:
                                                     final = self.saveExpCuads([hold, '+', multTemp[sum]])
                                                     hold = final
                                                 retTemp.append(hold)
-                                        print(retTemp)
                                         return retTemp
 
                                     else:
