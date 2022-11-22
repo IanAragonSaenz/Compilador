@@ -304,7 +304,22 @@ def p_dec_exp_method(p):
         p[0] = p[1]
     else:
         p[0] = []
-                        
+
+def p_dec_exp_method_call(p):
+    '''dec_exp_method_call : dec_exp_method dec_exp_method_more'''
+    if p[2]:
+        p[0] = [p[1]] + p[2]
+    else:
+        p[0] = p[1]
+
+def p_dec_exp_method_more(p):
+    '''dec_exp_method_more : COMMA dec_exp_method_call
+                            | empty'''
+    if len(p) == 3 and p[2]:
+        p[0] = p[2]
+    else:
+        p[0] = []
+
 ## declaracion de term
 def p_dec_term(p):
     '''dec_term : dec_fact md_op'''
@@ -495,7 +510,7 @@ def p_dec_cycle(p):
     p[0] = ['while', p[3], p[6]]
 ## llamada metodo
 def p_dec_method(p):
-    '''dec_method : ID DOT ID LEFTPAREN dec_exp_method RIGHTPAREN'''
+    '''dec_method : ID DOT ID LEFTPAREN dec_exp_method_call RIGHTPAREN'''
     p[0] = ['method', p[1], p[3], p[5]]
 
 

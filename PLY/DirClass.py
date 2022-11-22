@@ -19,6 +19,7 @@ class dirClass:
 
         if inherit:
             self.dir[id]['inherit'] = inherit
+            #self.dir[id]['size'] = self.dir[inherit]['size']
         else:
             self.dir[id]['inherit'] = ''
 
@@ -34,13 +35,6 @@ class dirClass:
         
 
     def closeClass(self, id):
-        size = 0
-        #for f in self.dir[id]['prFun'].fun:
-        #    size += self.dir[id]['prFun'].fun[f]['size']
-        #for f in self.dir[id]['pubFun'].fun:
-        #    size += self.dir[id]['pubFun'].fun[f]['size']
-        #self.dir[id]['size'] += size
-
         self.dir[id]['prFun'] = self.dir[id]['prFun'].fun
         self.dir[id]['pubFun'] = self.dir[id]['pubFun'].fun
 
@@ -150,6 +144,21 @@ class dirClass:
         
         prFuns = self.dir[className]['prFun'].getIdType(funName, id)
         pubFuns = self.dir[className]['pubFun'].getIdType(funName, id)
+
+        if prFuns != -1:
+            return prFuns
+        if pubFuns != -1:
+            return pubFuns
+
+        return -1
+
+    def getVarDim(self, className, funName, id):
+        for var in self.dir[className]['prVars'] + self.dir[className]['pubVars']:
+            if var['id'] == id:
+                return var['dim']
+        
+        prFuns = self.dir[className]['prFun'].getIdDim(funName, id)
+        pubFuns = self.dir[className]['pubFun'].getIdDim(funName, id)
 
         if prFuns != -1:
             return prFuns

@@ -1,0 +1,48 @@
+program hola;
+
+main(){
+    var int num[4][4],a[4][4], b[4][4], i, j, n;
+    i = 0;
+    n = 4;
+    j = 0;
+    outco("Ingresa primera matriz");
+    while(i < n){
+        while(j < n){
+            inco(a[i][j]);
+            j = j + 1;
+        }
+        j = 0;
+        i = i + 1;
+    }
+
+    i = 0;
+    j = 0;
+
+    outco("Ingresa segunda matriz");
+    while(i < n){
+        while(j < n){
+            inco(b[i][j]);
+            j = j + 1;
+        }
+        j = 0;
+        i = i + 1;
+    }
+
+    outco("Multiplica Matrix");
+    num = a * b;
+    
+
+    outco("Imprimelo");
+    i = 0;
+    j = 0;
+    while(i < n){
+        while(j < n){
+            outco(num[i][j]);
+            j = j + 1;
+        }
+        j = 0;
+        i = i + 1;
+    }
+
+
+}

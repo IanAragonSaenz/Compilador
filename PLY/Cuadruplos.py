@@ -159,8 +159,10 @@ class cuadruplos:
             address = self.dirClasses.findFunType(self.className, self.funName, code[1])
         elif self.funName != '':
             address = self.dirFuns.getVarDirV(self.funName, code[1])
+            self.table.addVar(address, [], 'int', 'cte')
         if address == -1:
             address = self.table.getIdDirV(code[1])
+
 
         dimMin = 0
         dimMax = self.getArrayDim(code[1])
@@ -169,6 +171,8 @@ class cuadruplos:
 
         dtype = self.getType(code[1])
         exp = code[2][0]
+        if type(exp) != list:
+            exp = [exp] 
         val = self.saveExpCuads(exp)
         cuadruplo = {'accion': 'ver', 'val1': val, 'val2': dimMin, 'final': dimMax[0]}
         self.addCuad(cuadruplo)
@@ -185,6 +189,8 @@ class cuadruplos:
 
             
             exp = code[2][1]
+            if type(exp) != list:
+                exp = [exp] 
             val = self.saveExpCuads(exp)
             cuadruplo = {'accion': 'ver', 'val1': val, 'val2': dimMin, 'final': dimMax[1]}
             self.addCuad(cuadruplo)
@@ -315,7 +321,9 @@ class cuadruplos:
                 return dtype
 
     def getArrayDim(self, index):
-        if len(self.funName) > 0:
+        if self.className != '':
+            return self.dirClasses.getVarDim(self.className, self.funName, index)
+        elif len(self.funName) > 0:
             fun = self.dirFuns.getIdDim(self.funName, index)
             if fun == -1:
                 dtype = self.table.getIdDim(index)
@@ -331,6 +339,8 @@ class cuadruplos:
                 exit('Error: Undeclared variable at {}'.format(index))
             else:
                 return dtype
+
+        return -1
 
     def checkType(self, val):
         if type(val) is str and val[0] == '"' and len(val) == 3:
@@ -350,6 +360,25 @@ class cuadruplos:
             left = self.getType(code[1])
 
         val = self.saveExpCuads(code[2])
+        if type(val) == list:
+            if type(code[1]) != list and self.getArrayDim(code[1]) != []:
+                dim = self.getArrayDim(code[1])
+                if len(dim) == 2 and dim[0] == dim[1]:
+                    if dim[0]*dim[1] == len(val):
+                        n = 0
+                        for i in range(dim[0]):
+                            for j in range(dim[1]):
+                                self.saveAssignCuads(['assign', ['array', code[1], [i, j]], [val[n]]])
+                                n += 1
+                        
+                        return 
+
+                    else:
+                        exit('Error: Assigning an array of different size')
+                else:
+                    exit('Error: Trying to use array in an expr without accessing with an index')
+            else:
+                exit('Error: Assigning matrix to a single value')
         right = self.getType(val)
         
 
@@ -473,7 +502,7 @@ class cuadruplos:
         elif code[0] == 'array':
             self.saveArrayCuads(code)
         elif code[0] == 'method':
-            self.saveArrayCuads(code)
+            self.saveMethodCuads(code)
         else:
             exit(f"Error: statement {code[0]} non existant")
 
@@ -501,6 +530,38 @@ class cuadruplos:
                         operand1 = self.saveCallCuads(operand1)
                     elif operand1[0] == 'array':
                         operand1 = self.saveArrayCuads(operand1)
+                    elif operand1[0] == 'multM':
+                        if type(operand2) == list and operand2[0] == 'multM':
+                            if operand2[2] == operand1[2]:
+                                if token == '*':
+                                    if len(operandStack) == 0:
+                                        retTemp = []
+                                        for row in range(operand1[2][0]):
+                                            for col in range(operand1[2][0]):
+                                                multTemp = []
+                                                for mult in range(operand1[2][0]):
+                                                    val1 = self.saveArrayCuads(['array', operand1[1], [row, mult]])
+                                                    val2 = self.saveArrayCuads(['array', operand2[1], [mult, col]])
+                                                    final = self.saveExpCuads([val1, '*', val2])
+                                                    multTemp.append(final)
+
+                                                hold = multTemp[0]
+                                                for sum in range(1, operand1[2][0]):
+                                                    final = self.saveExpCuads([hold, '+', multTemp[sum]])
+                                                    hold = final
+                                                retTemp.append(hold)
+                                        print(retTemp)
+                                        return retTemp
+
+                                    else:
+                                        exit('Error: Unsupported operation for matrix')
+                                else:
+                                    exit('Error: Only matrix multiplication supported')
+                            else:
+                                exit('Error: Unsupported non square matrix multiplication')
+                        else:
+                            exit('Error: Trying to multiply a matrix with a value')
+
 
                 # Do cuads for call or an array in case a function is being used in an exp    
                 if type(operand2) == list:
@@ -508,6 +569,9 @@ class cuadruplos:
                         operand2 = self.saveCallCuads(operand2)
                     elif operand2[0] == 'array':
                         operand2 = self.saveArrayCuads(operand2)
+                    elif operand2[0] == 'multM':
+                        if not (type(operand1) == list and operand1[0] == 'multM'):
+                            exit('Error: Trying to multiply a matrix with a value')
 
                 type2 = self.getType(operand2)
                 type1 = self.getType(operand1)
@@ -536,7 +600,13 @@ class cuadruplos:
                         token = self.saveArrayCuads(token)
                     elif token[0] == 'method':
                         token = self.saveMethodCuads(token)
-                        
+                elif self.getArrayDim(token) != [] and self.getArrayDim(token) != -1:
+                        dim = self.getArrayDim(token)
+                        if len(dim) == 2 and dim[0] == dim[1]:
+                            token = ['multM', token, dim]
+                        else:
+                            exit(f'Error: Trying to use array in an expr without accessing with an index')
+
                 operandStack.append(token)
         if len(operandStack) < 1:
             return ''

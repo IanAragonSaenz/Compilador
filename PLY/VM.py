@@ -169,48 +169,48 @@ def getDirVParam(id, par):
 def execCuad(cuad):
     global ip, dirV, classNameParams, className, varClassName
     if cuad['accion'] == 'goto':
-        print("Goto")
+        #print("Goto")
         ip = dirV[getDirV(cuad['final'])]
         ip -= 1
         
     elif cuad['accion'] == 'gotoF':
         if not dirV[getDirV(cuad['val1'])]:
-            print("GotoFalso")
+            #print("GotoFalso")
             ip = dirV[getDirV(cuad['final'])]
             ip -=1
     elif cuad['accion'] == 'gotoV':
         if dirV[getDirV(cuad['val1'])]:
-            print("GotoV")
+            #print("GotoV")
             ip = dirV[getDirV(cuad['final'])]
             ip -=1
     elif cuad['accion'] == '+':
-        print("Suma")
+        #print("Suma")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] + dirV[getDirV(cuad['val2'])]
 
         new = dirV[getDirV(cuad['final'], True)]
-        print(f'resultado de suma {new}')
+        #print(f'resultado de suma {new}')
     elif cuad['accion'] == '-':
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] - dirV[getDirV(cuad['val2'])]
-        print('Resta')
+        #print('Resta')
         #{'accion': '-', 'val1': 'num', 'val2': 2, 'final': 't1'}
     elif cuad['accion'] == '*':
-        print("Multiplicacion")
+        #print("Multiplicacion")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] * dirV[getDirV(cuad['val2'])]
         
     elif cuad['accion'] == '/':
-        print("Division")
+        #print("Division")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] / dirV[getDirV(cuad['val2'])]
         
     elif cuad['accion'] == '<':
-        print("Menor que")
+        #print("Menor que")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] < dirV[getDirV(cuad['val2'])]
         
     elif cuad['accion'] == '>':
-        print("Mayor que")
+        #print("Mayor que")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] > dirV[getDirV(cuad['val2'])]
         
     elif cuad['accion'] == '=':
-        print("Asigna")
+        #print("Asigna")
         rigth = cuad['val1']
         left = cuad['final']
         valRigth = dirV[getDirV(rigth)]
@@ -220,13 +220,13 @@ def execCuad(cuad):
         dirV[getDirV(left)] = valRigth
         
         new = dirV[getDirV(left)]
-        print(f'Assigned {rigth} to {left} final value: {new}')
+        #print(f'Assigned {rigth} to {left} final value: {new}')
     elif cuad['accion'] == '==':
-        print("Compara")
+        #print("Compara")
         dirV[getDirV(cuad['final'], True)] = dirV[getDirV(cuad['val1'])] == dirV[getDirV(cuad['val2'])]
 
     elif cuad['accion'] == '||':
-        print("OR")
+        #print("OR")
         left = dirV[getDirV(cuad['val1'])]
         rigth = dirV[getDirV(cuad['val2'])]
         if type(left) != bool  or type(rigth) != bool:
@@ -234,7 +234,7 @@ def execCuad(cuad):
         dirV[getDirV(cuad['final'], True)] = left or rigth
 
     elif cuad['accion'] == '&&':
-        print("AND")
+        #print("AND")
         left = dirV[getDirV(cuad['val1'])]
         rigth = dirV[getDirV(cuad['val2'])]
         if type(left) != bool  or type(rigth) != bool:
@@ -243,7 +243,7 @@ def execCuad(cuad):
         
     elif cuad['accion'] == 'outco':
         print(dirV[getDirV(cuad['val1'])])
-        print("Imprimido")
+        #print("Imprimido")
     elif cuad['accion'] == 'inco':
         rigth = input()
         left = cuad['val1']
@@ -272,17 +272,17 @@ def execCuad(cuad):
             exit(f'Error: giving wrong type to {left} with {rigth}: {dtype}')
 
         dirV[getDirV(left)] = rigth
-        print("Input")
+        #print("Input")
     elif cuad['accion'] == 'ver':
         if(dirV[getDirV(cuad['val1'])]) < dirV[getDirV(cuad['val2'])] or (dirV[getDirV(cuad['val1'])]) > dirV[getDirV(cuad['final'])]:
             exit("Error: Index out of range")
-        print('Verficacion')
+        #print('Verficacion')
     elif cuad['accion'] == 'ERA':
         createRecord(cuad['final'])
-        print("ERA")
+        #print("ERA")
     elif cuad['accion'] == 'return':
         createReturn(cuad['final'])
-        print("Return")
+        #print("Return")
         ip -= 1
     elif cuad['accion'] == 'param':
         #{'accion': 'param', 'val1': 3, 'val2': '', 'final': 'par1'}
@@ -322,7 +322,7 @@ def execCuad(cuad):
             if V != -1:
                 dirFun[funParamName[-1]]['dirV'].pop()
                 dirFun[funParamName[-1]]['dirVTemp'].append(V)
-        print(f"Param{par}")
+        #print(f"Param{par}")
     elif cuad['accion'] == 'Gosub':
         #{'accion': 'Gosub', 'val1': '', 'val2': '', 'final': 'fib'}
         V = -1
@@ -353,15 +353,15 @@ def execCuad(cuad):
             ip = dirClasses[className][ftype][funName[-1]]['dirI']
         else:
             ip = dirFun[cuad['final']]['dirI']
-        print("GoSub")
+        #print("GoSub")
         ip -= 1
     elif cuad['accion'] == 'EndProc':
         EndProc()
-        print("EndProc")
+        #print("EndProc")
         ip -= 1
     elif cuad['accion'] == 'ERAP':
         createRecordMethod(cuad['val1'], cuad['final'])
-        print("ERA")
+        #print("ERA")
     elif cuad['accion'] == 'GosubP':
 
         
@@ -372,12 +372,12 @@ def execCuad(cuad):
         pSaltos.append(ip+1)
         ip = dirClasses[className]['pubFun'][cuad['final']]['dirI']
 
-        print("GoSub")
+        #print("GoSub")
         ip -= 1
     elif cuad['accion'] == 'paramP':
         createParamP(cuad['val1'], cuad['val2'], cuad['final'])
     elif cuad['accion'] == 'END':
-        print("END")
+        #print("END")
         ip = -10
     ip += 1
 
@@ -395,7 +395,7 @@ def createParamP(val, f, param):
         exit('Error: no memory for function in class')
 
     dirV[V + par-1] = rigth
-    print(f"ParamP{par}")
+    #print(f"ParamP{par}")
 
 def createReturn(final):
     global className, varClassName
@@ -409,7 +409,6 @@ def createReturn(final):
             if dtype != 'void':
                 dirV[getDirV(funName[-1])] = dirV[getDirV(final)]
         else:
-            print('yesssdsdfwefewfewfewfw')
             if funName[-1] in dirClasses[className]['pubFun']:
                 dtype = dirClasses[className]['pubFun'][funName[-1]]['type']
             
@@ -430,7 +429,6 @@ def createReturn(final):
 
 def createRecord(id):
     global tCount, className, funParamName
-
     if className != '':
         if id in dirClasses[className]['pubFun']:
             size = dirClasses[className]['pubFun'][id]['size']
@@ -451,7 +449,6 @@ def createRecord(id):
         else:
             dirFun[id]['dirV'].append(tCount) 
     tCount += size
-    
     if tCount >= 6000:
         exit('Error: temporal memory full')
 
@@ -469,10 +466,10 @@ def createRecordMethod(var, funID):
         dirClasses[dtype]['pubFun'][funID]['dirV'].append(tCount) 
     else:
         exit('Error: Fun is not un public from class')
-    size = dirClasses[dtype]['size']
+    size = dirClasses[dtype]['pubFun'][funID]['size']
     tCount += size
 
-    print(dirClasses)
+    #print(dirClasses)
     
     if tCount >= 6000:
         exit('Error: temporal memory full')
@@ -507,7 +504,7 @@ def EndProc():
     for i in range(tCount, fin):
         dirV[i] = None
     if tCount < 4000:
-        exit('Error: temporal memory count was not right')
+        exit(f'Error: temporal memory count was not right')
 
 
 

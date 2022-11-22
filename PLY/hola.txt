@@ -1,49 +1,24 @@
 @@@@@hola.txt@@@@@_SymbolTable
 1 : {'dim': [], 'type': 'int', 'dirV': 6000}
-0 : {'dim': [], 'type': 'int', 'dirV': 6001}
-10 : {'dim': [], 'type': 'int', 'dirV': 6002}
-"Which value do you want to find?" : {'dim': [], 'type': 'char', 'dirV': 6003}
-"Input a number into the array" : {'dim': [], 'type': 'char', 'dirV': 6004}
-14 : {'dim': [], 'type': 'int', 'dirV': 6005}
-5 : {'dim': [], 'type': 'int', 'dirV': 6006}
-"Found the value! on index=" : {'dim': [], 'type': 'char', 'dirV': 6007}
-"Value= " : {'dim': [], 'type': 'char', 'dirV': 6008}
-28 : {'dim': [], 'type': 'int', 'dirV': 6009}
-31 : {'dim': [], 'type': 'int', 'dirV': 6010}
-15 : {'dim': [], 'type': 'int', 'dirV': 6011}
+sumaConNum : {'dim': [], 'type': 'int', 'dirV': 0}
+6 : {'dim': [], 'type': 'int', 'dirV': 6001}
+2 : {'dim': [], 'type': 'int', 'dirV': 6002}
 @@@@@_DirFun
-main : {'type': 'void', 'dirI': 1, 'dirV': [], 'param': [], 'vars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': [10]}, {'id': 'i', 'type': 'int', 'dirV': 10, 'dim': []}, {'id': 'n', 'type': 'int', 'dirV': 11, 'dim': []}, {'id': 'find', 'type': 'int', 'dirV': 12, 'dim': []}], 'temp': [{'id': 't1', 'type': 'bool', 'dirV': 13, 'dim': [], 'gtype': ''}, {'id': 'tp1', 'type': 'int', 'dirV': 14, 'dim': [], 'gtype': 'tp'}, {'id': 't2', 'type': 'int', 'dirV': 15, 'dim': [], 'gtype': ''}, {'id': 't3', 'type': 'bool', 'dirV': 16, 'dim': [], 'gtype': ''}, {'id': 'tp2', 'type': 'int', 'dirV': 17, 'dim': [], 'gtype': 'tp'}, {'id': 't4', 'type': 'bool', 'dirV': 18, 'dim': [], 'gtype': ''}, {'id': 'tp3', 'type': 'int', 'dirV': 19, 'dim': [], 'gtype': 'tp'}, {'id': 't5', 'type': 'int', 'dirV': 20, 'dim': [], 'gtype': ''}], 'size': 9, 'dirVTemp': []}
+main : {'type': 'void', 'dirI': 6, 'dirV': [], 'param': [], 'vars': [{'id': 'obj', 'type': 'clase', 'dirV': 0, 'dim': [], 'class': 'clase'}, {'id': 'yes', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}], 'size': 2, 'dirVTemp': []}
 @@@@@_Cuadruplos
-0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 1}
-1 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'i'}
-2 : {'accion': '=', 'val1': 10, 'val2': '', 'final': 'n'}
-3 : {'accion': 'outco', 'val1': '"Which value do you want to find?"', 'val2': '', 'final': ''}
-4 : {'accion': 'inco', 'val1': 'find', 'val2': '', 'final': ''}
-5 : {'accion': '<', 'val1': 'i', 'val2': 'n', 'final': 't1'}
-6 : {'accion': 'gotoF', 'val1': 't1', 'val2': '', 'final': 14}
-7 : {'accion': 'outco', 'val1': '"Input a number into the array"', 'val2': '', 'final': ''}
-8 : {'accion': 'ver', 'val1': 'i', 'val2': 0, 'final': 10}
-9 : {'accion': '+', 'val1': 'i', 'val2': 0, 'final': 'tp1'}
-10 : {'accion': 'inco', 'val1': 'tp1', 'val2': '', 'final': ''}
-11 : {'accion': '+', 'val1': 'i', 'val2': 1, 'final': 't2'}
-12 : {'accion': '=', 'val1': 't2', 'val2': '', 'final': 'i'}
-13 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 5}
-14 : {'accion': '=', 'val1': 0, 'val2': '', 'final': 'i'}
-15 : {'accion': '<', 'val1': 'i', 'val2': 'n', 'final': 't3'}
-16 : {'accion': 'gotoF', 'val1': 't3', 'val2': '', 'final': 31}
-17 : {'accion': 'ver', 'val1': 'i', 'val2': 0, 'final': 10}
-18 : {'accion': '+', 'val1': 'i', 'val2': 0, 'final': 'tp2'}
-19 : {'accion': '==', 'val1': 'tp2', 'val2': 'find', 'final': 't4'}
-20 : {'accion': 'gotoF', 'val1': 't4', 'val2': '', 'final': 28}
-21 : {'accion': 'outco', 'val1': '"Found the value! on index="', 'val2': '', 'final': ''}
-22 : {'accion': 'outco', 'val1': 'i', 'val2': '', 'final': ''}
-23 : {'accion': 'outco', 'val1': '"Value= "', 'val2': '', 'final': ''}
-24 : {'accion': 'ver', 'val1': 'i', 'val2': 0, 'final': 10}
-25 : {'accion': '+', 'val1': 'i', 'val2': 0, 'final': 'tp3'}
-26 : {'accion': 'outco', 'val1': 'tp3', 'val2': '', 'final': ''}
-27 : {'accion': '=', 'val1': 'n', 'val2': '', 'final': 'i'}
-28 : {'accion': '+', 'val1': 'i', 'val2': 1, 'final': 't5'}
-29 : {'accion': '=', 'val1': 't5', 'val2': '', 'final': 'i'}
-30 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 15}
-31 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
+0 : {'accion': 'goto', 'val1': '', 'val2': '', 'final': 6}
+1 : {'accion': '=', 'val1': 1, 'val2': '', 'final': 'num'}
+2 : {'accion': '+', 'val1': 'num', 'val2': 'op1', 'final': 't1'}
+3 : {'accion': '+', 'val1': 't1', 'val2': 'op2', 'final': 't2'}
+4 : {'accion': 'return', 'val1': '', 'val2': '', 'final': 't2'}
+5 : {'accion': 'EndProc', 'val1': '', 'val2': '', 'final': ''}
+6 : {'accion': 'ERAP', 'val1': 'obj', 'val2': '', 'final': 'sumaConNum'}
+7 : {'accion': 'paramP', 'val1': 2, 'val2': 'sumaConNum', 'final': 'par1'}
+8 : {'accion': 'paramP', 'val1': 2, 'val2': 'sumaConNum', 'final': 'par2'}
+9 : {'accion': 'GosubP', 'val1': 'obj', 'val2': '', 'final': 'sumaConNum'}
+10 : {'accion': '=', 'val1': 'sumaConNum', 'val2': '', 'final': 't1'}
+11 : {'accion': '=', 'val1': 't1', 'val2': '', 'final': 'yes'}
+12 : {'accion': 'outco', 'val1': 'yes', 'val2': '', 'final': ''}
+13 : {'accion': 'END', 'val1': '', 'val2': '', 'final': ''}
 @@@@@_DirClasses
+clase : {'size': 1, 'dirI': 1, 'dirV': {}, 'inherit': '', 'prFun': {}, 'pubFun': {'sumaConNum': {'type': 'int', 'dirI': 1, 'dirV': [], 'param': ['int', 'int'], 'vars': [{'id': 'op1', 'type': 'int', 'dirV': 0, 'dim': []}, {'id': 'op2', 'type': 'int', 'dirV': 1, 'dim': []}], 'temp': [{'id': 't1', 'type': 'int', 'dirV': 2, 'dim': [], 'gtype': ''}, {'id': 't2', 'type': 'int', 'dirV': 3, 'dim': [], 'gtype': ''}], 'size': 4, 'dirVTemp': []}}, 'prVars': [{'id': 'num', 'type': 'int', 'dirV': 0, 'dim': []}], 'pubVars': []}

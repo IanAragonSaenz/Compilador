@@ -47,7 +47,7 @@ main(){
 	var char eit;
 	arr[1][2] = hola.esoo(3);
 	eit = hola.charfunc(3);
-	outco(eit, "osiiiiiii", true,arr[1][2]);
+	outco(eit, "osiiiiiii",arr[1][2]);
 	num = 0;
 	num = fib(num) - 1;
 	fi = f(3.25, num);
